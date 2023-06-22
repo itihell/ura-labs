@@ -4,6 +4,10 @@ import { Injectable } from '@nestjs/common';
 export class UsersService {
   users: any[] = [];
 
+  countItems() {
+    return this.users.length;
+  }
+
   created(user: any) {
     this.users.push(user);
     return 'Usuario creado con éxito';
@@ -13,7 +17,11 @@ export class UsersService {
     return this.users;
   }
 
-  getUser(id: string) {
+  getUser(id: number) {
     return this.users.find((user) => user.id === id);
+  }
+
+  existEmail(email: string) {
+    return this.users.find((user) => user.email === email);
   }
 }

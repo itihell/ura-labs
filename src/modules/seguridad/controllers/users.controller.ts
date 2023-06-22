@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { GenerarIdPipe } from '../pipes/generar-id.pipe';
 
@@ -17,7 +24,8 @@ export class UsersController {
   }
 
   @Get('/:id')
-  getUser(@Param('id') id: string) {
+  getUser(@Param('id', ParseIntPipe) id: number) {
+    console.log(typeof id);
     return this.usersServices.getUser(id);
   }
 }

@@ -1,9 +1,20 @@
-import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
+import {
+  ArgumentMetadata,
+  BadRequestException,
+  Injectable,
+  PipeTransform,
+} from '@nestjs/common';
+import { UsersService } from '../services/users.service';
 
 @Injectable()
 export class GenerarIdPipe implements PipeTransform {
+  constructor(private readonly usersServices: UsersService) {}
   transform(value: any, metadata: ArgumentMetadata) {
-    console.log(value, metadata);
+    const email = this.usersServices.existEmail(value.email);
+    if (email) {
+      throw new BadRequestException('El email ya existe');
+    }
+    value.id = this.usersServices.countItems() + 1;
     return value;
   }
 }
