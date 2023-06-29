@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { GenerarIdPipe } from '../pipes/generar-id.pipe';
-import { UsersDto } from '../dtos/users-dto';
+import { UsersDto, UserPartialTypeDto } from '../dtos/users-dto';
 
 @Controller('users')
 export class UsersController {
@@ -22,7 +22,7 @@ export class UsersController {
   }
 
   @Post('/')
-  createUser(@Body(GenerarIdPipe) payload: UsersDto) {
+  createUser(@Body() payload: UsersDto) {
     return this.usersServices.created(payload);
   }
 
@@ -34,7 +34,7 @@ export class UsersController {
   @Put('/:id')
   updatedUser(
     @Param('id', ParseIntPipe) id: number,
-    @Body() payload: UsersDto,
+    @Body() payload: UserPartialTypeDto,
   ) {
     return this.usersServices.updated(id, payload);
   }
