@@ -7,12 +7,15 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { GenerarIdPipe } from '../pipes/generar-id.pipe';
 import { UsersDto, UserPartialTypeDto } from '../dtos/users-dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
+@UseGuards(AuthGuard())
 export class UsersController {
   constructor(private readonly usersServices: UsersService) {}
 
