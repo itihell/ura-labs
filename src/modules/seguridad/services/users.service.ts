@@ -7,6 +7,8 @@ import { UsersDto, UserPartialTypeDto } from '../dtos/users-dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entities/user/user';
 import { Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt';
+import { SetupEnum } from '../../auth/enums';
 
 @Injectable()
 export class UsersService {
@@ -22,9 +24,31 @@ export class UsersService {
     return this.users.length;
   }
 
+  async findByEmail(email: string) {
+    const user = await this.userRepository.findOne({
+      where: { email },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        password: true,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException('No se encontro el usuario');
+    }
+
+    return user;
+  }
+
   async created(payload: UsersDto) {
     try {
-      const newUser = this.userRepository.create(payload);
+      let { password } = payload;
+
+      password = await bcrypt.hash(password, SetupEnum.SALTORROUND);
+
+      const newUser = this.userRepository.create({ ...payload, password });
       return await this.userRepository.save(newUser);
     } catch (error) {
       throw new InternalServerErrorException(error);

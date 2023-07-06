@@ -6,9 +6,21 @@ export class User {
   id?: number;
   @Column({ name: 'name', type: 'varchar', length: 100, nullable: false })
   name: string;
-  @Column({ name: 'email', type: 'varchar', length: 100, nullable: false })
+  @Column({
+    name: 'email',
+    type: 'varchar',
+    length: 100,
+    nullable: false,
+    unique: true,
+  })
   email: string;
-  @Column({ name: 'password', type: 'varchar', length: 100, nullable: false })
+  @Column({
+    name: 'password',
+    type: 'varchar',
+    length: 100,
+    nullable: false,
+    select: false,
+  })
   password: string;
   @Column({ name: 'telefono', type: 'varchar', length: 20, nullable: true })
   telefono: string;
