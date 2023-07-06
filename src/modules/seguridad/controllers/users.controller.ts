@@ -17,30 +17,35 @@ export class UsersController {
   constructor(private readonly usersServices: UsersService) {}
 
   @Get('/')
-  getUsers() {
-    return this.usersServices.getUsers();
+  async getUsers() {
+    const users = await this.usersServices.getUsers();
+    const data = {
+      data: users,
+      message: 'ok',
+    };
+    return data;
   }
 
   @Post('/')
-  createUser(@Body() payload: UsersDto) {
-    return this.usersServices.created(payload);
+  async createUser(@Body() payload: UsersDto) {
+    return await this.usersServices.created(payload);
   }
 
   @Get('/:id')
-  getUser(@Param('id', ParseIntPipe) id: number) {
-    return this.usersServices.getUser(id);
+  async getUser(@Param('id', ParseIntPipe) id: number) {
+    return await this.usersServices.getUser(id);
   }
 
   @Put('/:id')
-  updatedUser(
+  async updatedUser(
     @Param('id', ParseIntPipe) id: number,
     @Body() payload: UserPartialTypeDto,
   ) {
-    return this.usersServices.updated(id, payload);
+    return await this.usersServices.updated(id, payload);
   }
 
   @Delete('/:id')
-  deleteUser(@Param('id', ParseIntPipe) id: number) {
-    return this.usersServices.deleted(id);
+  async deleteUser(@Param('id', ParseIntPipe) id: number) {
+    return await this.usersServices.deleted(id);
   }
 }

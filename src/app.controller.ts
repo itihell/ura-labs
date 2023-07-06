@@ -1,7 +1,6 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ConfigService } from '@nestjs/config';
-import { ValidarApiKeyGuard } from './guards/validar-api-key.guard';
 
 @Controller()
 export class AppController {
@@ -10,13 +9,17 @@ export class AppController {
     private readonly appService: AppService,
   ) {}
 
-  @Get()
-  getHello(): string {
-    return this.config.get('API_KEY');
+  @Get('/')
+  getHello() {
+    const data = {
+      data: this.config.get('API_KEY'),
+      message: 'Ok',
+    };
+    return data;
   }
 
-  @Get('sin-guard')
-  getSinGuard(): string {
+  @Get('/sin-guard')
+  getSinGuard() {
     return 'endpoint sin guard';
   }
 }
