@@ -3,11 +3,11 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { UsersDto, UserPartialTypeDto } from '../dtos/users-dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../entities/user/user';
-import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { UsersDto, UserPartialTypeDto } from '../dtos/users-dto';
+import { User } from '../entities';
+import { Repository } from 'typeorm';
 import { SetupEnum } from '../../auth/enums';
 
 @Injectable()
