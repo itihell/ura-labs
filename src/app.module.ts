@@ -3,10 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
 import { DatabaseModule } from './modules/database/database.module';
-import { SeguridadModule } from './modules/seguridad/seguridad.module';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
-import { ValidarApiKeyGuard } from './guards/validar-api-key.guard';
+import { ValidarApiKeyGuard } from './modules/auth/guards/validar-api-key.guard';
 
 @Module({
   imports: [
@@ -16,7 +15,6 @@ import { ValidarApiKeyGuard } from './guards/validar-api-key.guard';
     }),
     DatabaseModule,
     AuthModule,
-    SeguridadModule,
   ],
   controllers: [AppController],
   providers: [

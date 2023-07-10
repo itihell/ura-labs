@@ -5,10 +5,10 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
-import { UsersDto, UserPartialTypeDto } from '../dtos/users-dto';
-import { User } from '../entities';
+import { UsersDto, UserPartialTypeDto } from '../dtos';
 import { Repository } from 'typeorm';
-import { SetupEnum } from '../../auth/enums';
+import { SetupEnum } from '../enums';
+import { User } from '../entities';
 
 @Injectable()
 export class UsersService {

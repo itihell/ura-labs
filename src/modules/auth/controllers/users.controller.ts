@@ -12,7 +12,7 @@ import {
 import { UsersService } from '../services/users.service';
 import { UsersDto, UserPartialTypeDto } from '../dtos/users-dto';
 import { AuthGuard } from '@nestjs/passport';
-import { GetUser } from '../../auth/decorators/';
+import { GetUser } from '../decorators';
 import { User } from '../entities';
 
 @Controller('users')

@@ -4,7 +4,7 @@ import {
   Injectable,
   PipeTransform,
 } from '@nestjs/common';
-import { UsersService } from '../services/users.service';
+import { UsersService } from '../services';
 
 @Injectable()
 export class GenerarIdPipe implements PipeTransform {

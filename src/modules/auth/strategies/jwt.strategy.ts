@@ -4,7 +4,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Repository } from 'typeorm';
-import { User } from '../../seguridad/entities/user.entity';
+import { User } from '../entities';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -28,6 +28,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (!user) throw new UnauthorizedException('El Token no es valido');
     if (!user.isActive)
       throw new UnauthorizedException('El usuario no esta activo');
+
     return user;
   }
 }
