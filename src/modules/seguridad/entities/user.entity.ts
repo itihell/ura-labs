@@ -42,7 +42,7 @@ export class User {
   })
   isActive: boolean;
 
-  @ManyToMany(() => Role)
+  @ManyToMany(() => Role, (role) => role.users)
   @JoinTable({ name: 'user_has_roles' })
   roles: Role[];
 }
