@@ -10,9 +10,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
-import { GenerarIdPipe } from '../pipes/generar-id.pipe';
 import { UsersDto, UserPartialTypeDto } from '../dtos/users-dto';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from '../../auth/decorators/';
+import { User } from '../entities';
 
 @Controller('users')
 @UseGuards(AuthGuard())
@@ -35,7 +36,7 @@ export class UsersController {
   }
 
   @Get('/:id')
-  async getUser(@Param('id', ParseIntPipe) id: number) {
+  async getUser(@Param('id', ParseIntPipe) id: number, @GetUser() user: User) {
     return await this.usersServices.getUser(id);
   }
 
