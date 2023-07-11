@@ -1,16 +1,21 @@
 import { Module } from '@nestjs/common';
-import {
-  AuthController,
-  RolesController,
-  UsersController,
-} from './controllers';
-import { AuthService } from './services/auth.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { PassportModule } from '@nestjs/passport';
-import { RolesService, UsersService } from './services';
+import {
+  RolesService,
+  UsersService,
+  AsignarRolesService,
+  AuthService,
+} from './services';
+import {
+  AuthController,
+  RolesController,
+  UsersController,
+  AsignarRolesController,
+} from './controllers';
 import { User, Role } from './entities';
 
 @Module({
@@ -30,8 +35,19 @@ import { User, Role } from './entities';
       },
     }),
   ],
-  controllers: [AuthController, RolesController, UsersController],
-  providers: [AuthService, UsersService, JwtStrategy, RolesService],
+  controllers: [
+    AuthController,
+    RolesController,
+    UsersController,
+    AsignarRolesController,
+  ],
+  providers: [
+    AuthService,
+    UsersService,
+    JwtStrategy,
+    RolesService,
+    AsignarRolesService,
+  ],
   exports: [TypeOrmModule, JwtStrategy, PassportModule, JwtModule],
 })
 export class AuthModule {}
