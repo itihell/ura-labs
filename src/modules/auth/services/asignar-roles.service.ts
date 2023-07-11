@@ -14,6 +14,7 @@ export class AsignarRolesService {
       .getRepository(User)
       .findOne({ where: { id: userId }, relations: { roles: true } });
 
+    console.log(roles);
     const asignar = [...user.roles, ...roles];
 
     user.roles = asignar;
@@ -23,22 +24,29 @@ export class AsignarRolesService {
   }
 
   async getRolesByIds(roles: number[], userId: number): Promise<Role[]> {
-    const list = await this.dataSource
+    const list = this.dataSource
       .getRepository(Role)
       .createQueryBuilder('role')
       .where('role.id in (:...roles)', { roles })
       .andWhere((qb) => {
         const subQuery = qb
           .subQuery()
-          .select('user_roles.role_id')
+          .select(
+            `
+          case 
+			      when "user_roles"."role_id" > 0 then "user_roles"."role_id"
+		        else 0
+	        end
+          `,
+          )
           .from(User, 'user')
           .leftJoin('user.roles', 'roles')
           .where('user.id = :id', { id: userId })
           .getQuery();
 
         return 'role.id not in ' + subQuery;
-      })
-      .getMany();
-    return list;
+      });
+
+    return await list.getMany();
   }
 }
