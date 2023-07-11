@@ -15,4 +15,14 @@ export class AsignarRolesController {
 
     return data;
   }
+
+  @Post('/remover/:userId')
+  async removerRol(
+    @Param('userId', ParseIntPipe) userId: number,
+    @Body() payload: UserHasRolesDto,
+  ) {
+    const data = await this.asignarRolesRepo.removerRol(userId, payload);
+
+    return data;
+  }
 }
