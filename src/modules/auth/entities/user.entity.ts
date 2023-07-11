@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Role } from './roles.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -6,6 +13,7 @@ export class User {
   id?: number;
   @Column({ name: 'name', type: 'varchar', length: 100, nullable: false })
   name: string;
+
   @Column({
     name: 'email',
     type: 'varchar',
@@ -33,4 +41,20 @@ export class User {
     default: true,
   })
   isActive: boolean;
+
+  @ManyToMany(() => Role, (role) => role.users)
+  @JoinTable({
+    name: 'user_has_roles',
+    joinColumn: {
+      name: 'user_id',
+      referencedColumnName: 'id',
+      foreignKeyConstraintName: 'fk_user_id',
+    },
+    inverseJoinColumn: {
+      name: 'role_id',
+      referencedColumnName: 'id',
+      foreignKeyConstraintName: 'fk_role_id',
+    },
+  })
+  roles: Role[];
 }

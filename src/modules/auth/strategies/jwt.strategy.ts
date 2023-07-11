@@ -4,7 +4,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Repository } from 'typeorm';
-import { User } from '../../seguridad/entities/user/user';
+import { User } from '../entities';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -21,10 +21,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
   async validate(payload: JwtPayload): Promise<User> {
     const { id, name } = payload;
-    const user = await this.userRepo.findOne({ where: { id, name } });
+    const user = await this.userRepo.findOne({
+      where: { id, name },
+      relations: { roles: true },
+    });
     if (!user) throw new UnauthorizedException('El Token no es valido');
     if (!user.isActive)
       throw new UnauthorizedException('El usuario no esta activo');
+
     return user;
   }
 }
