@@ -5,7 +5,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { DatabaseModule } from './modules/database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
-import { ValidarApiKeyGuard } from './modules/auth/guards/validar-api-key.guard';
+import { ValidarApiKeyGuard } from './modules/auth/guards';
 
 @Module({
   imports: [

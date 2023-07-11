@@ -1,4 +1,10 @@
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  DeleteDateColumn,
+  Entity,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { User } from './user.entity';
 
 @Entity({ name: 'roles' })
@@ -6,7 +12,7 @@ export class Role {
   @PrimaryGeneratedColumn({ name: 'id', type: 'int4' })
   id?: number;
 
-  @Column({ name: 'role', type: 'varchar', length: 100, nullable: false })
+  @Column({ name: 'role', type: 'varchar', length: 50, nullable: false })
   role: string;
 
   @Column({
@@ -16,6 +22,9 @@ export class Role {
     default: true,
   })
   isActive: boolean;
+
+  @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', nullable: true })
+  delete_at: Date;
 
   @ManyToMany(() => User, (user) => user.roles)
   users: User[];
