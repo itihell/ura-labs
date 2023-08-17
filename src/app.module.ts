@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { ValidarApiKeyGuard } from './modules/auth/guards';
 import { RegistroCarrerasModule } from './modules/registro-carreras/registro-carreras.module';
+import { HorasPracticasModule } from './modules/horas-practicas/horas-practicas.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { RegistroCarrerasModule } from './modules/registro-carreras/registro-car
     DatabaseModule,
     AuthModule,
     RegistroCarrerasModule,
+    HorasPracticasModule,
   ],
   controllers: [AppController],
   providers: [
