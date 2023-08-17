@@ -5,6 +5,8 @@ import { AuthModule } from './modules/auth/auth.module';
 import { DatabaseModule } from './modules/database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { RegistroCarrerasModule } from './modules/registro-carreras/registro-carreras.module';
+import { ModalidadesModule } from './modalidades/modalidades.module';
+import { UseLabModule } from './modules/laboratory-use/laboratory-use.module';
 import { HorasPracticasModule } from './modules/horas-practicas/horas-practicas.module';
 
 @Module({
@@ -14,9 +16,11 @@ import { HorasPracticasModule } from './modules/horas-practicas/horas-practicas.
       isGlobal: true,
     }),
     DatabaseModule,
+    HorasPracticasModule,
     AuthModule,
     RegistroCarrerasModule,
-    HorasPracticasModule,
+    ModalidadesModule,
+    UseLabModule,
   ],
   controllers: [AppController],
   providers: [
