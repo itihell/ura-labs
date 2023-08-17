@@ -4,7 +4,7 @@ import { UserHasRolesDto } from '../dtos';
 import { Auth } from '../decorators';
 
 @Controller('asignar-roles')
-@Auth()
+//@Auth()
 export class AsignarRolesController {
   constructor(private readonly asignarRolesRepo: AsignarRolesService) {}
 
@@ -26,7 +26,6 @@ export class AsignarRolesController {
     @Body() payload: UserHasRolesDto,
   ) {
     const data = await this.asignarRolesRepo.removerRol(userId, payload);
-
     return data;
   }
 }
