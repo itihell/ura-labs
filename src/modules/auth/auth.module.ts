@@ -17,10 +17,13 @@ import {
   AsignarRolesController,
 } from './controllers';
 import { User, Role } from './entities';
+import { HorasPracticasController } from './controllers/horas-practicas.controller';
+import { HorasPracticasService } from './services/horas-practicas.service';
+import { HorasPracticas } from './entities/horas-practicas';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Role]),
+    TypeOrmModule.forFeature([User, Role, HorasPracticas]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
       imports: [ConfigModule],
@@ -40,6 +43,7 @@ import { User, Role } from './entities';
     RolesController,
     UsersController,
     AsignarRolesController,
+    HorasPracticasController,
   ],
   providers: [
     AuthService,
@@ -47,6 +51,7 @@ import { User, Role } from './entities';
     JwtStrategy,
     RolesService,
     AsignarRolesService,
+    HorasPracticasService,
   ],
   exports: [TypeOrmModule, JwtStrategy, PassportModule, JwtModule],
 })
