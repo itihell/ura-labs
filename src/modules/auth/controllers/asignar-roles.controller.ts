@@ -26,7 +26,6 @@ export class AsignarRolesController {
     @Body() payload: UserHasRolesDto,
   ) {
     const data = await this.asignarRolesRepo.removerRol(userId, payload);
-
     return data;
   }
 }
