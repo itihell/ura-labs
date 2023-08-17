@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { ValidarApiKeyGuard } from './modules/auth/guards';
 import { ModalidadesModule } from './modalidades/modalidades.module';
+import { UseLabModule } from './modules/laboratory-use/laboratory-use.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ModalidadesModule } from './modalidades/modalidades.module';
     DatabaseModule,
     AuthModule,
     ModalidadesModule,
+    UseLabModule,
   ],
   controllers: [AppController],
   providers: [
@@ -27,4 +29,4 @@ import { ModalidadesModule } from './modalidades/modalidades.module';
     AppService,
   ],
 })
-export class AppModule {}
+export class AppModule { }
