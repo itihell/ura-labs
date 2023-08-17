@@ -4,12 +4,12 @@ import { UserHasRolesDto } from '../dtos';
 import { Auth } from '../decorators';
 
 @Controller('asignar-roles')
-@Auth()
+//@Auth()
 export class AsignarRolesController {
   constructor(private readonly asignarRolesRepo: AsignarRolesService) {}
 
   @Post('/:userId')
-  @Auth('Admin')
+  //@Auth('Admin')
   async asignarRol(
     @Param('userId', ParseIntPipe) userId: number,
     @Body() payload: UserHasRolesDto,
@@ -20,7 +20,7 @@ export class AsignarRolesController {
   }
 
   @Post('/remover/:userId')
-  @Auth('Admin')
+  //@Auth('Admin')
   async removerRol(
     @Param('userId', ParseIntPipe) userId: number,
     @Body() payload: UserHasRolesDto,
