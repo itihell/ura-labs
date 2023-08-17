@@ -16,7 +16,7 @@ import { GetUser } from '../decorators';
 import { User } from '../entities';
 
 @Controller('users')
-@UseGuards(AuthGuard())
+// @UseGuards(AuthGuard())
 export class UsersController {
   constructor(private readonly usersServices: UsersService) {}
 
