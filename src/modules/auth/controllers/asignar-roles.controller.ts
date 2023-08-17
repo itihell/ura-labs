@@ -9,7 +9,7 @@ export class AsignarRolesController {
   constructor(private readonly asignarRolesRepo: AsignarRolesService) {}
 
   @Post('/:userId')
-  @Auth('Admin')
+  //@Auth('Admin')
   async asignarRol(
     @Param('userId', ParseIntPipe) userId: number,
     @Body() payload: UserHasRolesDto,
@@ -20,13 +20,12 @@ export class AsignarRolesController {
   }
 
   @Post('/remover/:userId')
-  @Auth('Admin')
+  //@Auth('Admin')
   async removerRol(
     @Param('userId', ParseIntPipe) userId: number,
     @Body() payload: UserHasRolesDto,
   ) {
     const data = await this.asignarRolesRepo.removerRol(userId, payload);
-
     return data;
   }
 }
