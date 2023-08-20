@@ -1,6 +1,6 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { HorasPracticas } from '../entities/horas-practicas';
+import { HorasPracticas } from '../entities/horas-practicas.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
