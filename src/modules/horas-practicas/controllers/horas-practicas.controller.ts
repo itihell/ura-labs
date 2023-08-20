@@ -9,15 +9,18 @@ import {
   Put,
 } from '@nestjs/common';
 import { HorasPracticasService } from '../services/horas-practicas.service';
-import { HorasPracticasDto } from '../dtos/horas-practivas-dto';
+import { InformePracticasDto } from '../dtos/informe-practicas-dto';
+import { PracticanteDto } from '../dtos/practicante-dto';
 
 @Controller('horas-practicas')
 export class HorasPracticasController {
   constructor(private readonly horasPracticasService: HorasPracticasService) {}
 
-  @Post('/')
-  async createUser(@Body() payload: HorasPracticasDto) {
-    const newHorasPracticas = await this.horasPracticasService.created(payload);
+  @Post('/informe')
+  async createInforme(@Body() payload: InformePracticasDto) {
+    const newHorasPracticas = await this.horasPracticasService.createdInforme(
+      payload,
+    );
     const data = {
       data: newHorasPracticas,
       message: 'created',
@@ -25,29 +28,51 @@ export class HorasPracticasController {
     return data;
   }
 
-  @Get('/')
-  async getHorasPracticas() {
-    const horasPracticas = await this.horasPracticasService.getHorasPracticas();
+  @Post('/practicante')
+  async createPracticante(@Body() payload: PracticanteDto) {
+    const newPracticante = await this.horasPracticasService.crearePreacticante(
+      payload,
+    );
+  }
+
+  @Get('/informe')
+  async getInformePracticas() {
+    const horasPracticas =
+      await this.horasPracticasService.getInformePracticas();
     const data = {
       data: horasPracticas,
       message: 'ok',
     };
     return data;
   }
-  @Get('/:id')
-  async getHorasPracticasId(@Param('id', ParseIntPipe) id: number) {
-    return await this.horasPracticasService.getHorasPracticasId(id);
+
+  @Get('/practicante')
+  async getPracticante() {
+    const practicante = await this.horasPracticasService.getPracticante();
+    const data = {
+      data: practicante,
+      message: 'ok',
+    };
+    return data;
+  }
+  @Get('/informe/:id')
+  async getInformePracticasId(@Param('id', ParseIntPipe) id: number) {
+    return await this.horasPracticasService.getInformePracticasId(id);
   }
 
-  @Put('/:id')
-  async updateHorasPracticas(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() payload: HorasPracticasDto,
-  ) {
-    return await this.horasPracticasService.updateHorasPracticas(id, payload);
+  @Get('/practicante/:id')
+  async getPracticanteId(@Param('id', ParseIntPipe) id: number) {
+    return await this.horasPracticasService.getPracticanteId(id);
   }
-  @Delete('/:id')
-  async deleteHorasPracticas(@Param('id', ParseIntPipe) id: number) {
-    return await this.horasPracticasService.deleteHorasPracticas(id);
+  @Put('.informe/:id')
+  async updateInformePracticas(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: InformePracticasDto,
+  ) {
+    return await this.horasPracticasService.updateInformePracticas(id, payload);
+  }
+  @Delete('/informe/:id')
+  async deleteInformePracticas(@Param('id', ParseIntPipe) id: number) {
+    return await this.horasPracticasService.deleteInformePracticas(id);
   }
 }

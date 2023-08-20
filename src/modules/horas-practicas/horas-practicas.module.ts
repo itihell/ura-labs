@@ -3,10 +3,11 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HorasPracticasController } from './controllers/horas-practicas.controller';
 import { HorasPracticasService } from './services/horas-practicas.service';
-import { HorasPracticas } from './entities/horas-practicas.entity';
+import { InformePracticas } from './entities/informe-practicas';
+import { Practicante } from './entities/practicante';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([HorasPracticas])],
+  imports: [TypeOrmModule.forFeature([InformePracticas, Practicante])],
   controllers: [HorasPracticasController],
   providers: [HorasPracticasService],
 })
