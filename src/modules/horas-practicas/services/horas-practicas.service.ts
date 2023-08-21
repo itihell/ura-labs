@@ -1,28 +1,27 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { InformePracticas } from '../entities/informe-practicas';
+import { CortePracticas } from '../entities/corte-practicas.entity';
 import { Repository } from 'typeorm';
-import { PracticanteDto } from '../dtos/practicante-dto';
-import { Practicante } from '../entities/practicante';
+import { Practicante } from '../entities/practicante.entity';
 
 @Injectable()
 export class HorasPracticasService {
   constructor(
-    @InjectRepository(InformePracticas)
-    private readonly horasPracticas: Repository<InformePracticas>,
+    @InjectRepository(CortePracticas)
+    private readonly cortePracticas: Repository<CortePracticas>,
 
     @InjectRepository(Practicante)
     private readonly practicanteRepository: Repository<Practicante>,
   ) {}
-  //crear informe de practicas
-  async createdInforme(payload: InformePracticas) {
+  //crear corte de practicas
+  async createCorte(payload: CortePracticas) {
     try {
       const horasTotales = payload.horas_anteriores + payload.horas_actuales;
-      const addHoraspracticas = await this.horasPracticas.create({
+      const addHoraspracticas = await this.cortePracticas.create({
         ...payload,
         horas_totales: horasTotales,
       });
-      return await this.horasPracticas.save(addHoraspracticas);
+      return await this.cortePracticas.save(addHoraspracticas);
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
@@ -36,10 +35,10 @@ export class HorasPracticasService {
       throw new InternalServerErrorException(e);
     }
   }
-  //obtener informe de practicas
-  async getInformePracticas() {
-    const horasPracticas = await this.horasPracticas.find();
-    return horasPracticas;
+  //obtener corte de practicas
+  async getCortePracticas() {
+    const cortesPracticas = await this.cortePracticas.find();
+    return cortesPracticas;
   }
   //obtener practicante
   async getPracticante() {
@@ -47,12 +46,12 @@ export class HorasPracticasService {
     return practicante;
   }
 
-  //obtener informe de practicas por id
-  async getInformePracticasId(id: number) {
-    const horasPracticas = await this.horasPracticas.findOne({
+  //obtener corte de practicas por id
+  async getCortePracticasId(id: number) {
+    const cortePractica = await this.cortePracticas.findOne({
       where: { id },
     });
-    return horasPracticas;
+    return cortePractica;
   }
 
   //obtener practicante por id
@@ -62,20 +61,20 @@ export class HorasPracticasService {
     });
     return practicante;
   }
-  //actualizar informe de practicas
-  async updateInformePracticas(id: number, payload: InformePracticas) {
-    const horasPracticas = await this.horasPracticas.findOne({
+  //actualizar corte de practicas
+  async updateCortePracticas(id: number, payload: CortePracticas) {
+    const cortePracticas = await this.cortePracticas.findOne({
       where: { id },
     });
 
-    this.horasPracticas.merge(horasPracticas, payload);
-    return await this.horasPracticas.save(horasPracticas);
+    this.cortePracticas.merge(cortePracticas, payload);
+    return await this.cortePracticas.save(cortePracticas);
   }
   //eliminar informe de practicas
-  async deleteInformePracticas(id: number) {
-    const horasPracticas = await this.horasPracticas.findOne({
+  async deleteCortePracticas(id: number) {
+    const cortePractica = await this.cortePracticas.findOne({
       where: { id },
     });
-    return await this.horasPracticas.remove(horasPracticas);
+    return await this.cortePracticas.remove(cortePractica);
   }
 }

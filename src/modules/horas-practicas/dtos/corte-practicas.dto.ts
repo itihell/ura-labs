@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
-export class InformePracticasDto {
+export class CortePracticasDto {
   @IsNumber()
   @IsOptional()
   id: number;

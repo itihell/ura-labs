@@ -4,7 +4,6 @@ import {
   IsNumber,
   IsOptional,
   IsString,
-  isBoolean,
 } from 'class-validator';
 
 export class PracticanteDto {
@@ -30,6 +29,7 @@ export class PracticanteDto {
   @IsNotEmpty()
   @IsNumber()
   cantidad_horas: number;
+
   @IsNotEmpty()
   @IsBoolean()
   estado: boolean;
