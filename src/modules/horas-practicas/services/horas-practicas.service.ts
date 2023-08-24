@@ -1,9 +1,10 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CortePracticas } from '../entities/corte-practicas.entity';
-import { In, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Practicante } from '../entities/practicante.entity';
 import { CortePracticasDto } from '../dtos/corte-practicas.dto';
+import { PracticanteDto } from '../dtos/practicante.dto';
 
 @Injectable()
 export class HorasPracticasService {
@@ -15,35 +16,13 @@ export class HorasPracticasService {
     private readonly practicanteRepository: Repository<Practicante>,
   ) {}
 
-  //crear corte de practicas con la relacion de practicante
-
-  async createCorte(createCorte: CortePracticasDto) {
-    try {
-      const { practicante, ...cortePracticas } = createCorte;
-      let corteModels = [];
-
-      corteModels = await this.practicanteRepository.find({
-        where: { nombre: In([...createCorte.practicante]) },
-      });
-      const corte = this.cortePracticasRepo.create({
-        ...cortePracticas,
-        practicante: corteModels,
-      });
-      await this.cortePracticasRepo.save(corte);
-      return corte;
-    } catch (error) {
-      throw new InternalServerErrorException('error creating corte');
-    }
+  async createCorte(payload: CortePracticasDto): Promise<CortePracticas> {
+    const newCorte = this.cortePracticasRepo.create(payload);
+    return this.cortePracticasRepo.save(newCorte);
   }
 
-  // crear practicante sin relacion
-  async createPracticante(createPracticante: Practicante) {
-    try {
-      const practicante = this.practicanteRepository.create(createPracticante);
-      await this.practicanteRepository.save(practicante);
-      return practicante;
-    } catch (error) {
-      throw new InternalServerErrorException('error creating practicante');
-    }
+  async createPracticante(payload: PracticanteDto): Promise<Practicante> {
+    const newPracticante = this.practicanteRepository.create(payload);
+    return this.practicanteRepository.save(newPracticante);
   }
 }

@@ -1,10 +1,5 @@
-import {
-  IsArray,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { Practicante } from '../entities/practicante.entity';
 
 export class CortePracticasDto {
   @IsNumber()
@@ -18,6 +13,7 @@ export class CortePracticasDto {
   @IsNumber()
   @IsNotEmpty()
   horas_actuales: number;
+
   @IsNumber()
   @IsNotEmpty()
   horas_anteriores: number;
@@ -28,9 +24,4 @@ export class CortePracticasDto {
 
   @IsOptional()
   culminado: boolean;
-
-  @IsArray({ always: true })
-  @IsString({ each: true })
-  @IsOptional()
-  practicante: string[];
 }

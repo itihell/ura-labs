@@ -1,44 +1,25 @@
-import {
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { CortePracticas } from './corte-practicas.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('practicante')
 export class Practicante {
-  @PrimaryGeneratedColumn({ name: 'id_practicante', type: 'int4' })
-  id?: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  @Column({ name: 'nombre', type: 'varchar', length: 100, nullable: false })
+  @Column()
   nombre: string;
 
-  @Column({ name: 'carrera', type: 'varchar', length: 100, nullable: false })
+  @Column()
   carrera: string;
 
-  @Column({
-    name: 'fecha_inicio',
-    type: 'varchar',
-    length: 100,
-    nullable: false,
-  })
+  @Column()
   fecha_inicio: string;
-  @Column({ name: 'fecha_fin', type: 'varchar', length: 100, nullable: false })
+
+  @Column()
   fecha_fin: string;
 
-  @Column({ name: 'cantidad_horas', type: 'int', nullable: false, default: 0 })
+  @Column()
   cantidad_horas: number;
 
-  @Column({ name: 'estado', type: 'boolean', nullable: false, default: true })
+  @Column()
   estado: boolean;
-
-  @JoinTable()
-  @ManyToMany(
-    () => CortePracticas,
-    (corte_practicas) => corte_practicas.practicante,
-  )
-  corte_practicas?: CortePracticas[];
 }

@@ -17,12 +17,16 @@ export class HorasPracticasController {
   constructor(private readonly horasPracticasService: HorasPracticasService) {}
 
   @Post('/corte')
-  createCorte(@Body() payload: CortePracticasDto) {
-    return this.horasPracticasService.createCorte(payload);
-  }
+  async createCorte(@Body() payload: CortePracticasDto) {
+    const newCortePracticas = await this.horasPracticasService.createCorte(
+      payload,
+    );
 
-  @Post('/practicante')
-  createPracticante(@Body() payload: PracticanteDto) {
-    return this.horasPracticasService.createPracticante(payload);
+    const data = {
+      data: newCortePracticas,
+      message: 'created',
+    };
+
+    return data;
   }
 }

@@ -7,13 +7,10 @@ import {
 } from 'class-validator';
 
 export class PracticanteDto {
-  @IsNumber()
-  @IsOptional()
-  id?: number;
-
   @IsString()
   @IsNotEmpty()
   nombre: string;
+
   @IsString()
   @IsNotEmpty()
   carrera: string;
