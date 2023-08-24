@@ -1,3 +1,8 @@
+import {
+  IsNotEmpty,
+  IsObject,
+  IsString,
+} from 'class-validator';
 import { Area } from '../entities';
 
 export class CreateCarreraDto {
