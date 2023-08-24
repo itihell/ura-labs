@@ -1,6 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Practicante } from './practicante.entity';
 
-@Entity({ name: 'informe_practicas' })
+@Entity({ name: 'CortePracticas' })
 export class CortePracticas {
   @PrimaryGeneratedColumn({ name: 'id_horas_practicas', type: 'int4' })
   id?: number;
@@ -39,4 +46,10 @@ export class CortePracticas {
     default: true,
   })
   culminado: boolean;
+
+  @JoinTable()
+  @ManyToOne(() => Practicante, (practicante) => practicante.corte_practicas, {
+    eager: true,
+  })
+  practicante: Practicante[];
 }

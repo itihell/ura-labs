@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class CortePracticasDto {
   @IsNumber()
@@ -22,4 +28,9 @@ export class CortePracticasDto {
 
   @IsOptional()
   culminado: boolean;
+
+  @IsArray({ always: true })
+  @IsString({ each: true })
+  @IsOptional()
+  practicante: string[];
 }

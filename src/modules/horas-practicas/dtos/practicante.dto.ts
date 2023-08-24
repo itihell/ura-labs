@@ -9,7 +9,7 @@ import {
 export class PracticanteDto {
   @IsNumber()
   @IsOptional()
-  id?: string;
+  id?: number;
 
   @IsString()
   @IsNotEmpty()
