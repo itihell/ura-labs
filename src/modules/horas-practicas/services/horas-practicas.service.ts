@@ -16,13 +16,20 @@ export class HorasPracticasService {
     private readonly practicanteRepository: Repository<Practicante>,
   ) {}
 
+  //crear corte con relacion para agregar el nombre del practicante
   async createCorte(payload: CortePracticasDto): Promise<CortePracticas> {
-    const newCorte = this.cortePracticasRepo.create(payload);
+    const { practicante, ...newCortePracticas } = payload;
+    const newCorte = this.cortePracticasRepo.create({
+      ...newCortePracticas,
+      practicante,
+    });
     return this.cortePracticasRepo.save(newCorte);
   }
 
-  async createPracticante(payload: PracticanteDto): Promise<Practicante> {
-    const newPracticante = this.practicanteRepository.create(payload);
-    return this.practicanteRepository.save(newPracticante);
+  //crear practicante sin relacion
+  async createPracticante(payload: PracticanteDto) {
+    const newPracticante = await this.practicanteRepository.save(payload);
+    await this.practicanteRepository.save(newPracticante);
+    return newPracticante;
   }
 }

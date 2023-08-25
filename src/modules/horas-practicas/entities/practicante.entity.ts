@@ -1,4 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { CortePracticas } from './corte-practicas.entity';
 
 @Entity('practicante')
 export class Practicante {
@@ -22,4 +23,7 @@ export class Practicante {
 
   @Column()
   estado: boolean;
+
+  @OneToMany(() => CortePracticas, (corte) => corte.practicante)
+  cortes: CortePracticas[];
 }
