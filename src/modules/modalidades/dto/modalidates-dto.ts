@@ -10,24 +10,8 @@ export class ModalidadesDto {
   @IsNotEmpty()
   @IsString()
   @ApiProperty()
-  readonly nombreCarrera: string;
-
-  @IsNotEmpty()
-  @IsString()
-  @ApiProperty()
   @IsOptional()
   readonly modalidad: string;
-
-  @IsNotEmpty()
-  @IsString()
-  @ApiProperty()
-  @IsOptional()
-  readonly descripcion: string;
-
-  @IsNotEmpty()
-  @IsString()
-  @ApiProperty()
-  readonly turno: string;
 }
 
 export class ModalidadesPartialDto extends PartialType(ModalidadesDto) {}
