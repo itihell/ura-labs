@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Area, Carrera } from 'src/modules/registro-carreras/entities';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn, ManyToOne } from 'typeorm';
 @Entity({ name: 'use_labs' })
 export class LaboratoryUse {
     @PrimaryGeneratedColumn({ name: 'id', type: 'int4' })
@@ -10,8 +11,8 @@ export class LaboratoryUse {
     @Column({ name: 'academyArea', type: 'varchar', length: 100, nullable: false })
     academyArea: string;
 
-    @Column({ name: 'career', type: 'varchar', length: 50, nullable: false })
-    career: string;
+    @ManyToOne(() => Carrera, (carrera) => carrera.area)
+    carrera: Carrera;
 
     @Column({ name: 'teacher', type: 'varchar', length: 50, nullable: false })
     teacher: string;
@@ -42,5 +43,7 @@ export class LaboratoryUse {
 
     @Column({ name: 'hours', type: 'varchar', nullable: false })
     hours: number;
+
+
 
 }

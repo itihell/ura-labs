@@ -2,16 +2,21 @@ import { Body, Controller, Get, Post, Patch, ParseUUIDPipe, ParseIntPipe } from 
 import { Delete, Param } from "@nestjs/common/decorators";
 import { LaboratoryUseDto } from "../dto";
 import { UseLabService } from "../services/use-lab.service";
+import { LaboratoryUse } from "../entities";
 
 @Controller('uselab')
 export class UseLabController {
   constructor(
     private readonly registerDetailServiceRepo: UseLabService
   ) { }
-  @Post()
-  create(@Body() orderDto: LaboratoryUseDto) {
-    return this.registerDetailServiceRepo.create(orderDto);
-  }
+  // @Post()
+  // create(@Body() orderDto: LaboratoryUseDto) {
+  //   return this.registerDetailServiceRepo.create(orderDto);
+  // }
+  //@Get()
+  //async getRegistrosWithDetails(): Promise<LaboratoryUse[]> {
+    //return await this.registerDetailServiceRepo.findRegistrosWithDetails();
+  //}
 
   @Get()
   findAll() {

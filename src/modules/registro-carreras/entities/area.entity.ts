@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
 import { Carrera } from './carrera.entity';
+import { LaboratoryUse } from 'src/modules/laboratory-use/entities';
 
 @Entity()
 export class Area {
@@ -13,4 +14,5 @@ export class Area {
   carreras: Carrera[];
 
   area: Area[];
+
 }

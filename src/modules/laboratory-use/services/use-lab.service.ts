@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { LaboratoryUse } from "../entities";
+import { LaboratoryUseDto } from "../dto";
 
 @Injectable()
 export class UseLabService {
@@ -10,15 +11,24 @@ export class UseLabService {
     private readonly registerRepository: Repository<LaboratoryUse>
   ) { }
 
-  async create(LaboratoryUseDto) {
-    const registerDetail = this.registerRepository.create(LaboratoryUseDto);
-    await this.registerRepository.save(registerDetail);
-
-    return registerDetail;
-  }
+  // async create(laboratoryUseDto: LaboratoryUseDto): Promise<LaboratoryUse> {
+  //   const registerDetail = this.registerRepository.create(LaboratoryUseDto);
+  //   await this.registerRepository.save(registerDetail);
+  //   return registerDetail;
+  // }
+  // async createCarrera(createCarreraDto: CreateCarreraDto): Promise<Carrera> {
+  //   const { area, ...carreraData } = createCarreraDto;
+  //   const nuevaCarrera = this.carreraRepository.create({
+  //     ...carreraData,
+  //     area, // Asignando el área a la carrera
+  //   });
+  //   return this.carreraRepository.save(nuevaCarrera);
+  // }
 
   findAll() {
-    return this.registerRepository.find();
+    return this.registerRepository.find({
+      relations: ['carrera', 'carrera.area']
+    });
   }
 
   findOne(id: any) {

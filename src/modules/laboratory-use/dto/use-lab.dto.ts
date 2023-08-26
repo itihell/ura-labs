@@ -3,10 +3,12 @@ import {
   IsDate,
   IsNotEmpty,
   IsNumber,
+  IsObject,
   IsOptional,
   IsString,
   MaxLength,
 } from 'class-validator';
+import { Carrera } from 'src/modules/registro-carreras/entities';
 
 export class LaboratoryUseDto {
   @IsNumber()
@@ -26,11 +28,9 @@ export class LaboratoryUseDto {
   @ApiProperty()
   readonly academyArea: string;
 
-  @IsString()
-  @MaxLength(50)
   @IsNotEmpty()
-  @ApiProperty()
-  readonly career: string;
+  @IsObject()
+  carrera: Carrera;
 
   @IsString()
   @IsNotEmpty()
