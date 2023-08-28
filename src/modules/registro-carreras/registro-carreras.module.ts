@@ -7,7 +7,7 @@ import { RegistroCarrerasService } from './services/registro-carrera.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Area, Carrera])],
-  controllers: [RegistroCarrerasController],
-  providers: [RegistroCarrerasService],
+    controllers: [RegistroCarrerasController, RegistroAreaController],
+  providers: [RegistroCarrerasService, RegistroAreaService],
 })
 export class RegistroCarrerasModule {}
