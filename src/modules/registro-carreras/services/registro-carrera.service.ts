@@ -1,24 +1,15 @@
-// registro-carreras/registro-carreras.service.ts
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Area, Carrera } from '../entities';
-import { CreateAreaDto } from '../dtos/area.dto';
 import { CreateCarreraDto } from '../dtos/carrera.dto';
 
 @Injectable()
 export class RegistroCarrerasService {
   constructor(
-    @InjectRepository(Area)
-    private areaRepository: Repository<Area>,
     @InjectRepository(Carrera)
     private carreraRepository: Repository<Carrera>,
   ) {}
-
-  async createArea(createAreaDto: CreateAreaDto): Promise<Area> {
-    const nuevaArea = this.areaRepository.create(createAreaDto);
-    return this.areaRepository.save(nuevaArea);
-  }
 
   async createCarrera(createCarreraDto: CreateCarreraDto): Promise<Carrera> {
     const { area, ...carreraData } = createCarreraDto;
@@ -27,5 +18,32 @@ export class RegistroCarrerasService {
       area, // Asignando el área a la carrera
     });
     return this.carreraRepository.save(nuevaCarrera);
+  }
+
+  async getCarreras(): Promise<Carrera[]> {
+    return this.carreraRepository.find({ relations: ['area'] });
+  }
+
+  async getCarreraById(id: number): Promise<Carrera> {
+    const carrera = await this.carreraRepository.findOne({
+      where: { id },
+    });
+
+    return carrera;
+  }
+
+  async deleteCarrera(id: number): Promise<Carrera> {
+    const carrera = await await this.getCarreraById(id);
+
+    if (!carrera) {
+      throw new NotFoundException("Role doesn't exist");
+    }
+    const deleted = await this.carreraRepository.softDelete({ id: id });
+
+    return carrera;
+  }
+  async editCarrera(id: number, payload: CreateCarreraDto): Promise<Carrera> {
+    const carrera = await this.carreraRepository.preload({ id, ...payload });
+    return await this.carreraRepository.save(carrera);
   }
 }
