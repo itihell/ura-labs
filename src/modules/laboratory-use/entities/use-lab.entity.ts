@@ -9,9 +9,6 @@ export class LaboratoryUse {
     @Column({ name: 'className', type: 'varchar', length: 100, nullable: false })
     className: string;
 
-    @Column({ name: 'academyArea', type: 'varchar', length: 100, nullable: false })
-    academyArea: string;
-
     @ManyToOne(() => Carrera, (carrera) => carrera.area)
     carrera: Carrera;
 

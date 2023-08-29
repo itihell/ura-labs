@@ -23,12 +23,6 @@ export class LaboratoryUseDto {
   @ApiProperty()
   readonly className: string;
 
-  @IsString()
-  @IsNotEmpty()
-  @MaxLength(100)
-  @ApiProperty()
-  readonly academyArea: string;
-
   @IsNotEmpty()
   @IsObject()
   carrera: Carrera;
