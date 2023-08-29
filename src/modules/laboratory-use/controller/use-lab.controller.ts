@@ -9,14 +9,12 @@ export class UseLabController {
   constructor(
     private readonly registerDetailServiceRepo: UseLabService
   ) { }
-  // @Post()
-  // create(@Body() orderDto: LaboratoryUseDto) {
-  //   return this.registerDetailServiceRepo.create(orderDto);
-  // }
-  //@Get()
-  //async getRegistrosWithDetails(): Promise<LaboratoryUse[]> {
-    //return await this.registerDetailServiceRepo.findRegistrosWithDetails();
-  //}
+
+  @Post()
+  create(@Body() registerDto: LaboratoryUseDto) {
+    return this.registerDetailServiceRepo.create(registerDto);
+  }
+
 
   @Get()
   findAll() {
