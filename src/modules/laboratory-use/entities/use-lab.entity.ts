@@ -43,7 +43,4 @@ export class LaboratoryUse {
 
     @Column({ name: 'hours', type: 'varchar', nullable: false })
     hours: number;
-
-
-
 }
