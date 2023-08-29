@@ -2,18 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CortePracticas } from '../entities/corte-practicas.entity';
 import { Repository } from 'typeorm';
-import { Practicante } from '../entities/practicante.entity';
 import { CortePracticasDto } from '../dtos/corte-practicas.dto';
-import { PracticanteDto } from '../dtos/practicante.dto';
 
 @Injectable()
-export class HorasPracticasService {
+export class CortePracticasService {
   constructor(
     @InjectRepository(CortePracticas)
     private readonly cortePracticasRepo: Repository<CortePracticas>,
-
-    @InjectRepository(Practicante)
-    private readonly practicanteRepository: Repository<Practicante>,
   ) {}
 
   //crear corte con relacion para agregar el nombre del practicante
@@ -25,11 +20,26 @@ export class HorasPracticasService {
     });
     return this.cortePracticasRepo.save(newCorte);
   }
-
-  //crear practicante sin relacion
-  async createPracticante(payload: PracticanteDto) {
-    const newPracticante = await this.practicanteRepository.save(payload);
-    await this.practicanteRepository.save(newPracticante);
-    return newPracticante;
+  //obtener todos los cortes
+  async getCortes(): Promise<CortePracticas[]> {
+    return this.cortePracticasRepo.find();
+  }
+  //obtener un corte
+  async getCorte(id: number): Promise<CortePracticas> {
+    return this.cortePracticasRepo.findOne({ where: { id } });
+  }
+  //actualizar corte
+  async updateCorte(
+    id: number,
+    payload: CortePracticasDto,
+  ): Promise<CortePracticas> {
+    const { practicante, ...newCortePracticas } = payload;
+    await this.cortePracticasRepo.update({ id }, { ...newCortePracticas });
+    return this.getCorte(id);
+  }
+  //eliminar corte
+  async deleteCorte(id: number): Promise<any> {
+    await this.cortePracticasRepo.delete({ id });
+    return { deleted: true };
   }
 }
