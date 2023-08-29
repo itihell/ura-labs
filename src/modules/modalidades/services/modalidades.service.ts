@@ -17,7 +17,7 @@ export class ModalidadesService {
     return this.modalidades.length;
   }
 
-  async created(payload: Modalidades) {
+  async created(payload: ModalidadesPartialDto) {
     const modalidades = await this.modalidadesRepo.create(payload);
     return await this.modalidadesRepo.save(modalidades);
   }

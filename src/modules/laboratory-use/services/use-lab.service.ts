@@ -13,7 +13,7 @@ export class UseLabService {
 
   findAll() {
     return this.registerRepository.find({
-      relations: ['carrera', 'carrera.area']
+      relations: ['carrera', 'carrera.area','modality']
     });
   }
 

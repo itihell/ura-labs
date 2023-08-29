@@ -8,6 +8,7 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
+import { Modalidades } from 'src/modules/modalidades/entities/modalidades-entities';
 import { Carrera } from 'src/modules/registro-carreras/entities';
 
 export class LaboratoryUseDto {
@@ -43,11 +44,9 @@ export class LaboratoryUseDto {
   @ApiProperty()
   readonly date: Date;
 
-  @IsString()
   @IsNotEmpty()
-  @MaxLength(100)
-  @ApiProperty()
-  readonly modality: string;
+  @IsObject()
+  modality: Modalidades;
 
   @IsString()
   @IsNotEmpty()

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { LaboratoryUse } from 'src/modules/laboratory-use/entities';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'modalidades' })
 export class Modalidades {
@@ -10,4 +11,9 @@ export class Modalidades {
 
   @Column({ name: 'modalidades', type: 'varchar', nullable: true, length: 100 })
   modalidad: string;
+  
+  @OneToMany(() => LaboratoryUse, (laboratoryUse) => laboratoryUse.modality)
+  laboratoryUse: LaboratoryUse[];
+
+  modality: Modalidades[];
 }

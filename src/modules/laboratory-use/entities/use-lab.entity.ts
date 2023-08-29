@@ -1,3 +1,4 @@
+import { Modalidades } from 'src/modules/modalidades/entities/modalidades-entities';
 import { Area, Carrera } from 'src/modules/registro-carreras/entities';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn, ManyToOne } from 'typeorm';
 @Entity({ name: 'use_labs' })
@@ -20,8 +21,8 @@ export class LaboratoryUse {
     @Column({ name: 'date', type: 'varchar', nullable: false })
     date: string;
 
-    @Column({ name: 'modality', type: 'varchar', length: 100, nullable: false })
-    modality: string;
+    @ManyToOne(() => Modalidades, (modalidad) => modalidad.modalidad)
+    modality: Modalidades;
 
     @Column({ name: 'shift', type: 'varchar', length: 50, nullable: false })
     shift: string;
