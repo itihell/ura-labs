@@ -9,10 +9,11 @@ import {
   Put,
 } from '@nestjs/common';
 import { CortePracticasDto } from '../dtos/corte-practicas.dto';
+import { CortePracticasService } from '../services/corte-practicas.service';
 
 @Controller('cotre-practicas')
 export class CortePracticasController {
-  constructor(private readonly cortePracticasDto: CortePracticasController) {}
+  constructor(private readonly cortePracticasDto: CortePracticasService) {}
   // crear corte practicas
   @Post('/')
   async createCorte(@Body() payload: CortePracticasDto) {
