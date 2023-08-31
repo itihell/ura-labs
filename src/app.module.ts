@@ -8,6 +8,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { ValidarApiKeyGuard } from './modules/auth/guards';
 import { RegistroCarrerasModule } from './modules/registro-carreras/registro-carreras.module';
 import { ModalidadesModule } from './modalidades/modalidades.module';
+import { LabRegisterModule } from './modules/lab-register/lab.module';
 
 
 @Module({
@@ -20,6 +21,8 @@ import { ModalidadesModule } from './modalidades/modalidades.module';
     AuthModule,
     RegistroCarrerasModule,
     ModalidadesModule,
+    LabRegisterModule,
+
   ],
   controllers: [AppController],
   providers: [

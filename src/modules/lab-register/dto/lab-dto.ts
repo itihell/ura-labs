@@ -1,7 +1,6 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import {
   IsBoolean,
-  IsEmail,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -19,7 +18,7 @@ export class LabDto {
   @IsNotEmpty()
   @MaxLength(100)
   @ApiProperty()
-  readonly name: string;
+  readonly labName: string;
 
   @IsString()
   @IsNotEmpty()
@@ -27,19 +26,21 @@ export class LabDto {
   readonly description: string;
 
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   @MaxLength(20)
   @ApiProperty()
   readonly fundation: string;
 
   @IsString()
-  @IsOptional()
-  @MaxLength(200)
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(100)
   @ApiProperty()
-  readonly token: string;
+  readonly builder: string;
 
   @IsBoolean()
   @IsOptional()
   @ApiProperty()
   readonly isActive: boolean;
 }
+export class LabPartialTypeDto extends PartialType(LabDto) {}
