@@ -58,11 +58,10 @@ export class ModalidadesController {
 
   @Delete('/:id')
   async deletedModalidades(@Param('id', ParseIntPipe) id: number) {
-    const Modalidades = await this.RepoModalidadesService.getModalidadesId(id);
-    if (!Modalidades) {
-      return { message: 'Modalidad no existe' };
-    }
-    await this.RepoModalidadesService.delete(id);
-    return { message: 'Modalidad Eliminada' };
+    const modalidades = await this.RepoModalidadesService.delete(id);
+    const data = {
+      data: modalidades,
+    };
+    return data;
   }
 }
