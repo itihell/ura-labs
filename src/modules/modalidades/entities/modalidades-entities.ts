@@ -8,6 +8,12 @@ export class Modalidades {
   })
   id?: number;
 
-  @Column({ name: 'modalidades', type: 'varchar', nullable: true, length: 100 })
+  @Column({
+    name: 'modalidades',
+    type: 'varchar',
+    nullable: false,
+    length: 100,
+    default: true,
+  })
   modalidad: string;
 }

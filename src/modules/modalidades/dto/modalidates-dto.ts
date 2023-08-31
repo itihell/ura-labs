@@ -1,17 +1,19 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsNumberString,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class ModalidadesDto {
-  @IsNumber()
+  @IsNumberString()
   @IsOptional()
-  @ApiProperty()
-  readonly id?: number;
+  id: number;
 
   @IsNotEmpty()
   @IsString()
-  @ApiProperty()
   @IsOptional()
-  readonly modalidad: string;
+  modalidad: string;
 }
-
-export class ModalidadesPartialDto extends PartialType(ModalidadesDto) {}
