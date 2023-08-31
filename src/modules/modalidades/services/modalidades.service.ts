@@ -35,21 +35,10 @@ export class ModalidadesService {
     return await this.modalidadesRepo.save(modalidades);
   }
 
-  // async delete(id: number): Promise<Modalidades> {
-  //   const modalidades = await this.getModalidadesId(id);
-  //   if (!modalidades) {
-  //     throw new Error('No se encontro la modalidad');
-  //   }
-  //   const deleted = await this.modalidadesRepo.softDelete({ id: id });
-  //   return modalidades;
-  // }
-
   async delete(id: number): Promise<Modalidades> {
-    const modalidades = await this.getModalidadesId(id);
-    if (!modalidades) {
-      throw new Error('No se encontro la modalidad');
-    }
-    const deleted = await this.modalidadesRepo.softDelete({ id: id });
-    return modalidades;
+    const modalidades = await this.modalidadesRepo.findOne({
+      where: { id: id },
+    });
+    return await this.modalidadesRepo.remove(modalidades);
   }
 }
