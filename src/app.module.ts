@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { RegistroCarrerasModule } from './modules/registro-carreras/registro-carreras.module';
 import { LabRegisterModule } from './modules/lab-register/lab.module';
 import { HorasPracticasModule } from './modules/horas-practicas/horas-practicas.module';
+import { ReservationsModule } from './modules/reservations/reservations.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { HorasPracticasModule } from './modules/horas-practicas/horas-practicas.
     AuthModule,
     RegistroCarrerasModule,
     LabRegisterModule,
+    ReservationsModule,
   ],
   controllers: [AppController],
   providers: [
