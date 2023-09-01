@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Reservation } from 'src/modules/reservations/entities/reservation.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'laboratory' })
 export class LabEntity {
@@ -9,7 +10,12 @@ export class LabEntity {
   labName: string;
 
   @Column({
-  name: 'description', type: 'varchar', length: 100, nullable: false, unique: true,})
+    name: 'description',
+    type: 'varchar',
+    length: 100,
+    nullable: false,
+    unique: true,
+  })
   description: string;
 
   @Column({ name: 'fundation', type: 'varchar', length: 20, nullable: true })
@@ -25,4 +31,7 @@ export class LabEntity {
     default: true,
   })
   isActive: boolean;
+
+  @OneToMany(() => Reservation, (reservation) => reservation.laboratory)
+  reservations: Reservation[];
 }
