@@ -20,7 +20,7 @@ export class RolesService {
   }
 
   async getRoles(): Promise<Role[]> {
-    return await this.roleRepo.find();
+    return await this.roleRepo.find({ order: { id: 'ASC' } });
   }
 
   async createRole(payload: RoleDto): Promise<Role> {

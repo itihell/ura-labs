@@ -6,6 +6,7 @@ import { DatabaseModule } from './modules/database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { RegistroCarrerasModule } from './modules/registro-carreras/registro-carreras.module';
 import { LabRegisterModule } from './modules/lab-register/lab.module';
+import { HorasPracticasModule } from './modules/horas-practicas/horas-practicas.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { LabRegisterModule } from './modules/lab-register/lab.module';
       isGlobal: true,
     }),
     DatabaseModule,
+    HorasPracticasModule,
     AuthModule,
     RegistroCarrerasModule,
     LabRegisterModule,
