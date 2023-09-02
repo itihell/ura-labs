@@ -17,7 +17,7 @@ export class Modalidades {
     default: true,
   })
   modalidad: string;
-  
+
   @OneToMany(() => LaboratoryUse, (laboratoryUse) => laboratoryUse.modality)
   laboratoryUse: LaboratoryUse[];
 

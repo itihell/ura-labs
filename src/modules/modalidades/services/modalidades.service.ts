@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Modalidades } from '../entities/modalidades-entities';
 import { Delete } from '@nestjs/common/decorators';
+import { ModalidadesDto } from '../dto/modalidates-dto';
 
 @Injectable()
 export class ModalidadesService {
@@ -11,16 +12,16 @@ export class ModalidadesService {
     private readonly modalidadesRepo: Repository<Modalidades>,
   ) { }
 
-  async created(payload: Modalidades): Promise<Modalidades> {
-    const newModalidades = await this.modalidadesRepo.create(payload);
-    return await this.modalidadesRepo.save(newModalidades);
-  }
-
-
-  // async created(payload: ModalidadesPartialDto) {
-  //   const modalidades = await this.modalidadesRepo.create(payload);
-  //   return await this.modalidadesRepo.save(modalidades);
+  // async created(payload: ModalidadesDto): Promise<Modalidades> {
+  //   const newModalidades = await this.modalidadesRepo.create(payload);
+  //   return await this.modalidadesRepo.save(newModalidades);
   // }
+
+
+  async created(payload: ModalidadesDto) {
+    const modalidades = await this.modalidadesRepo.create(payload);
+    return await this.modalidadesRepo.save(modalidades);
+  }
 
   // async getModalidades() {
   //   return await this.modalidadesRepo.find();
