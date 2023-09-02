@@ -2,46 +2,53 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Modalidades } from '../entities/modalidades-entities';
-import { ModalidadesPartialDto } from '../dto/modalidates-dto';
+import { Delete } from '@nestjs/common/decorators';
 
 @Injectable()
 export class ModalidadesService {
-  modalidades: any[] = [];
-
   constructor(
     @InjectRepository(Modalidades)
     private readonly modalidadesRepo: Repository<Modalidades>,
-  ) {}
+  ) { }
 
-  countItems() {
-    return this.modalidades.length;
+  async created(payload: Modalidades): Promise<Modalidades> {
+    const newModalidades = await this.modalidadesRepo.create(payload);
+    return await this.modalidadesRepo.save(newModalidades);
   }
 
-  async created(payload: ModalidadesPartialDto) {
-    const modalidades = await this.modalidadesRepo.create(payload);
-    return await this.modalidadesRepo.save(modalidades);
-  }
 
-  async getModalidades() {
-    return await this.modalidadesRepo.find();
+  // async created(payload: ModalidadesPartialDto) {
+  //   const modalidades = await this.modalidadesRepo.create(payload);
+  //   return await this.modalidadesRepo.save(modalidades);
+  // }
+
+  // async getModalidades() {
+  //   return await this.modalidadesRepo.find();
+  // }
+  async getModalidades(): Promise<Modalidades[]> {
+    return await this.modalidadesRepo.find({ order: { id: 'ASC' } });
+
   }
 
   async getModalidadesId(id: number) {
-    return await this.modalidadesRepo.findOne({ where: { id } });
+    const modalidades = await this.modalidadesRepo.findOne({
+      where: { id: id },
+    });
+    return modalidades;
   }
 
-  async updated(id: number, payload: ModalidadesPartialDto) {
-    await this.modalidadesRepo.update({ id }, payload);
-    return await this.modalidadesRepo.findOne({ where: { id } });
+  async updated(id: number, payload: Modalidades): Promise<Modalidades> {
+    const modalidades = await this.modalidadesRepo.findOne({
+      where: { id: id },
+    });
+    this.modalidadesRepo.merge(modalidades, payload);
+    return await this.modalidadesRepo.save(modalidades);
   }
 
-  // deleted(id: number) {
-  //   const index = this.modalidades.findIndex((item) => item.id === id);
-  //   this.modalidades.splice(index, 1);
-  //   return { message: 'Modalidad Eliminada' };
-  // }
-  async deleted(id: number) {
-    await this.modalidadesRepo.delete({ id });
-    return { message: 'Modalidad Eliminada' };
+  async delete(id: number): Promise<Modalidades> {
+    const modalidades = await this.modalidadesRepo.findOne({
+      where: { id: id },
+    });
+    return await this.modalidadesRepo.remove(modalidades);
   }
 }
