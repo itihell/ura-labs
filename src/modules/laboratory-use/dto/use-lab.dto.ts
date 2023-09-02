@@ -1,6 +1,5 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import {
-  IsDate,
   IsNotEmpty,
   IsNumber,
   IsObject,
@@ -33,10 +32,10 @@ export class LaboratoryUseDto {
   @ApiProperty()
   readonly teacher: string;
 
-  @IsDate()
+  @IsString()
   @IsNotEmpty()
   @ApiProperty()
-  readonly date: Date;
+  readonly date: string;
 
   @IsNotEmpty()
   @IsObject()

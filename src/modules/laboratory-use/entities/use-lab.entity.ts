@@ -30,15 +30,15 @@ export class LaboratoryUse {
     @Column({ name: 'semester', type: 'varchar', length: 50, nullable: false })
     semester: string;
 
-    @Column({ name: 'female', type: 'varchar', nullable: false })
-    female: string;
+    @Column({ name: 'female', type: 'numeric', nullable: false })
+    female: number;
 
-    @Column({ name: 'male', type: 'varchar', nullable: false })
-    male: string;
+    @Column({ name: 'male', type: 'numeric', nullable: false })
+    male: number;
 
-    @Column({ name: 'total', type: 'varchar', nullable: false })
+    @Column({ name: 'total', type: 'numeric', nullable: false })
     total: number;
 
     @Column({ name: 'hours', type: 'varchar', nullable: false })
-    hours: number;
+    hours: string;
 }
