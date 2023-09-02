@@ -10,7 +10,7 @@ async function bootstrap() {
       transform: true,
       whitelist: true,
       transformOptions: {
-        enableImplicitConversion: true,
+        enableImplicitConversion: false,
       },
     }),
   );

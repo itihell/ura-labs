@@ -6,14 +6,14 @@ import {
 
 @ValidatorConstraint({ name: 'futureDate', async: false })
 export class FutureDateValidator implements ValidatorConstraintInterface {
-  validate(date: Date, args: ValidationArguments) {
+  validate(value: any, args: ValidationArguments) {
     const currentDate = new Date();
-    currentDate.setHours(0, 0, 0, 0);
+    const selectedDate = new Date(value);
 
-    return date >= currentDate;
+    return selectedDate > currentDate;
   }
 
   defaultMessage(args: ValidationArguments) {
-    return 'La fecha debe ser una fecha futura.';
+    return 'La fecha debe ser futura.';
   }
 }

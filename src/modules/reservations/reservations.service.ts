@@ -1,26 +1,130 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, Like } from 'typeorm';
+import { Reservation } from './entities/reservation.entity';
 import { CreateReservationDto } from './dto/create-reservation.dto';
+import { Shift } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
+import { User } from '../auth/entities/user.entity';
+import { JwtService } from '@nestjs/jwt';
+import { LabEntity } from '../lab-register/entities';
 
 @Injectable()
 export class ReservationsService {
-  create(createReservationDto: CreateReservationDto) {
-    return 'This action adds a new reservation';
+  constructor(
+    @InjectRepository(Reservation)
+    private readonly reservationRepository: Repository<Reservation>,
+    @InjectRepository(LabEntity) // Repositorio de Laboratorios
+    private readonly labRepository: Repository<LabEntity>,
+    @InjectRepository(User) // Repositorio de Usuarios
+    private readonly userRepository: Repository<User>,
+  ) {}
+
+  async createReservation(
+    createReservationDto: CreateReservationDto,
+    shift: Shift,
+    userId: number,
+  ): Promise<Reservation> {
+    const reservationDate = new Date(createReservationDto.date);
+
+    // Validar que la fecha sea superior a la fecha actual
+    if (reservationDate <= new Date()) {
+      throw new BadRequestException(
+        'La fecha debe ser superior a la fecha actual',
+      );
+    }
+
+    // Validar que la hora de inicio sea inferior a la hora de finalización
+    if (createReservationDto.startTime >= createReservationDto.endTime) {
+      throw new BadRequestException(
+        'La hora de inicio debe ser inferior a la hora de finalización',
+      );
+    }
+
+    // Obtener una instancia de LabEntity basada en el ID proporcionado
+    const lab = await this.labRepository.findOne({
+      where: { id: createReservationDto.laboratoryId },
+    });
+
+    if (!lab) {
+      throw new NotFoundException('Laboratorio no encontrado');
+    }
+
+    // Obtener una instancia de User basada en el ID del usuario
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+
+    if (!user) {
+      throw new NotFoundException('Usuario no encontrado');
+    }
+
+    // Crear una nueva reserva
+    const reservation = new Reservation();
+    reservation.laboratory = lab;
+    reservation.date = reservationDate;
+    reservation.startTime = createReservationDto.startTime;
+    reservation.endTime = createReservationDto.endTime;
+    reservation.userId = user;
+    reservation.shift = shift; // Asigna el turno a la reserva
+
+    // Guardar la reserva en la base de datos
+    return this.reservationRepository.save(reservation);
   }
 
-  findAll() {
-    return `This action returns all reservations`;
+  async getReservationById(id: number): Promise<Reservation> {
+    const reservation = await this.reservationRepository.findOne({
+      where: { id: id },
+    });
+
+    if (!reservation) {
+      throw new NotFoundException('Reserva no encontrada');
+    }
+
+    return reservation;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} reservation`;
+  async updateReservation(
+    id: number,
+    updateReservationDto: UpdateReservationDto,
+  ): Promise<Reservation> {
+    const reservation = await this.reservationRepository.findOne({
+      where: { id: id },
+    });
+
+    if (!reservation) {
+      throw new NotFoundException('Reserva no encontrada');
+    }
+
+    // Aplica las actualizaciones según tus necesidades
+    if (updateReservationDto.date) {
+      reservation.date = new Date(updateReservationDto.date);
+    }
+    if (updateReservationDto.startTime) {
+      reservation.startTime = updateReservationDto.startTime;
+    }
+    if (updateReservationDto.endTime) {
+      reservation.endTime = updateReservationDto.endTime;
+    }
+
+    return this.reservationRepository.save(reservation);
   }
 
-  update(id: number, updateReservationDto: UpdateReservationDto) {
-    return `This action updates a #${id} reservation`;
+  async deleteReservation(id: number): Promise<void> {
+    const reservation = await this.reservationRepository.findOne({
+      where: { id: id },
+    });
+
+    if (!reservation) {
+      throw new NotFoundException('Reserva no encontrada');
+    }
+
+    await this.reservationRepository.remove(reservation);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} reservation`;
+  async getAllReservations(): Promise<Reservation[]> {
+    return this.reservationRepository.find();
   }
 }

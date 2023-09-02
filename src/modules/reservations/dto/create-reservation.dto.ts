@@ -1,26 +1,47 @@
-import { IsNotEmpty, IsDateString, IsEnum, Validate } from 'class-validator';
-import { Shift } from '../entities/reservation.entity'; // Asegúrate de importar el enum Shift
-import { TimeOrderAndFormatValidator } from '../validators/time-order.validator'; // Importa el validador personalizado
+import {
+  IsDateString,
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  Validate,
+} from 'class-validator';
+import { FutureDateValidator } from '../validators/future-date.validator';
+
+// Enum para el turno
+export enum Shift {
+  morning = 'morning',
+  afternoon = 'afternoon',
+  night = 'night',
+}
 
 export class CreateReservationDto {
-  @IsNotEmpty()
-  userId: number;
-
-  @IsNotEmpty()
-  courseId: number;
-
-  @IsNotEmpty()
-  groupId: number;
+  // Puedes omitir temporalmente los campos userId, courseId y groupId
 
   @IsDateString()
-  date: Date;
+  @IsNotEmpty()
+  @Validate(FutureDateValidator, {
+    message: 'La fecha debe ser futura.',
+  })
+  date: string;
 
-  @IsEnum(Shift)
+  @IsEnum(Shift, { message: 'El turno debe ser morning, afternoon o night.' })
+  @IsNotEmpty()
   shift: Shift;
 
-  @Validate(TimeOrderAndFormatValidator, ['startTime']) // Validación de formato y orden de tiempo
+  @IsNotEmpty({ message: 'La hora de inicio es obligatoria' })
+  @IsString({ message: 'La hora de inicio debe ser una cadena' })
   startTime: string;
 
-  @Validate(TimeOrderAndFormatValidator, ['startTime']) // Validación de formato y orden de tiempo
+  @IsNotEmpty({ message: 'La hora de finalización es obligatoria' })
+  @IsString({ message: 'La hora de finalización debe ser una cadena' })
   endTime: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  laboratoryId: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  userId: number;
 }
