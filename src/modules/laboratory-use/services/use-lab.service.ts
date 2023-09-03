@@ -13,7 +13,7 @@ export class UseLabService {
 
   async getUselab(): Promise<LaboratoryUse[]> {
     return await this.registerRepository.find({
-      relations: ['carrera', 'carrera.area', 'modality']
+      relations: ['carrera', 'carrera.area', 'modality', 'laboratorio']
     });
   }
 
