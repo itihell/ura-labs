@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { LabEntity } from 'src/modules/lab-register/entities';
 import { User } from 'src/modules/auth/entities/user.entity';
+import { Carrera } from 'src/modules/registro-carreras/entities';
 
 @Entity()
 export class Reservation {
@@ -19,6 +20,9 @@ export class Reservation {
 
   @ManyToOne(() => LabEntity, (lab) => lab.reservations)
   laboratory: LabEntity;
+
+  @ManyToOne(() => Carrera, (carrera) => carrera.reservaciones)
+  carrera: Carrera;
 
   @Column()
   date: Date;

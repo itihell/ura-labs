@@ -44,4 +44,8 @@ export class CreateReservationDto {
   @IsNotEmpty()
   @IsNumber()
   userId: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  careerId: number;
 }
