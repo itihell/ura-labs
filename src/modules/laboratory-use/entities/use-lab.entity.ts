@@ -1,3 +1,4 @@
+import { LabEntity } from 'src/modules/lab-register/entities';
 import { Modalidades } from 'src/modules/modalidades/entities/modalidades-entities';
 import { Area, Carrera } from 'src/modules/registro-carreras/entities';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn, ManyToOne } from 'typeorm';
@@ -41,4 +42,7 @@ export class LaboratoryUse {
 
     @Column({ name: 'hours', type: 'varchar', nullable: false })
     hours: string;
+
+    @ManyToOne(() => LabEntity, (laboratorio) => laboratorio.laboratorio)
+    laboratorio: LabEntity;
 }

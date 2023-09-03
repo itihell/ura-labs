@@ -7,6 +7,7 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
+import { LabEntity } from 'src/modules/lab-register/entities';
 import { Modalidades } from 'src/modules/modalidades/entities/modalidades-entities';
 import { Carrera } from 'src/modules/registro-carreras/entities';
 
@@ -77,6 +78,10 @@ export class LaboratoryUseDto {
   @IsNotEmpty()
   @ApiProperty()
   readonly hours: string;
+
+  @IsNotEmpty()
+  @IsObject()
+  laboratorio: LabEntity;
 
 }
 
