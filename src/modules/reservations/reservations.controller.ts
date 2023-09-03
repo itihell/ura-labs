@@ -12,33 +12,31 @@ import {
 } from '@nestjs/common';
 import { ReservationsService } from './reservations.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
+import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { Shift } from './dto/create-reservation.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
-import { Reservation } from './entities/reservation.entity';
-import { UpdateReservationDto } from './dto/update-reservation.dto';
+
 @Controller('reservations')
 export class ReservationsController {
   constructor(private readonly reservationService: ReservationsService) {}
 
-  @UseGuards(JwtAuthGuard) // Usa el guardia JWT para proteger esta ruta
+  @UseGuards(JwtAuthGuard)
   @Post()
-  async create(
-    @Body() createReservationDto: CreateReservationDto,
-    @Req() req, // Obtén la solicitud actual
-  ) {
+  async create(@Body() createReservationDto: CreateReservationDto, @Req() req) {
     try {
-      // Obtiene el usuario actual desde la solicitud (req)
       const user = req.user;
-      // Asegura que el usuario exista y tenga un ID
       if (!user || !user.id) {
         throw new UnauthorizedException('Usuario no autenticado');
       }
 
-      // Llama al servicio de reservas pasando el usuario actual como userId
+      // Agrega aquí la lógica para obtener la ID de la carrera, por ejemplo, desde el DTO o cualquier otra fuente
+      const carreraId = createReservationDto.careerId; // Asumiendo que está en el DTO, ajusta esto según tu DTO
+
       const reservation = await this.reservationService.createReservation(
         createReservationDto,
         Shift.morning,
-        user.id, // Pasa el ID del usuario como userId
+        user.id,
+        carreraId, // Pasa la ID de la carrera
       );
 
       return { success: true, data: reservation };
@@ -96,10 +94,9 @@ export class ReservationsController {
   }
 
   @Get()
-  async findAll() {
+  async getAllReservations() {
     try {
-      const reservations: Reservation[] =
-        await this.reservationService.getAllReservations();
+      const reservations = await this.reservationService.getAllReservations();
       return { success: true, data: reservations };
     } catch (error) {
       return {
