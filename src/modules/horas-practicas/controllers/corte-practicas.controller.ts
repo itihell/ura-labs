@@ -11,7 +11,7 @@ import {
 import { CortePracticasDto } from '../dtos/corte-practicas.dto';
 import { CortePracticasService } from '../services/corte-practicas.service';
 
-@Controller('cotre-practicas')
+@Controller('corte-practicas')
 export class CortePracticasController {
   constructor(private readonly cortePracticasDto: CortePracticasService) {}
   // crear corte practicas
@@ -27,7 +27,7 @@ export class CortePracticasController {
     return data;
   }
 
-  //obtener todos los cortes
+  //obtener todos los cortes con nombre del practicante
   @Get('/')
   async getCortes() {
     const cortes = await this.cortePracticasDto.getCortes();
