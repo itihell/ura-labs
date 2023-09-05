@@ -17,10 +17,13 @@ export class ModalidadesController {
   constructor(private readonly RepoModalidadesService: ModalidadesService) {}
 
   @Post('/')
-  createdModalidades(@Body() payload: ModalidadesDto) {
-    const modalidades = this.RepoModalidadesService.created(payload);
+  async createdModalidades(@Body() payload: ModalidadesDto) {
+    const newModalidades = await this.RepoModalidadesService.createModalidades(
+      payload,
+    );
     const data = {
-      data: modalidades,
+      data: newModalidades,
+      message: 'created',
     };
     return data;
   }

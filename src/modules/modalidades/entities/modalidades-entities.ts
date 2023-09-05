@@ -12,8 +12,22 @@ export class Modalidades {
     name: 'modalidades',
     type: 'varchar',
     nullable: false,
-    length: 100,
-    default: true,
+    length: 50,
   })
   modalidad: string;
+
+  @Column({
+    name: 'is_active',
+    type: 'boolean',
+    nullable: false,
+    default: true,
+  })
+  isActive: boolean;
+
+  @Column({
+    name: 'deleted_at',
+    type: 'timestamp',
+    nullable: true,
+  })
+  delete_at: Date;
 }
