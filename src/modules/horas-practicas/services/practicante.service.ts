@@ -11,12 +11,8 @@ export class PracticanteService {
   ) {}
   //crear practicante
   async createPracticante(payload: Practicante): Promise<Practicante> {
-    try {
-      const newPracticante = this.practicanteRepo.create(payload);
-      return this.practicanteRepo.save(newPracticante);
-    } catch (error) {
-      throw new Error('Error al crear el practicante');
-    }
+    const newPracticante = this.practicanteRepo.create(payload);
+    return this.practicanteRepo.save(newPracticante);
   }
   //obtener todos los practicantes
   async getPracticantes(): Promise<Practicante[]> {

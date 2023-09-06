@@ -11,15 +11,11 @@ export class CortePracticasService {
     private readonly cortePracticasRepo: Repository<CortePracticas>,
   ) {}
 
-  //crear corte con relacion para agregar el nombre del practicante
+  //crear corte
   async createCorte(payload: CortePracticasDto): Promise<CortePracticas> {
     try {
-      const { practicante, ...newCortePracticas } = payload;
-      const newCorte = this.cortePracticasRepo.create({
-        ...newCortePracticas,
-        practicante,
-      });
-      return this.cortePracticasRepo.save(newCorte);
+      const newCortePracticas = this.cortePracticasRepo.create(payload);
+      return this.cortePracticasRepo.save(newCortePracticas);
     } catch (error) {
       throw new Error('Error al crear el corte');
     }
@@ -46,8 +42,7 @@ export class CortePracticasService {
     payload: CortePracticasDto,
   ): Promise<CortePracticas> {
     try {
-      const { practicante, ...newCortePracticas } = payload;
-      await this.cortePracticasRepo.update({ id }, { ...newCortePracticas });
+      await this.cortePracticasRepo.update({ id }, { ...payload });
       return this.getCorte(id);
     } catch (error) {
       throw new Error('Error al actualizar el corte');

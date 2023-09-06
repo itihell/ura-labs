@@ -20,7 +20,4 @@ export class CortePracticas {
 
   @Column()
   culminado: boolean;
-
-  @ManyToOne(() => Practicante, (practicante) => practicante.cortes)
-  practicante: Practicante;
 }

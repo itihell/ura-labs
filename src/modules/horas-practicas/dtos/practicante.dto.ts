@@ -20,8 +20,4 @@ export class PracticanteDto {
   @IsNotEmpty()
   @IsNumber()
   cantidad_horas: number;
-
-  @IsNotEmpty()
-  @IsBoolean()
-  estado: boolean;
 }

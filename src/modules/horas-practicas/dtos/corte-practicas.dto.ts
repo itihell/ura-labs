@@ -26,8 +26,4 @@ export class CortePracticasDto {
 
   @IsOptional()
   culminado: boolean;
-
-  @IsObject()
-  @IsNotEmpty()
-  practicante: Practicante;
 }
