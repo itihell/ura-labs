@@ -1,13 +1,10 @@
-import {
-  IsNotEmpty,
-  IsNumber,
-  IsObject,
-  IsOptional,
-  IsString,
-} from 'class-validator';
-import { Practicante } from '../entities/practicante.entity';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CortePracticasDto {
+  @IsString()
+  @IsNotEmpty()
+  practicante: string;
+
   @IsString()
   @IsNotEmpty()
   fecha_corte: string;
