@@ -21,9 +21,9 @@ export class ModalidadesService {
     return await this.modalidadesRepo.find({ order: { id: 'ASC' } });
   }
 
-  async getModalidadesId(id: number) {
+  async getModalidadesId(id: number): Promise<Modalidades> {
     const modalidades = await this.modalidadesRepo.findOne({
-      where: { id: id },
+      where: { id },
     });
     return modalidades;
   }

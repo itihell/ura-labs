@@ -39,10 +39,11 @@ export class ModalidadesController {
   }
 
   @Get('/:id')
-  getModalidadesId(@Param('id', ParseIntPipe) id: number) {
-    const modalidades = this.RepoModalidadesService.getModalidadesId(id);
+  async getModalidadesId(@Param('id', ParseIntPipe) id: number) {
+    const modalidades = await this.RepoModalidadesService.getModalidadesId(id);
     const data = {
       data: modalidades,
+      message: 'ok',
     };
     return data;
   }
