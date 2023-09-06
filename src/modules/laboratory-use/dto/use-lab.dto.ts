@@ -19,7 +19,6 @@ export class LaboratoryUseDto {
 
   @IsString()
   @IsNotEmpty()
-  @MaxLength(100)
   @ApiProperty()
   readonly className: string;
 
