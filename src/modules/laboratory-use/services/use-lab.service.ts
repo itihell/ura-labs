@@ -18,7 +18,16 @@ export class UseLabService {
   }
 
   async findOne(id: any): Promise<LaboratoryUse> {
-    return await this.registerRepository.findOneBy({ id });
+    {
+      return await this.registerRepository
+      .createQueryBuilder('labUse')
+      .where('labUse.id = :id', { id })
+      .leftJoinAndSelect('labUse.carrera', 'carrera') 
+      .leftJoinAndSelect('carrera.area', 'area') 
+      .leftJoinAndSelect('labUse.modality', 'modality')
+      .leftJoinAndSelect('labUse.laboratorio', 'laboratorio') 
+      .getOne();
+    }
   }
 
   async createUselab(LaboratoryUseDto) {
