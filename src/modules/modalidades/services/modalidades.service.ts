@@ -12,24 +12,18 @@ export class ModalidadesService {
     private readonly modalidadesRepo: Repository<Modalidades>,
   ) { }
 
-  // async created(payload: ModalidadesDto): Promise<Modalidades> {
-  //   const newModalidades = await this.modalidadesRepo.create(payload);
-  //   return await this.modalidadesRepo.save(newModalidades);
-  // }
-
-
+  //este es el metodo que hicimos de crear
   async created(payload: ModalidadesDto) {
     const modalidades = await this.modalidadesRepo.create(payload);
     return await this.modalidadesRepo.save(modalidades);
   }
 
-  // async getModalidades() {
-  //   return await this.modalidadesRepo.find();
-  // }
+
   async getModalidades(): Promise<Modalidades[]> {
     return await this.modalidadesRepo.find({ order: { id: 'ASC' } });
 
   }
+  //este es el metodo que hicimos de crear
 
   async getModalidadesId(id: number) {
     const modalidades = await this.modalidadesRepo.findOne({
