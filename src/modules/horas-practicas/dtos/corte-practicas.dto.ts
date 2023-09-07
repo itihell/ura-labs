@@ -18,9 +18,6 @@ export class CortePracticasDto {
   horas_anteriores: number;
 
   @IsNumber()
-  @IsNotEmpty()
-  horas_totales: number;
-
   @IsOptional()
-  culminado: boolean;
+  horas_totales: number;
 }

@@ -9,7 +9,7 @@ export class PracticanteService {
     @InjectRepository(Practicante)
     private readonly practicanteRepo: Repository<Practicante>,
   ) {}
-  //crear practicante
+
   async createPracticante(payload: Practicante): Promise<Practicante> {
     try {
       const newPracticante = this.practicanteRepo.create(payload);
@@ -26,6 +26,7 @@ export class PracticanteService {
       throw new Error('Error al obtener los practicantes');
     }
   }
+
   //obtener un practicante
   async getPracticante(id: number): Promise<Practicante> {
     try {

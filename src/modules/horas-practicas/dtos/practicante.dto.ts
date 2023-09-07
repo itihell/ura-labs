@@ -1,6 +1,15 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumberString,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class PracticanteDto {
+  @IsNumberString()
+  @IsOptional()
+  id: number;
+
   @IsString()
   @IsNotEmpty()
   nombre: string;
@@ -18,6 +27,6 @@ export class PracticanteDto {
   fecha_fin: string;
 
   @IsNotEmpty()
-  @IsNumber()
-  cantidad_horas: number;
+  @IsString()
+  cantidad_horas: string;
 }

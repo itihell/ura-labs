@@ -1,8 +1,11 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('practicante')
 export class Practicante {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({
+    name: 'id',
+    type: 'int4',
+  })
   id?: number;
 
   @Column()
@@ -18,5 +21,5 @@ export class Practicante {
   fecha_fin: string;
 
   @Column()
-  cantidad_horas: number;
+  cantidad_horas: string;
 }

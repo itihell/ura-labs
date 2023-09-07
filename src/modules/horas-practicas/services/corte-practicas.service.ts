@@ -11,11 +11,13 @@ export class CortePracticasService {
     private readonly cortePracticasRepo: Repository<CortePracticas>,
   ) {}
 
-  //crear corte
   async createCorte(payload: CortePracticasDto): Promise<CortePracticas> {
     try {
-      const newCortePracticas = this.cortePracticasRepo.create(payload);
-      return this.cortePracticasRepo.save(newCortePracticas);
+      const horasTotales = payload.horas_actuales + payload.horas_anteriores;
+      payload.horas_totales = horasTotales;
+
+      const newCorte = this.cortePracticasRepo.create(payload);
+      return this.cortePracticasRepo.save(newCorte);
     } catch (error) {
       throw new Error('Error al crear el corte');
     }
