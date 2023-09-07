@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { LaboratoryUse } from "../entities";
+import { LaboratoryUse } from "../entities/";
 
 @Injectable()
 export class UseLabService {
@@ -10,25 +10,35 @@ export class UseLabService {
     private readonly registerRepository: Repository<LaboratoryUse>
   ) { }
 
-  async create(LaboratoryUseDto) {
+
+  async getUselab(): Promise<LaboratoryUse[]> {
+    return await this.registerRepository.find({
+      relations: ['carrera', 'carrera.area', 'modality', 'laboratorio']
+    });
+  }
+
+  async findOne(id: any): Promise<LaboratoryUse> {
+    {
+      return await this.registerRepository
+      .createQueryBuilder('labUse')
+      .where('labUse.id = :id', { id })
+      .leftJoinAndSelect('labUse.carrera', 'carrera') 
+      .leftJoinAndSelect('carrera.area', 'area') 
+      .leftJoinAndSelect('labUse.modality', 'modality')
+      .leftJoinAndSelect('labUse.laboratorio', 'laboratorio') 
+      .getOne();
+    }
+  }
+
+  async createUselab(LaboratoryUseDto) {
     const registerDetail = this.registerRepository.create(LaboratoryUseDto);
     await this.registerRepository.save(registerDetail);
 
     return registerDetail;
   }
 
-  findAll() {
-    return this.registerRepository.find();
-  }
-
-  findOne(id: any) {
-    return this.registerRepository.findOneBy({ id });
-  }
-
-  async remove(id: number) {
-    const orderDetail = await this.findOne(id);
-    await this.registerRepository.remove(orderDetail);
-    return 'El registro se ha eliminado'
+  async deleteUselab(id: number): Promise<void> {
+    await this.registerRepository.delete(id);
   }
 
   async update(id: number, LaboratoryUseDto) {

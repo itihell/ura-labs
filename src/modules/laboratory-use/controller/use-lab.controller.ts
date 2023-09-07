@@ -1,39 +1,73 @@
-import { Body, Controller, Get, Post, Patch, ParseUUIDPipe, ParseIntPipe } from "@nestjs/common";
+import { Body, Controller, Get, Post, Put, ParseUUIDPipe, ParseIntPipe } from "@nestjs/common";
 import { Delete, Param } from "@nestjs/common/decorators";
 import { LaboratoryUseDto } from "../dto";
 import { UseLabService } from "../services/use-lab.service";
+import { LaboratoryUse } from "../entities";
 
 @Controller('uselab')
 export class UseLabController {
   constructor(
     private readonly registerDetailServiceRepo: UseLabService
   ) { }
-  @Post()
-  create(@Body() orderDto: LaboratoryUseDto) {
-    return this.registerDetailServiceRepo.create(orderDto);
+
+  @Post('/')
+  async createUselab(@Body() createUselabDto: LaboratoryUseDto) {
+    const uselabs = await this.registerDetailServiceRepo.createUselab(createUselabDto);
+
+    const data = {
+      data: uselabs,
+    };
+
+    return data;
   }
 
-  @Get()
-  findAll() {
-    return this.registerDetailServiceRepo.findAll();
+  @Get('/')
+  async getUselab() {
+    const uselab = await this.registerDetailServiceRepo.getUselab();
+
+    const data = {
+      data: uselab,
+      message: 'Ok',
+    };
+
+    return data;
   }
 
-  @Get(':id')
-  findOne(
-    @Param('id', ParseIntPipe) id: number) {
-    return this.registerDetailServiceRepo.findOne(id);
+  @Get('/:id')
+  async getUselabById(@Param('id', ParseIntPipe) id: number) {
+    const uselabs = await this.registerDetailServiceRepo.findOne(id);
+
+    const data = {
+      data: uselabs,
+      message: 'Ok',
+    };
+
+    return data;
   }
 
-  @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.registerDetailServiceRepo.remove(id);
+  @Delete('/:id')
+  async deleteUselab(@Param('id') id: number) {
+    const uselabs = await this.registerDetailServiceRepo.deleteUselab(id);
+
+    const data = {
+      data: uselabs,
+      message: 'Ok',
+    };
+
+    return data;
   }
 
-  @Patch(':id')
-  update(
+  @Put(':id')
+  async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateRegisterDetailDto: LaboratoryUseDto
   ) {
-    return this.registerDetailServiceRepo.update(id, updateRegisterDetailDto);
+    const uselabs = await this.registerDetailServiceRepo.update(id, updateRegisterDetailDto);
+
+    const data = {
+      data: uselabs,
+    };
+
+    return data;
   }
 }

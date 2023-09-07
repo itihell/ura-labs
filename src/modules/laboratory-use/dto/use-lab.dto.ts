@@ -1,12 +1,15 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import {
-  IsDate,
   IsNotEmpty,
   IsNumber,
+  IsObject,
   IsOptional,
   IsString,
   MaxLength,
 } from 'class-validator';
+import { LabEntity } from 'src/modules/lab-register/entities';
+import { Modalidades } from 'src/modules/modalidades/entities/modalidades-entities';
+import { Carrera } from 'src/modules/registro-carreras/entities';
 
 export class LaboratoryUseDto {
   @IsNumber()
@@ -16,21 +19,12 @@ export class LaboratoryUseDto {
 
   @IsString()
   @IsNotEmpty()
-  @MaxLength(100)
   @ApiProperty()
   readonly className: string;
 
-  @IsString()
   @IsNotEmpty()
-  @MaxLength(100)
-  @ApiProperty()
-  readonly academyArea: string;
-
-  @IsString()
-  @MaxLength(50)
-  @IsNotEmpty()
-  @ApiProperty()
-  readonly career: string;
+  @IsObject()
+  carrera: Carrera;
 
   @IsString()
   @IsNotEmpty()
@@ -38,16 +32,14 @@ export class LaboratoryUseDto {
   @ApiProperty()
   readonly teacher: string;
 
-  @IsDate()
-  @IsNotEmpty()
-  @ApiProperty()
-  readonly date: Date;
-
   @IsString()
   @IsNotEmpty()
-  @MaxLength(100)
   @ApiProperty()
-  readonly modality: string;
+  readonly date: string;
+
+  @IsNotEmpty()
+  @IsObject()
+  modality: Modalidades;
 
   @IsString()
   @IsNotEmpty()
@@ -85,6 +77,10 @@ export class LaboratoryUseDto {
   @IsNotEmpty()
   @ApiProperty()
   readonly hours: string;
+
+  @IsNotEmpty()
+  @IsObject()
+  laboratorio: LabEntity;
 
 }
 
