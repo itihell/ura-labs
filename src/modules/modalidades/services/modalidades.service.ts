@@ -16,6 +16,7 @@ export class ModalidadesService {
   async created(payload: ModalidadesDto) {
     const modalidades = await this.modalidadesRepo.create(payload);
     return await this.modalidadesRepo.save(modalidades);
+
   }
 
 
@@ -25,14 +26,14 @@ export class ModalidadesService {
   }
   //este es el metodo que hicimos de crear
 
-  async getModalidadesId(id: number) {
+  async getModalidadesId(id: number): Promise<Modalidades> {
     const modalidades = await this.modalidadesRepo.findOne({
-      where: { id: id },
+      where: { id },
     });
     return modalidades;
   }
 
-  async updated(id: number, payload: Modalidades): Promise<Modalidades> {
+  async updated(id: number, payload: ModalidadesDto): Promise<Modalidades> {
     const modalidades = await this.modalidadesRepo.findOne({
       where: { id: id },
     });

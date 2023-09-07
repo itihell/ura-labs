@@ -36,10 +36,9 @@ export class RegistroCarrerasService {
     const carrera = await await this.getCarreraById(id);
 
     if (!carrera) {
-      throw new NotFoundException("Role doesn't exist");
+      throw new NotFoundException("Carrera No Existe");
     }
-    const deleted = await this.carreraRepository.softDelete({ id: id });
-
+    await this.carreraRepository.delete(carrera);
     return carrera;
   }
   async editCarrera(id: number, payload: CreateCarreraDto): Promise<Carrera> {

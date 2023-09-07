@@ -17,10 +17,13 @@ export class ModalidadesController {
   constructor(private readonly RepoModalidadesService: ModalidadesService) { }
 
   @Post('/')
-  createdModalidades(@Body() payload: ModalidadesDto) {
-    const modalidades = this.RepoModalidadesService.created(payload);
+  async createdModalidades(@Body() payload: ModalidadesDto) {
+    const newModalidades = await this.RepoModalidadesService.createModalidades(
+      payload,
+    );
     const data = {
-      data: modalidades,
+      data: newModalidades,
+      message: 'created',
     };
     return data;
   }
@@ -36,10 +39,11 @@ export class ModalidadesController {
   }
 
   @Get('/:id')
-  getModalidadesId(@Param('id', ParseIntPipe) id: number) {
-    const modalidades = this.RepoModalidadesService.getModalidadesId(id);
+  async getModalidadesId(@Param('id', ParseIntPipe) id: number) {
+    const modalidades = await this.RepoModalidadesService.getModalidadesId(id);
     const data = {
       data: modalidades,
+      message: 'ok',
     };
     return data;
   }

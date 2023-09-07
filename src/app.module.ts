@@ -9,6 +9,7 @@ import { LabRegisterModule } from './modules/lab-register/lab.module';
 import { HorasPracticasModule } from './modules/horas-practicas/horas-practicas.module';
 import { ReservationsModule } from './modules/reservations/reservations.module';
 import { UseLabModule } from './modules/laboratory-use/laboratory-use.module';
+
 import { ModalidadesModule } from './modules/modalidades/modalidades.module';
 
 @Module({
@@ -19,6 +20,7 @@ import { ModalidadesModule } from './modules/modalidades/modalidades.module';
     }),
     DatabaseModule,
     HorasPracticasModule,
+    ModalidadesModule,
     AuthModule,
     RegistroCarrerasModule,
     LabRegisterModule,

@@ -1,10 +1,12 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Practicante } from './practicante.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'CortePracticas' })
 export class CortePracticas {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column()
+  practicante: string;
 
   @Column()
   fecha_corte: string;
@@ -17,10 +19,4 @@ export class CortePracticas {
 
   @Column()
   horas_totales: number;
-
-  @Column()
-  culminado: boolean;
-
-  @ManyToOne(() => Practicante, (practicante) => practicante.cortes)
-  practicante: Practicante;
 }

@@ -3,9 +3,11 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Role } from './roles.entity';
+import { Reservation } from 'src/modules/reservations/entities/reservation.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -41,6 +43,9 @@ export class User {
     default: true,
   })
   isActive: boolean;
+
+  @OneToMany(() => Reservation, (reservation) => reservation.userId)
+  reservations: Reservation[];
 
   @ManyToMany(() => Role, (role) => role.users)
   @JoinTable({

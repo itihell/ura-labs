@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class PracticanteDto {
   @IsString()
@@ -20,8 +20,4 @@ export class PracticanteDto {
   @IsNotEmpty()
   @IsNumber()
   cantidad_horas: number;
-
-  @IsNotEmpty()
-  @IsBoolean()
-  estado: boolean;
 }
