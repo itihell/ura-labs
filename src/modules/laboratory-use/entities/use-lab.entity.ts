@@ -1,4 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { LabEntity } from 'src/modules/lab-register/entities';
+import { Modalidades } from 'src/modules/modalidades/entities/modalidades-entities';
+import { Area, Carrera } from 'src/modules/registro-carreras/entities';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn, ManyToOne } from 'typeorm';
 @Entity({ name: 'use_labs' })
 export class LaboratoryUse {
     @PrimaryGeneratedColumn({ name: 'id', type: 'int4' })
@@ -7,11 +10,8 @@ export class LaboratoryUse {
     @Column({ name: 'className', type: 'varchar', length: 100, nullable: false })
     className: string;
 
-    @Column({ name: 'academyArea', type: 'varchar', length: 100, nullable: false })
-    academyArea: string;
-
-    @Column({ name: 'career', type: 'varchar', length: 50, nullable: false })
-    career: string;
+    @ManyToOne(() => Carrera, (carrera) => carrera.area)
+    carrera: Carrera;
 
     @Column({ name: 'teacher', type: 'varchar', length: 50, nullable: false })
     teacher: string;
@@ -19,8 +19,8 @@ export class LaboratoryUse {
     @Column({ name: 'date', type: 'varchar', nullable: false })
     date: string;
 
-    @Column({ name: 'modality', type: 'varchar', length: 100, nullable: false })
-    modality: string;
+    @ManyToOne(() => Modalidades, (modalidad) => modalidad.modalidad)
+    modality: Modalidades;
 
     @Column({ name: 'shift', type: 'varchar', length: 50, nullable: false })
     shift: string;
@@ -31,16 +31,18 @@ export class LaboratoryUse {
     @Column({ name: 'semester', type: 'varchar', length: 50, nullable: false })
     semester: string;
 
-    @Column({ name: 'female', type: 'varchar', nullable: false })
-    female: string;
+    @Column({ name: 'female', type: 'numeric', nullable: false })
+    female: number;
 
-    @Column({ name: 'male', type: 'varchar', nullable: false })
-    male: string;
+    @Column({ name: 'male', type: 'numeric', nullable: false })
+    male: number;
 
-    @Column({ name: 'total', type: 'varchar', nullable: false })
+    @Column({ name: 'total', type: 'numeric', nullable: false })
     total: number;
 
     @Column({ name: 'hours', type: 'varchar', nullable: false })
-    hours: number;
+    hours: string;
 
+    @ManyToOne(() => LabEntity, (laboratorio) => laboratorio.laboratorio)
+    laboratorio: LabEntity;
 }

@@ -10,15 +10,25 @@ export class ModalidadesService {
   constructor(
     @InjectRepository(Modalidades)
     private readonly modalidadesRepo: Repository<Modalidades>,
-  ) {}
+  ) { }
 
-  async createModalidades(payload: ModalidadesDto): Promise<Modalidades> {
-    const newModalidades = this.modalidadesRepo.create(payload);
-    return await this.modalidadesRepo.save(newModalidades);
+
+  // async created(payload: ModalidadesDto): Promise<Modalidades> {
+  //   const newModalidades = await this.modalidadesRepo.create(payload);
+  //   return await this.modalidadesRepo.save(newModalidades);
+  // }
+  async created(payload: ModalidadesDto) {
+    const modalidades = await this.modalidadesRepo.create(payload);
+    return await this.modalidadesRepo.save(modalidades);
+
   }
 
+  // async getModalidades() {
+  //   return await this.modalidadesRepo.find();
+  // }
   async getModalidades(): Promise<Modalidades[]> {
     return await this.modalidadesRepo.find({ order: { id: 'ASC' } });
+
   }
 
   async getModalidadesId(id: number): Promise<Modalidades> {

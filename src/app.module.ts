@@ -8,6 +8,7 @@ import { RegistroCarrerasModule } from './modules/registro-carreras/registro-car
 import { LabRegisterModule } from './modules/lab-register/lab.module';
 import { HorasPracticasModule } from './modules/horas-practicas/horas-practicas.module';
 import { ReservationsModule } from './modules/reservations/reservations.module';
+import { UseLabModule } from './modules/laboratory-use/laboratory-use.module';
 import { ModalidadesModule } from './modules/modalidades/modalidades.module';
 
 @Module({
@@ -23,6 +24,8 @@ import { ModalidadesModule } from './modules/modalidades/modalidades.module';
     RegistroCarrerasModule,
     LabRegisterModule,
     ReservationsModule,
+    UseLabModule,
+    ModalidadesModule
   ],
   controllers: [AppController],
   providers: [
@@ -33,4 +36,4 @@ import { ModalidadesModule } from './modules/modalidades/modalidades.module';
     AppService,
   ],
 })
-export class AppModule {}
+export class AppModule { }

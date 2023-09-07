@@ -19,7 +19,15 @@ export class LabRegisterController {
   @Get('/')
   async findAllLab() {
     const showLabs = await this.labRepository.findAll();
-    return showLabs;
+    
+
+
+    const data = {
+      data: showLabs,
+      message: 'Ok',
+    };
+
+    return data;
   }
 
   @Get('/:id')

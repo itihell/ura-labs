@@ -14,7 +14,7 @@ import { Modalidades } from '../entities/modalidades-entities';
 
 @Controller('modalidades')
 export class ModalidadesController {
-  constructor(private readonly RepoModalidadesService: ModalidadesService) {}
+  constructor(private readonly RepoModalidadesService: ModalidadesService) { }
 
   @Post('/')
   async createdModalidades(@Body() payload: ModalidadesDto) {
@@ -51,7 +51,7 @@ export class ModalidadesController {
   @Put('/:id')
   async updatedModalidades(
     @Param('id', ParseIntPipe) id: number,
-    @Body() payload: ModalidadesDto,
+    @Body() payload: Modalidades,
   ) {
     const modalidades = await this.RepoModalidadesService.updated(id, payload);
     const data = {

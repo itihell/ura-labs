@@ -1,3 +1,4 @@
+import { LaboratoryUse } from 'src/modules/laboratory-use/entities';
 import { Reservation } from 'src/modules/reservations/entities/reservation.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -34,4 +35,8 @@ export class LabEntity {
 
   @OneToMany(() => Reservation, (reservation) => reservation.laboratory)
   reservations: Reservation[];
+
+  @OneToMany(() => LaboratoryUse, (laboratoryUse) => laboratoryUse.laboratorio)
+  laboratoryUse: LaboratoryUse[];
+  laboratorio: LabEntity[];
 }

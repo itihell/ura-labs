@@ -1,12 +1,8 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  OneToMany,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { Area } from './area.entity';
+import { LaboratoryUse } from 'src/modules/laboratory-use/entities';
 import { Reservation } from 'src/modules/reservations/entities/reservation.entity';
+
 
 @Entity()
 export class Carrera {
@@ -19,8 +15,16 @@ export class Carrera {
   @ManyToOne(() => Area, (area) => area.carreras)
   area: Area;
 
+
   carerra: Carrera[];
 
   @OneToMany(() => Reservation, (reservation) => reservation.carrera)
   reservaciones: Reservation[];
+
+  @OneToMany(() => LaboratoryUse, (laboratoryUse) => laboratoryUse.carrera)
+  laboratoryUse: LaboratoryUse[];
+
+  carrera: Carrera[];
+  
+
 }
