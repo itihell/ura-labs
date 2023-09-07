@@ -18,7 +18,7 @@ export class ModalidadesController {
 
   @Post('/')
   async createdModalidades(@Body() payload: ModalidadesDto) {
-    const newModalidades = await this.RepoModalidadesService.createModalidades(
+    const newModalidades = await this.RepoModalidadesService.created(
       payload,
     );
     const data = {
@@ -51,7 +51,7 @@ export class ModalidadesController {
   @Put('/:id')
   async updatedModalidades(
     @Param('id', ParseIntPipe) id: number,
-    @Body() payload: Modalidades,
+    @Body() payload: ModalidadesDto,
   ) {
     const modalidades = await this.RepoModalidadesService.updated(id, payload);
     const data = {
