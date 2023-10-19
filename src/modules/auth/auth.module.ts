@@ -48,6 +48,6 @@ import { User, Role } from './entities';
     RolesService,
     AsignarRolesService,
   ],
-  exports: [TypeOrmModule, JwtStrategy, PassportModule, JwtModule],
+  exports: [AuthModule, TypeOrmModule, JwtStrategy, PassportModule, JwtModule],
 })
 export class AuthModule {}
