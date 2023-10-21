@@ -2,10 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { Role } from '../../auth/entities/roles.entity';
 import { Modalidades } from '../../modalidades/entities/modalidades-entities';
+import { Practicante } from 'src/modules/horas-practicas/entities/practicante.entity';
 
 @Injectable()
 export class CatalogosService {
-  constructor(private readonly dataSource: DataSource) {}
+  constructor(private readonly dataSource: DataSource) { }
 
   async getRoles() {
     const rows = await this.dataSource.getRepository(Role).find();
@@ -16,5 +17,11 @@ export class CatalogosService {
     const rows = await this.dataSource.getRepository(Modalidades).find();
     console.log(rows);
     return rows;
+  }
+
+  async getPracticante() {
+    const row = await this.dataSource.getRepository(Practicante).find();
+    console.log(row);
+    return row;
   }
 }
