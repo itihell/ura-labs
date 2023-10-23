@@ -3,7 +3,7 @@ import { CatalogosService } from '../services/catalogos.service';
 
 @Controller('catalogos')
 export class CatalogosController {
-  constructor(private readonly catalogosService: CatalogosService) { }
+  constructor(private readonly catalogosService: CatalogosService) {}
 
   @Get('/roles')
   async getRoles() {
@@ -18,5 +18,10 @@ export class CatalogosController {
   @Get('/practicante')
   async getPracticante() {
     return await this.catalogosService.getPracticante();
+  }
+
+  @Get('/corte-practicas')
+  async getCortePractica() {
+    return await this.catalogosService.getCortePractica();
   }
 }
