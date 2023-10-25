@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { Role } from '../../auth/entities/roles.entity';
+import { Area } from 'src/modules/registro-carreras/entities';
 import { Modalidades } from '../../modalidades/entities/modalidades-entities';
 import { Practicante } from 'src/modules/horas-practicas/entities/practicante.entity';
 import { CortePracticas } from 'src/modules/horas-practicas/entities/corte-practicas.entity';
@@ -11,6 +12,11 @@ export class CatalogosService {
 
   async getRoles() {
     const rows = await this.dataSource.getRepository(Role).find();
+    return rows;
+  }
+
+  async getAreas() {
+    const rows = await this.dataSource.getRepository(Area).find();
     return rows;
   }
 

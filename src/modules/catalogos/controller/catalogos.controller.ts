@@ -10,6 +10,11 @@ export class CatalogosController {
     return await this.catalogosService.getRoles();
   }
 
+  @Get('/areas')
+  async getAreas() {
+    return await this.catalogosService.getAreas();
+  }
+
   @Get('/modalidades')
   async getModalidades() {
     return await this.catalogosService.getModalidades();
