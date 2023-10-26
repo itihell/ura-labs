@@ -29,4 +29,9 @@ export class CatalogosController {
   async getCortePractica() {
     return await this.catalogosService.getCortePractica();
   }
+  
+  @Get('users')
+  async getUsers() {
+    return await this.catalogosService.getUsers();
+  }
 }
