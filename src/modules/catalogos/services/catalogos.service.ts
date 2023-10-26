@@ -7,6 +7,7 @@ import { Practicante } from 'src/modules/horas-practicas/entities/practicante.en
 import { CortePracticas } from 'src/modules/horas-practicas/entities/corte-practicas.entity';
 import { LaboratoryUse } from 'src/modules/laboratory-use/entities';
 import { User } from 'src/modules/auth/entities';
+import { Carrera } from 'src/modules/registro-carreras/entities';
 
 @Injectable()
 export class CatalogosService {
@@ -48,7 +49,11 @@ export class CatalogosService {
   async getUsers() {
     const row = await this.dataSource.getRepository(User).find();
     console.log(row);
+  }
 
+  async getCarrera() {
+    const row = await this.dataSource.getRepository(Carrera).find();
+    console.log(row);
     return row;
   }
 }

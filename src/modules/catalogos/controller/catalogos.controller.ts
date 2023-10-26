@@ -39,4 +39,8 @@ export class CatalogosController {
   async getUsers() {
     return await this.catalogosService.getUsers();
   }
+  @Get('/registro-carreras')
+  async getCarreras() {
+    return await this.catalogosService.getCarrera();
+  }
 }

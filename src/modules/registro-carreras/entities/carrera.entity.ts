@@ -4,7 +4,7 @@ import { LaboratoryUse } from 'src/modules/laboratory-use/entities';
 import { Reservation } from 'src/modules/reservations/entities/reservation.entity';
 
 
-@Entity()
+@Entity({name: 'carrera'})
 export class Carrera {
   @PrimaryGeneratedColumn()
   id: number;
@@ -25,6 +25,4 @@ export class Carrera {
   laboratoryUse: LaboratoryUse[];
 
   carrera: Carrera[];
-  
-
 }
