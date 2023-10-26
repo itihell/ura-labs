@@ -34,4 +34,9 @@ export class CatalogosController {
   async getUselab() {
     return await this.catalogosService.getUselab();
   }
+
+  @Get('/users')
+  async getUsers() {
+    return await this.catalogosService.getUsers();
+  }
 }

@@ -6,6 +6,7 @@ import { Modalidades } from '../../modalidades/entities/modalidades-entities';
 import { Practicante } from 'src/modules/horas-practicas/entities/practicante.entity';
 import { CortePracticas } from 'src/modules/horas-practicas/entities/corte-practicas.entity';
 import { LaboratoryUse } from 'src/modules/laboratory-use/entities';
+import { User } from 'src/modules/auth/entities';
 
 @Injectable()
 export class CatalogosService {
@@ -41,6 +42,13 @@ export class CatalogosService {
 
   async getUselab() {
     const row = await this.dataSource.getRepository(LaboratoryUse).find();
+    return row;
+  }
+
+  async getUsers() {
+    const row = await this.dataSource.getRepository(User).find();
+    console.log(row);
+
     return row;
   }
 }
