@@ -6,8 +6,10 @@ import { AuthModule } from '../auth/auth.module';
 import { ModalidadesModule } from '../modalidades/modalidades.module';
 import { HorasPracticasModule } from '../horas-practicas/horas-practicas.module';
 import { RegistroCarrerasModule } from '../registro-carreras/registro-carreras.module';
+import { LabRegisterModule } from '../lab-register/lab.module';
+
 @Module({
-  imports: [AuthModule, ModalidadesModule, HorasPracticasModule, RegistroCarrerasModule],
+  imports: [AuthModule, ModalidadesModule, HorasPracticasModule, RegistroCarrerasModule, LabRegisterModule],
   controllers: [CatalogosController],
   providers: [CatalogosService],
 })
