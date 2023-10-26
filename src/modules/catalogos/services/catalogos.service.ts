@@ -5,6 +5,7 @@ import { Area } from 'src/modules/registro-carreras/entities';
 import { Modalidades } from '../../modalidades/entities/modalidades-entities';
 import { Practicante } from 'src/modules/horas-practicas/entities/practicante.entity';
 import { CortePracticas } from 'src/modules/horas-practicas/entities/corte-practicas.entity';
+import { LaboratoryUse } from 'src/modules/laboratory-use/entities';
 
 @Injectable()
 export class CatalogosService {
@@ -35,6 +36,11 @@ export class CatalogosService {
   async getCortePractica() {
     const row = await this.dataSource.getRepository(CortePracticas).find();
     console.log(row);
+    return row;
+  }
+
+  async getUselab() {
+    const row = await this.dataSource.getRepository(LaboratoryUse).find();
     return row;
   }
 }
