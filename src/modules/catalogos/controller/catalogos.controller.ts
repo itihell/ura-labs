@@ -29,4 +29,8 @@ export class CatalogosController {
   async getCortePractica() {
     return await this.catalogosService.getCortePractica();
   }
+  @Get('/registro-carreras')
+  async getCarreras() {
+    return await this.catalogosService.getCarrera();
+  }
 }
