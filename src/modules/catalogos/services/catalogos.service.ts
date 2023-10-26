@@ -5,9 +5,12 @@ import { Area } from 'src/modules/registro-carreras/entities';
 import { Modalidades } from '../../modalidades/entities/modalidades-entities';
 import { Practicante } from 'src/modules/horas-practicas/entities/practicante.entity';
 import { CortePracticas } from 'src/modules/horas-practicas/entities/corte-practicas.entity';
+
 import { LaboratoryUse } from 'src/modules/laboratory-use/entities';
 import { User } from 'src/modules/auth/entities';
 import { Carrera } from 'src/modules/registro-carreras/entities';
+
+import {LabEntity } from '../../lab-register/entities'
 
 @Injectable()
 export class CatalogosService {
@@ -53,6 +56,10 @@ export class CatalogosService {
 
   async getCarrera() {
     const row = await this.dataSource.getRepository(Carrera).find();
+    console.log(row);
+  }
+  async getLaboratory() {
+    const row = await this.dataSource.getRepository(LabEntity).find();
     console.log(row);
     return row;
   }

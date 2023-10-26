@@ -39,6 +39,11 @@ export class CatalogosController {
   async getUsers() {
     return await this.catalogosService.getUsers();
   }
+  @Get('/labregister')
+  
+  async getLaboratory() {
+    return await this.catalogosService.getLaboratory();
+  }
   @Get('/registro-carreras')
   async getCarreras() {
     return await this.catalogosService.getCarrera();
