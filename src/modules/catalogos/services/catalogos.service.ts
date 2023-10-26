@@ -5,8 +5,12 @@ import { Area } from 'src/modules/registro-carreras/entities';
 import { Modalidades } from '../../modalidades/entities/modalidades-entities';
 import { Practicante } from 'src/modules/horas-practicas/entities/practicante.entity';
 import { CortePracticas } from 'src/modules/horas-practicas/entities/corte-practicas.entity';
+<<<<<<< HEAD
 import { LaboratoryUse } from 'src/modules/laboratory-use/entities';
 import { User } from 'src/modules/auth/entities';
+=======
+import {LabEntity } from '../../lab-register/entities'
+>>>>>>> laboratory
 
 @Injectable()
 export class CatalogosService {
@@ -39,6 +43,7 @@ export class CatalogosService {
     console.log(row);
     return row;
   }
+<<<<<<< HEAD
 
   async getUselab() {
     const row = await this.dataSource.getRepository(LaboratoryUse).find();
@@ -49,6 +54,11 @@ export class CatalogosService {
     const row = await this.dataSource.getRepository(User).find();
     console.log(row);
 
+=======
+  async getLaboratory() {
+    const row = await this.dataSource.getRepository(LabEntity).find();
+    console.log(row);
+>>>>>>> laboratory
     return row;
   }
 }

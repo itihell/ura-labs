@@ -29,6 +29,7 @@ export class CatalogosController {
   async getCortePractica() {
     return await this.catalogosService.getCortePractica();
   }
+<<<<<<< HEAD
 
   @Get('/uselab')
   async getUselab() {
@@ -38,5 +39,10 @@ export class CatalogosController {
   @Get('/users')
   async getUsers() {
     return await this.catalogosService.getUsers();
+=======
+  @Get('/labregister')
+  async getLaboratory() {
+    return await this.catalogosService.getLaboratory();
+>>>>>>> laboratory
   }
 }
