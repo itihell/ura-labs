@@ -17,8 +17,8 @@ export class CatalogosController {
   }
 
   @Get('/modalidades')
-  async getModalidades() {
-    return await this.catalogosService.getModalidades();
+  async getModalidades(@Query() query: CatalogosDto) {
+    return await this.catalogosService.getModalidades(query);
   }
 
   @Get('/practicante')

@@ -36,9 +36,17 @@ export class CatalogosService {
     return rows;
   }
 
-  async getModalidades() {
-    const rows = await this.dataSource.getRepository(Modalidades).find();
-    console.log(rows);
+  async getModalidades(query: CatalogosDto) {
+    const rows = await this.dataSource
+      .getRepository(Modalidades)
+      .createQueryBuilder('modalidades')
+      .where(
+        "translate(modalidades.modalidades,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+        {
+          buscar: query.buscar || '',
+        },
+      )
+      .getMany();
     return rows;
   }
 
