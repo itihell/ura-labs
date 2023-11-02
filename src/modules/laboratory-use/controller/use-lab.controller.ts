@@ -17,7 +17,6 @@ export class UseLabController {
     const data = {
       data: uselabs,
     };
-
     return data;
   }
 
