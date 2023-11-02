@@ -1,13 +1,14 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { CatalogosService } from '../services/catalogos.service';
+import { CatalogosDto } from '../dtos/catalogos-dtos';
 
 @Controller('catalogos')
 export class CatalogosController {
   constructor(private readonly catalogosService: CatalogosService) {}
 
   @Get('/roles')
-  async getRoles() {
-    return await this.catalogosService.getRoles();
+  async getRoles(@Query() query: CatalogosDto) {
+    return await this.catalogosService.getRoles(query);
   }
 
   @Get('/areas')
@@ -40,7 +41,6 @@ export class CatalogosController {
     return await this.catalogosService.getUsers();
   }
   @Get('/labregister')
-  
   async getLaboratory() {
     return await this.catalogosService.getLaboratory();
   }

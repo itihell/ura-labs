@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DataSource } from 'typeorm';
+import { DataSource, ILike } from 'typeorm';
 import { Role } from '../../auth/entities/roles.entity';
 import { Area } from 'src/modules/registro-carreras/entities';
 import { Modalidades } from '../../modalidades/entities/modalidades-entities';
@@ -10,14 +10,24 @@ import { LaboratoryUse } from 'src/modules/laboratory-use/entities';
 import { User } from 'src/modules/auth/entities';
 import { Carrera } from 'src/modules/registro-carreras/entities';
 
-import {LabEntity } from '../../lab-register/entities'
+import { LabEntity } from '../../lab-register/entities';
+import { CatalogosDto } from '../dtos/catalogos-dtos';
 
 @Injectable()
 export class CatalogosService {
   constructor(private readonly dataSource: DataSource) {}
 
-  async getRoles() {
-    const rows = await this.dataSource.getRepository(Role).find();
+  async getRoles(query: CatalogosDto) {
+    const rows = await this.dataSource
+      .getRepository(Role)
+      .createQueryBuilder('roles')
+      .where(
+        "translate(roles.role,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+        {
+          buscar: query.buscar || '',
+        },
+      )
+      .getMany();
     return rows;
   }
 
