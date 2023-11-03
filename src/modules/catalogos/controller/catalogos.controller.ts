@@ -27,8 +27,8 @@ export class CatalogosController {
   }
 
   @Get('/corte-practicas')
-  async getCortePractica() {
-    return await this.catalogosService.getCortePractica();
+  async getCortePractica(@Query() query: CatalogosDto) {
+    return await this.catalogosService.getCortePractica(query);
   }
 
   @Get('/uselab')

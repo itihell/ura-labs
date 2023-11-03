@@ -56,12 +56,13 @@ export class CatalogosService {
     return row;
   }
 
-  async getCortePractica() {
-    const row = await this.dataSource.getRepository(CortePracticas).find();
-    console.log(row);
-    return row;
+  async getCortePractica(query: CatalogosDto) {
+    const rows = await this.dataSource
+      .getRepository(CortePracticas)
+      .createQueryBuilder('CortePracticas')
+      .getMany();
+    return rows;
   }
-
   async getUselab() {
     const row = await this.dataSource.getRepository(LaboratoryUse).find();
     return row;
