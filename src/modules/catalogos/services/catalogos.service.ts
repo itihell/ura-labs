@@ -83,16 +83,16 @@ export class CatalogosService {
 
   async getUselab(query: CatalogosDto) {
     const rows = await this.dataSource
-      .getRepository(LaboratoryUse)
-      .createQueryBuilder('uselab')
-      .where(
-        "translate(uselab.uselab,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
-        {
-          buscar: query.buscar || '',
-        },
-      )
-      .getMany();
-    return rows;
+    .getRepository(LaboratoryUse)
+    .createQueryBuilder('uselab')
+    .where(
+      "translate(uselab.teacher,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+      {
+        buscar: query.buscar || '',
+      },
+    )
+    .getMany();
+  return rows;
   }
 
   async getUsers() {

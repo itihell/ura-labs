@@ -33,7 +33,7 @@ export class CatalogosController {
 
   @Get('/uselab')
   async getUselab(@Query() query: CatalogosDto) {
-    return await this.catalogosService.getRoles(query);
+    return await this.catalogosService.getUselab(query);
   }
 
   @Get('/users')
