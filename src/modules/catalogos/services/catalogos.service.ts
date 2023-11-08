@@ -69,7 +69,7 @@ export class CatalogosService {
     .getRepository(LaboratoryUse)
     .createQueryBuilder('uselab')
     .where(
-      "translate(uselab.uselab,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+      "translate(uselab.teacher,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
       {
         buscar: query.buscar || '',
       },
