@@ -19,7 +19,7 @@ export class Carrera {
   carerra: Carrera[];
 
   @OneToMany(() => Reservation, (reservation) => reservation.carrera)
-  reservaciones: Reservation[];
+  reservaciones: Reservation[]
 
   @OneToMany(() => LaboratoryUse, (laboratoryUse) => laboratoryUse.carrera)
   laboratoryUse: LaboratoryUse[];
