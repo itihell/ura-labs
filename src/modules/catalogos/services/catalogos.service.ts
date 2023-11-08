@@ -96,8 +96,8 @@ export class CatalogosService {
   }
 
   async getUsers() {
-    const row = await this.dataSource.getRepository(User).find();
-    console.log(row);
+    const  rows = await this.dataSource.getRepository(User).createQueryBuilder('users').getMany();
+    return rows;
   }
 
   async getCarrera() {
