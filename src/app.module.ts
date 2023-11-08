@@ -10,6 +10,7 @@ import { HorasPracticasModule } from './modules/horas-practicas/horas-practicas.
 import { ReservationsModule } from './modules/reservations/reservations.module';
 import { UseLabModule } from './modules/laboratory-use/laboratory-use.module';
 import { ModalidadesModule } from './modules/modalidades/modalidades.module';
+import { CatalogosModule } from './modules/catalogos/catalogos.module';
 
 @Module({
   imports: [
@@ -19,12 +20,14 @@ import { ModalidadesModule } from './modules/modalidades/modalidades.module';
     }),
     DatabaseModule,
     HorasPracticasModule,
+    ModalidadesModule,
     AuthModule,
     RegistroCarrerasModule,
     LabRegisterModule,
     ReservationsModule,
     UseLabModule,
-    ModalidadesModule
+    ModalidadesModule,
+    CatalogosModule
   ],
   controllers: [AppController],
   providers: [

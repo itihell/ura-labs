@@ -63,9 +63,19 @@ export class CatalogosService {
       .getMany();
     return rows;
   }
-  async getUselab() {
-    const row = await this.dataSource.getRepository(LaboratoryUse).find();
-    return row;
+
+  async getUselab(query: CatalogosDto)  {
+    const rows = await this.dataSource
+    .getRepository(LaboratoryUse)
+    .createQueryBuilder('uselab')
+    .where(
+      "translate(uselab.uselab,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+      {
+        buscar: query.buscar || '',
+      },
+    )
+    .getMany();
+  return rows;
   }
 
   async getUsers() {
