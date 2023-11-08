@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DataSource } from 'typeorm';
+import { DataSource, ILike } from 'typeorm';
 import { Role } from '../../auth/entities/roles.entity';
 import { Area } from 'src/modules/registro-carreras/entities';
 import { Modalidades } from '../../modalidades/entities/modalidades-entities';
@@ -10,43 +10,89 @@ import { LaboratoryUse } from 'src/modules/laboratory-use/entities';
 import { User } from 'src/modules/auth/entities';
 import { Carrera } from 'src/modules/registro-carreras/entities';
 
-import {LabEntity } from '../../lab-register/entities'
+import { LabEntity } from '../../lab-register/entities';
+import { CatalogosDto } from '../dtos/catalogos-dtos';
 
 @Injectable()
 export class CatalogosService {
-  constructor(private readonly dataSource: DataSource) {}
+  constructor(private readonly dataSource: DataSource) { }
 
-  async getRoles() {
-    const rows = await this.dataSource.getRepository(Role).find();
+  async getRoles(query: CatalogosDto) {
+    const rows = await this.dataSource
+      .getRepository(Role)
+      .createQueryBuilder('roles')
+      .where(
+        "translate(roles.role,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+        {
+          buscar: query.buscar || '',
+        },
+      )
+      .getMany();
     return rows;
   }
 
-  async getAreas() {
-    const rows = await this.dataSource.getRepository(Area).find();
+  async getAreas(query: CatalogosDto) {
+    const rows = await this.dataSource
+      .getRepository(Area)
+      .createQueryBuilder('area')
+      .where(
+        "translate(area.nombre,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+        {
+          buscar: query.buscar || '',
+        },
+      )
+      .getMany();
     return rows;
   }
 
-  async getModalidades() {
-    const rows = await this.dataSource.getRepository(Modalidades).find();
-    console.log(rows);
+  async getModalidades(query: CatalogosDto) {
+    const rows = await this.dataSource
+      .getRepository(Modalidades)
+      .createQueryBuilder('modalidades')
+      .where(
+        "translate(modalidades.modalidades,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+        {
+          buscar: query.buscar || '',
+        },
+      )
+      .getMany();
     return rows;
   }
 
-  async getPracticante() {
-    const row = await this.dataSource.getRepository(Practicante).find();
-    console.log(row);
+  async getPracticante(query: CatalogosDto) {
+    const row = await this.dataSource
+      .getRepository(Practicante)
+      .createQueryBuilder('practicantes')
+      .where(
+        "translate(practicantes.nombre,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+        {
+          buscar: query.buscar || '',
+        },
+      )
+      .getMany();
     return row;
   }
 
-  async getCortePractica() {
-    const row = await this.dataSource.getRepository(CortePracticas).find();
-    console.log(row);
-    return row;
+  async getCortePractica(query: CatalogosDto) {
+    const rows = await this.dataSource
+      .getRepository(CortePracticas)
+      .createQueryBuilder('CortePracticas')
+      .getMany();
+    return rows;
   }
 
-  async getUselab() {
-    const row = await this.dataSource.getRepository(LaboratoryUse).find();
-    return row;
+  async getUselab(query: CatalogosDto) {
+    const rows = await this.dataSource
+    .getRepository(LaboratoryUse)
+    .createQueryBuilder('uselab')
+    .where(
+      "translate(uselab.teacher,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+      {
+        buscar: query.buscar || '',
+      },
+    )
+    .getMany();
+  return rows;
   }
 
   async getUsers() {

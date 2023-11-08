@@ -1,38 +1,39 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { CatalogosService } from '../services/catalogos.service';
+import { CatalogosDto } from '../dtos/catalogos-dtos';
 
 @Controller('catalogos')
 export class CatalogosController {
-  constructor(private readonly catalogosService: CatalogosService) {}
+  constructor(private readonly catalogosService: CatalogosService) { }
 
   @Get('/roles')
-  async getRoles() {
-    return await this.catalogosService.getRoles();
+  async getRoles(@Query() query: CatalogosDto) {
+    return await this.catalogosService.getRoles(query);
   }
 
   @Get('/areas')
-  async getAreas() {
-    return await this.catalogosService.getAreas();
+  async getAreas(@Query() query: CatalogosDto) {
+    return await this.catalogosService.getAreas(query);
   }
 
   @Get('/modalidades')
-  async getModalidades() {
-    return await this.catalogosService.getModalidades();
+  async getModalidades(@Query() query: CatalogosDto) {
+    return await this.catalogosService.getModalidades(query);
   }
 
   @Get('/practicante')
-  async getPracticante() {
-    return await this.catalogosService.getPracticante();
+  async getPracticante(@Query() query: CatalogosDto) {
+    return await this.catalogosService.getPracticante(query);
   }
 
   @Get('/corte-practicas')
-  async getCortePractica() {
-    return await this.catalogosService.getCortePractica();
+  async getCortePractica(@Query() query: CatalogosDto) {
+    return await this.catalogosService.getCortePractica(query);
   }
 
   @Get('/uselab')
-  async getUselab() {
-    return await this.catalogosService.getUselab();
+  async getUselab(@Query() query: CatalogosDto) {
+    return await this.catalogosService.getUselab(query);
   }
 
   @Get('/users')
@@ -40,7 +41,6 @@ export class CatalogosController {
     return await this.catalogosService.getUsers();
   }
   @Get('/labregister')
-  
   async getLaboratory() {
     return await this.catalogosService.getLaboratory();
   }
