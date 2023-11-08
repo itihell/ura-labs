@@ -4,7 +4,7 @@ import { CatalogosDto } from '../dtos/catalogos-dtos';
 
 @Controller('catalogos')
 export class CatalogosController {
-  constructor(private readonly catalogosService: CatalogosService) {}
+  constructor(private readonly catalogosService: CatalogosService) { }
 
   @Get('/roles')
   async getRoles(@Query() query: CatalogosDto) {
@@ -22,8 +22,8 @@ export class CatalogosController {
   }
 
   @Get('/practicante')
-  async getPracticante() {
-    return await this.catalogosService.getPracticante();
+  async getPracticante(@Query() query: CatalogosDto) {
+    return await this.catalogosService.getPracticante(query);
   }
 
   @Get('/corte-practicas')

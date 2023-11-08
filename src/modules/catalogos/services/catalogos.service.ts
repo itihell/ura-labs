@@ -15,7 +15,7 @@ import { CatalogosDto } from '../dtos/catalogos-dtos';
 
 @Injectable()
 export class CatalogosService {
-  constructor(private readonly dataSource: DataSource) {}
+  constructor(private readonly dataSource: DataSource) { }
 
   async getRoles(query: CatalogosDto) {
     const rows = await this.dataSource
@@ -59,9 +59,17 @@ export class CatalogosService {
     return rows;
   }
 
-  async getPracticante() {
-    const row = await this.dataSource.getRepository(Practicante).find();
-    console.log(row);
+  async getPracticante(query: CatalogosDto) {
+    const row = await this.dataSource
+      .getRepository(Practicante)
+      .createQueryBuilder('practicantes')
+      .where(
+        "translate(practicantes.nombre,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+        {
+          buscar: query.buscar || '',
+        },
+      )
+      .getMany();
     return row;
   }
 
