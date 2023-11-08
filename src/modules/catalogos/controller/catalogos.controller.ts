@@ -12,8 +12,8 @@ export class CatalogosController {
   }
 
   @Get('/areas')
-  async getAreas() {
-    return await this.catalogosService.getAreas();
+  async getAreas(@Query() query: CatalogosDto) {
+    return await this.catalogosService.getAreas(query);
   }
 
   @Get('/modalidades')

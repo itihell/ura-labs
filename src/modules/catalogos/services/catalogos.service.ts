@@ -31,8 +31,17 @@ export class CatalogosService {
     return rows;
   }
 
-  async getAreas() {
-    const rows = await this.dataSource.getRepository(Area).find();
+  async getAreas(query: CatalogosDto) {
+    const rows = await this.dataSource
+      .getRepository(Role)
+      .createQueryBuilder('areas')
+      .where(
+        "translate(roles.role,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+        {
+          buscar: query.buscar || '',
+        },
+      )
+      .getMany();
     return rows;
   }
 
