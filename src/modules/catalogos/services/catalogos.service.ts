@@ -33,10 +33,10 @@ export class CatalogosService {
 
   async getAreas(query: CatalogosDto) {
     const rows = await this.dataSource
-      .getRepository(Role)
-      .createQueryBuilder('areas')
+      .getRepository(Area)
+      .createQueryBuilder('area')
       .where(
-        "translate(roles.role,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+        "translate(area.nombre,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
         {
           buscar: query.buscar || '',
         },
@@ -73,18 +73,18 @@ export class CatalogosService {
     return rows;
   }
 
-  async getUselab(query: CatalogosDto)  {
+  async getUselab(query: CatalogosDto) {
     const rows = await this.dataSource
-    .getRepository(LaboratoryUse)
-    .createQueryBuilder('uselab')
-    .where(
-      "translate(uselab.uselab,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
-      {
-        buscar: query.buscar || '',
-      },
-    )
-    .getMany();
-  return rows;
+      .getRepository(LaboratoryUse)
+      .createQueryBuilder('uselab')
+      .where(
+        "translate(uselab.uselab,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+        {
+          buscar: query.buscar || '',
+        },
+      )
+      .getMany();
+    return rows;
   }
 
   async getUsers() {
