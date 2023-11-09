@@ -101,8 +101,8 @@ export class CatalogosService {
   }
 
   async getCarrera() {
-    const row = await this.dataSource.getRepository(Carrera).find();
-    console.log(row);
+    const row = await this.dataSource.getRepository(Carrera).createQueryBuilder('carrera').getMany();
+    return row;
   }
   async getLaboratory() {
     const row = await this.dataSource.getRepository(LabEntity).find();
