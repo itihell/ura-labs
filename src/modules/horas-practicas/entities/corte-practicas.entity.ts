@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from 'typeorm';
+import { Practicante } from './practicante.entity';
 
 @Entity({ name: 'CortePracticas' })
 export class CortePracticas {
@@ -6,7 +7,7 @@ export class CortePracticas {
   id: number;
 
   @Column()
-  practicante: string;
+  practicanteId: number;
 
   @Column()
   fecha_corte: string;
@@ -19,4 +20,9 @@ export class CortePracticas {
 
   @Column()
   horas_totales: number;
+
+  //relacion con practicante
+  @ManyToOne(()=> Practicante, (practicante) => practicante.cortePracticas, { eager: true })
+  @JoinColumn({name: 'practicanteId'})
+  practicante: Practicante;
 }

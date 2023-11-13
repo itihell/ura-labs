@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMan
 import { Area } from './area.entity';
 import { LaboratoryUse } from 'src/modules/laboratory-use/entities';
 import { Reservation } from 'src/modules/reservations/entities/reservation.entity';
+import { Practicante } from 'src/modules/horas-practicas/entities/practicante.entity';
 
 
 @Entity({name: 'carrera'})
@@ -25,4 +26,7 @@ export class Carrera {
   laboratoryUse: LaboratoryUse[];
 
   carrera: Carrera[];
+
+  @OneToMany(()=>Practicante, (practicante) => practicante.carrera)
+  practicantes: Practicante[];
 }

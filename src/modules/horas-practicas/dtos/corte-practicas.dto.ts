@@ -1,9 +1,9 @@
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CortePracticasDto {
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  practicante: string;
+  practicanteId: number;
 
   @IsString()
   @IsNotEmpty()
