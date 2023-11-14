@@ -11,6 +11,7 @@ import { ReservationsModule } from './modules/reservations/reservations.module';
 import { UseLabModule } from './modules/laboratory-use/laboratory-use.module';
 import { ModalidadesModule } from './modules/modalidades/modalidades.module';
 import { CatalogosModule } from './modules/catalogos/catalogos.module';
+import { RegistroDocentesModule } from './modules/Docentes/docentes.module';
 
 @Module({
   imports: [
@@ -27,7 +28,8 @@ import { CatalogosModule } from './modules/catalogos/catalogos.module';
     ReservationsModule,
     UseLabModule,
     ModalidadesModule,
-    CatalogosModule
+    CatalogosModule,
+    RegistroDocentesModule,
   ],
   controllers: [AppController],
   providers: [
@@ -38,4 +40,4 @@ import { CatalogosModule } from './modules/catalogos/catalogos.module';
     AppService,
   ],
 })
-export class AppModule { }
+export class AppModule {}
