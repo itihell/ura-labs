@@ -13,7 +13,6 @@ export class AppController {
   getHello() {
     const data = {
       data: this.config.get('API_KEY'),
-      message: 'Ok',
     };
     return data;
   }

@@ -55,4 +55,9 @@ export class CatalogosController {
     return await this.catalogosService.getAsignatura(query);
  
 }
+  @Get('/docentes')
+  async getDocente(@Query() query: CatalogosDto) {
+    return await this.catalogosService.getDocente(query);
+  }
+
 }
