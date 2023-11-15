@@ -1,6 +1,7 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { CatalogosService } from '../services/catalogos.service';
 import { CatalogosDto } from '../dtos/catalogos-dtos';
+import { query } from 'express';
 
 @Controller('catalogos')
 export class CatalogosController {
@@ -48,4 +49,10 @@ export class CatalogosController {
   async getCarreras() {
     return await this.catalogosService.getCarrera();
   }
+
+  @Get('/asignatura')
+  async getAsignatura(@Query() query: CatalogosDto) {
+    return await this.catalogosService.getAsignatura(query);
+ 
+}
 }

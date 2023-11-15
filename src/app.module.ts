@@ -12,6 +12,7 @@ import { UseLabModule } from './modules/laboratory-use/laboratory-use.module';
 import { ModalidadesModule } from './modules/modalidades/modalidades.module';
 import { CatalogosModule } from './modules/catalogos/catalogos.module';
 import { RegistroDocentesModule } from './modules/Docentes/docentes.module';
+import { RegistroAsignatureModule } from './modules/asignatura/asignatura.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { RegistroDocentesModule } from './modules/Docentes/docentes.module';
     ModalidadesModule,
     CatalogosModule,
     RegistroDocentesModule,
+    RegistroAsignatureModule,
   ],
   controllers: [AppController],
   providers: [

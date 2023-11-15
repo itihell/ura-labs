@@ -9,7 +9,7 @@ import { CortePracticas } from 'src/modules/horas-practicas/entities/corte-pract
 import { LaboratoryUse } from 'src/modules/laboratory-use/entities';
 import { User } from 'src/modules/auth/entities';
 import { Carrera } from 'src/modules/registro-carreras/entities';
-
+import { Asignatura } from 'src/modules/asignatura/entities/asignatura.entity';
 import { LabEntity } from '../../lab-register/entities';
 import { CatalogosDto } from '../dtos/catalogos-dtos';
 
@@ -95,6 +95,20 @@ export class CatalogosService {
   return rows;
   }
 
+
+  async getAsignatura(query: CatalogosDto) {
+    const rows = await this.dataSource
+      .getRepository(Asignatura)
+      .createQueryBuilder('asignatura')
+      .where(
+        "translate(asignatura.nombre,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+        {
+          buscar: query.buscar || '',
+        },
+      )
+      .getMany();
+    return rows;
+  }
   async getUsers() {
     const  rows = await this.dataSource.getRepository(User).createQueryBuilder('users').getMany();
     return rows;
