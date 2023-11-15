@@ -21,7 +21,7 @@ export class PracticanteService {
   //obtener todos los practicantes
   async getPracticantes(): Promise<Practicante[]> {
     try {
-      return this.practicanteRepo.find();
+      return this.practicanteRepo.find({relations: ['carrera']});
     } catch (error) {
       throw new Error('Error al obtener los practicantes');
     }
@@ -30,7 +30,7 @@ export class PracticanteService {
   //obtener un practicante
   async getPracticante(id: number): Promise<Practicante> {
     try {
-      return this.practicanteRepo.findOne({ where: { id } });
+      return this.practicanteRepo.findOne({ where: { id }, relations: ['carrera']});
     } catch (error) {
       throw new Error('Error al obtener el practicante');
     }
