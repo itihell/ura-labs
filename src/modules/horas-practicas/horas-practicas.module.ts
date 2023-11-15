@@ -7,11 +7,10 @@ import { CortePracticasController } from './controllers/corte-practicas.controll
 import { CortePracticasService } from './services/corte-practicas.service';
 import { PracticanteController } from './controllers/practicante.controller';
 import { PracticanteService } from './services/practicante.service';
-import { CortePracticasSubscriber } from './subscriber/corte-practicas.subscriber';
 
 @Module({
   imports: [TypeOrmModule.forFeature([CortePracticas, Practicante])],
   controllers: [CortePracticasController, PracticanteController],
-  providers: [CortePracticasService, PracticanteService, CortePracticasSubscriber],
+  providers: [CortePracticasService, PracticanteService],
 })
 export class HorasPracticasModule {}
