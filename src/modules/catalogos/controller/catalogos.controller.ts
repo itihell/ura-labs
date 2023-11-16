@@ -48,4 +48,9 @@ export class CatalogosController {
   async getCarreras() {
     return await this.catalogosService.getCarrera();
   }
+
+  @Get('/docentes')
+  async getDocentes(@Query() query: CatalogosDto) {
+    return await this.catalogosService.getDocentes(query);
+  }
 }

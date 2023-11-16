@@ -12,6 +12,7 @@ import { Carrera } from 'src/modules/registro-carreras/entities';
 
 import { LabEntity } from '../../lab-register/entities';
 import { CatalogosDto } from '../dtos/catalogos-dtos';
+import { Docentes } from 'src/modules/Docentes/entities/docentes.entity';
 
 @Injectable()
 export class CatalogosService {
@@ -108,5 +109,25 @@ export class CatalogosService {
     const row = await this.dataSource.getRepository(LabEntity).find();
     console.log(row);
     return row;
+  }
+
+  async getDocentes(query: CatalogosDto) {
+    const rows = await this.dataSource
+      .getRepository(Docentes)
+      .createQueryBuilder('docentes')
+      .where(
+        "translate(docentes.nombre, 'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+        {
+          buscar: query.buscar || '',
+        },
+      )
+      .andWhere(
+        "translate(docentes.apellido, 'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+        {
+          buscar: query.buscar || '', // Puedes obtener este valor desde query
+        },
+      )
+      .getMany();
+    return rows;
   }
 }
