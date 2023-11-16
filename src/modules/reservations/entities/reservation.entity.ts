@@ -1,14 +1,14 @@
+import { User } from 'src/modules/auth/entities/user.entity';
+import { LabEntity } from 'src/modules/lab-register/entities';
+import { Carrera } from 'src/modules/registro-carreras/entities';
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
   CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { LabEntity } from 'src/modules/lab-register/entities';
-import { User } from 'src/modules/auth/entities/user.entity';
-import { Carrera } from 'src/modules/registro-carreras/entities';
 
 @Entity()
 export class Reservation {
