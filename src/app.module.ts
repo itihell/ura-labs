@@ -12,6 +12,7 @@ import { ModalidadesModule } from './modules/modalidades/modalidades.module';
 import { RegistroCarrerasModule } from './modules/registro-carreras/registro-carreras.module';
 import { ReservationsModule } from './modules/reservations/reservations.module';
 import { TurnosModule } from './modules/turnos/turnos.module';
+import { RegistroDocentesModule } from './modules/Docentes/docentes.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -29,6 +30,7 @@ import { TurnosModule } from './modules/turnos/turnos.module';
     ModalidadesModule,
     CatalogosModule,
     TurnosModule,
+    RegistroDocentesModule,
   ],
   controllers: [AppController],
   providers: [

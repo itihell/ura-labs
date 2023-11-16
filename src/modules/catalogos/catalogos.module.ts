@@ -8,6 +8,7 @@ import { HorasPracticasModule } from '../horas-practicas/horas-practicas.module'
 import { RegistroCarrerasModule } from '../registro-carreras/registro-carreras.module';
 import { UseLabModule } from '../laboratory-use/laboratory-use.module';
 import { LabRegisterModule } from '../lab-register/lab.module';
+import { RegistroDocentesModule } from '../Docentes/docentes.module';
 @Module({
   imports: [
     AuthModule,
@@ -16,6 +17,7 @@ import { LabRegisterModule } from '../lab-register/lab.module';
     RegistroCarrerasModule,
     LabRegisterModule,
     UseLabModule,
+    RegistroDocentesModule,
   ],
   controllers: [CatalogosController],
   providers: [CatalogosService],

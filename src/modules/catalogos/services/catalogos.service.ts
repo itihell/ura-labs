@@ -14,6 +14,7 @@ import { LabEntity } from '../../lab-register/entities';
 import { CatalogosDto } from '../dtos/catalogos-dtos';
 import { Docentes } from 'src/modules/Docentes/entities/docentes.entity';
 
+
 @Injectable()
 export class CatalogosService {
   constructor(private readonly dataSource: DataSource) { }
@@ -111,17 +112,17 @@ export class CatalogosService {
     return row;
   }
 
-  async getDocentes(query: CatalogosDto) {
+  async getDocente(query: CatalogosDto) {
     const rows = await this.dataSource
-      .getRepository(Docentes)
-      .createQueryBuilder('docentes')
-      .where(
-        "translate(docentes.nombre, 'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
-        {
-          buscar: query.buscar || '',
-        },
-      )
-      .getMany();
-    return rows;
+    .getRepository(Docentes)
+    .createQueryBuilder('docentes')
+    .where(
+      "translate(docentes.nombre,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+      {
+        buscar: query.buscar || '',
+      },
+    )
+    .getMany();
+  return rows;
   }
 }
