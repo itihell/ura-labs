@@ -121,12 +121,6 @@ export class CatalogosService {
           buscar: query.buscar || '',
         },
       )
-      .andWhere(
-        "translate(docentes.apellido, 'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
-        {
-          buscar: query.buscar || '', // Puedes obtener este valor desde query
-        },
-      )
       .getMany();
     return rows;
   }
