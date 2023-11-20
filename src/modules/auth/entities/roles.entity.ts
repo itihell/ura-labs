@@ -21,7 +21,7 @@ export class Role {
     nullable: false,
     default: true,
   })
-  isActive: boolean;
+  is_active: boolean;
 
   @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', nullable: true })
   delete_at: Date;

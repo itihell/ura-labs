@@ -14,6 +14,8 @@ import { ReservationsModule } from './modules/reservations/reservations.module';
 import { TurnosModule } from './modules/turnos/turnos.module';
 import { RegistroDocentesModule } from './modules/Docentes/docentes.module';
 import { RegistroAsignatureModule } from './modules/asignatura/asignatura.module';
+import { ValidarApiKeyGuard } from './modules/auth/guards';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -37,10 +39,10 @@ import { RegistroAsignatureModule } from './modules/asignatura/asignatura.module
   ],
   controllers: [AppController],
   providers: [
-    // {
-    //   // provide: APP_GUARD,
-    //   useClass: ValidarApiKeyGuard,
-    // },
+    {
+      provide: APP_GUARD,
+      useClass: ValidarApiKeyGuard,
+    },
     AppService,
   ],
 })

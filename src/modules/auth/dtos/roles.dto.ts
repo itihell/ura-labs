@@ -1,6 +1,7 @@
 import {
   IsBoolean,
   IsNotEmpty,
+  IsNumber,
   IsNumberString,
   IsOptional,
   IsString,
@@ -9,7 +10,7 @@ import {
 
 export class RoleDto {
   @IsOptional()
-  @IsNumberString()
+  @IsNumber()
   id: number;
 
   @IsNotEmpty()
@@ -19,5 +20,5 @@ export class RoleDto {
 
   @IsBoolean()
   @IsOptional()
-  isActive: boolean;
+  is_active: boolean;
 }
