@@ -14,7 +14,7 @@ export class LaboratoryUse {
     @ManyToOne(() => Carrera, (carrera) => carrera.area)
     carrera: Carrera;
 
-    @ManyToOne(() => Docentes, (docente) => docente.docente)
+    @ManyToOne(() => Docentes, (docente) => docente.nombre && docente.apellido)
     docente: Docentes;
 
     @Column({ name: 'date', type: 'varchar', nullable: false })
