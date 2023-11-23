@@ -1,8 +1,8 @@
 import { Asignatura } from 'src/modules/asignatura/entities/asignatura.entity';
+import { Docentes } from 'src/modules/Docentes/entities/docentes.entity';
 import { LabEntity } from 'src/modules/lab-register/entities';
 import { Modalidades } from 'src/modules/modalidades/entities/modalidades-entities';
-import { Area, Carrera } from 'src/modules/registro-carreras/entities';
-import { Turnos } from 'src/modules/turnos/entities/turnos.entity';
+import {  Carrera } from 'src/modules/registro-carreras/entities';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn, ManyToOne } from 'typeorm';
 @Entity({ name: 'use_labs' })
 export class LaboratoryUse {
@@ -15,8 +15,8 @@ export class LaboratoryUse {
     @ManyToOne(() => Carrera, (carrera) => carrera.area)
     carrera: Carrera;
 
-    @Column({ name: 'teacher', type: 'varchar', length: 50, nullable: false })
-    teacher: string;
+    @ManyToOne(() => Docentes, (docente) => docente.nombre && docente.apellido)
+    docente: Docentes;
 
     @Column({ name: 'date', type: 'varchar', nullable: false })
     date: string;

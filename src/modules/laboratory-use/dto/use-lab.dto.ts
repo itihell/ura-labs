@@ -11,7 +11,8 @@ import { Asignatura } from 'src/modules/asignatura/entities/asignatura.entity';
 import { LabEntity } from 'src/modules/lab-register/entities';
 import { Modalidades } from 'src/modules/modalidades/entities/modalidades-entities';
 import { Carrera } from 'src/modules/registro-carreras/entities';
-import { Turnos } from 'src/modules/turnos/entities/turnos.entity';
+import { Docentes } from 'src/modules/Docentes/entities/docentes.entity';
+
 
 export class LaboratoryUseDto {
   @IsNumber()
@@ -27,11 +28,9 @@ export class LaboratoryUseDto {
   @IsObject()
   carrera: Carrera;
 
-  @IsString()
   @IsNotEmpty()
-  @MaxLength(50)
-  @ApiProperty()
-  readonly teacher: string;
+  @IsObject()
+  docente: Docentes;
 
   @IsString()
   @IsNotEmpty()

@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
 } from '@nestjs/common';
 import { CreateTurnosDto } from './dto/create-turnos.dto';
@@ -31,5 +33,18 @@ export class TurnosController {
   @Get()
   findAll() {
     return this.turnosService.findAll();
+  }
+
+  @Patch(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateTurnosDto: Partial<Turnos>,
+  ) {
+    return this.turnosService.update(id, updateTurnosDto);
+  }
+
+  @Delete(':id')
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.turnosService.delete(id);
   }
 }
