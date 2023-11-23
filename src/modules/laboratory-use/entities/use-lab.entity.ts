@@ -1,3 +1,4 @@
+import { Docentes } from 'src/modules/Docentes/entities/docentes.entity';
 import { LabEntity } from 'src/modules/lab-register/entities';
 import { Modalidades } from 'src/modules/modalidades/entities/modalidades-entities';
 import { Area, Carrera } from 'src/modules/registro-carreras/entities';
@@ -13,8 +14,8 @@ export class LaboratoryUse {
     @ManyToOne(() => Carrera, (carrera) => carrera.area)
     carrera: Carrera;
 
-    @Column({ name: 'teacher', type: 'varchar', length: 50, nullable: false })
-    teacher: string;
+    @ManyToOne(() => Docentes, (docente) => docente.docente)
+    docente: Docentes;
 
     @Column({ name: 'date', type: 'varchar', nullable: false })
     date: string;
