@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { LaboratoryUse } from 'src/modules/laboratory-use/entities';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('turnos')
 export class Turnos {
@@ -7,4 +8,6 @@ export class Turnos {
 
   @Column({ unique: true })
   name: string;
+
+
 }

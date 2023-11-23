@@ -13,7 +13,7 @@ export class UseLabService {
 
   async getUselab(): Promise<LaboratoryUse[]> {
     return await this.registerRepository.find({
-      relations: ['carrera', 'carrera.area', 'modality', 'laboratorio']
+      relations: ['carrera', 'carrera.area', 'modality', 'laboratorio', 'className']
     });
   }
 
@@ -26,6 +26,7 @@ export class UseLabService {
       .leftJoinAndSelect('carrera.area', 'area') 
       .leftJoinAndSelect('labUse.modality', 'modality')
       .leftJoinAndSelect('labUse.laboratorio', 'laboratorio') 
+      .leftJoinAndSelect('labUse.className', 'className') 
       .getOne();
     }
   }

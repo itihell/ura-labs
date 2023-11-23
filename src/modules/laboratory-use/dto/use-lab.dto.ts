@@ -7,9 +7,11 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
+import { Asignatura } from 'src/modules/asignatura/entities/asignatura.entity';
 import { LabEntity } from 'src/modules/lab-register/entities';
 import { Modalidades } from 'src/modules/modalidades/entities/modalidades-entities';
 import { Carrera } from 'src/modules/registro-carreras/entities';
+import { Turnos } from 'src/modules/turnos/entities/turnos.entity';
 
 export class LaboratoryUseDto {
   @IsNumber()
@@ -17,10 +19,9 @@ export class LaboratoryUseDto {
   @ApiProperty()
   readonly id?: number;
 
-  @IsString()
   @IsNotEmpty()
-  @ApiProperty()
-  readonly className: string;
+  @IsObject()
+  className: Asignatura;
 
   @IsNotEmpty()
   @IsObject()
