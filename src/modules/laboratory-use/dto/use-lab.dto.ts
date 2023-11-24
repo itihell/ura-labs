@@ -1,5 +1,6 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import {
+  IsBoolean,
   IsNotEmpty,
   IsNumber,
   IsObject,
@@ -82,6 +83,9 @@ export class LaboratoryUseDto {
   @IsObject()
   laboratorio: LabEntity;
 
+  @IsBoolean()
+  @IsOptional()
+  is_active: boolean;
 }
 
 export class UseLabTypeDto extends PartialType(LaboratoryUseDto) { }

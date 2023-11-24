@@ -2,8 +2,8 @@ import { Asignatura } from 'src/modules/asignatura/entities/asignatura.entity';
 import { Docentes } from 'src/modules/Docentes/entities/docentes.entity';
 import { LabEntity } from 'src/modules/lab-register/entities';
 import { Modalidades } from 'src/modules/modalidades/entities/modalidades-entities';
-import {  Carrera } from 'src/modules/registro-carreras/entities';
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn, ManyToOne } from 'typeorm';
+import { Carrera } from 'src/modules/registro-carreras/entities';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn, ManyToOne, DeleteDateColumn } from 'typeorm';
 @Entity({ name: 'use_labs' })
 export class LaboratoryUse {
     @PrimaryGeneratedColumn({ name: 'id', type: 'int4' })
@@ -44,6 +44,17 @@ export class LaboratoryUse {
 
     @Column({ name: 'hours', type: 'varchar', nullable: false })
     hours: string;
+
+    @Column({
+        name: 'is_active',
+        type: 'boolean',
+        nullable: false,
+        default: true,
+    })
+    is_active: boolean;
+
+    @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', nullable: true })
+    delete_at: Date;
 
     @ManyToOne(() => LabEntity, (laboratorio) => laboratorio.laboratorio)
     laboratorio: LabEntity;
