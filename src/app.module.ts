@@ -39,10 +39,10 @@ import { APP_GUARD } from '@nestjs/core';
   ],
   controllers: [AppController],
   providers: [
-    {
-      provide: APP_GUARD,
-      useClass: ValidarApiKeyGuard,
-    },
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: ValidarApiKeyGuard,
+    // },
     AppService,
   ],
 })

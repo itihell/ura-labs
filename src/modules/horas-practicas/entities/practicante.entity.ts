@@ -9,7 +9,10 @@ export class Practicante {
   id?: number;
 
   @Column()
-  nombre: string;
+  nombres: string;
+
+  @Column()
+  apellidos: string;
 
   @Column()
   carrera: string;

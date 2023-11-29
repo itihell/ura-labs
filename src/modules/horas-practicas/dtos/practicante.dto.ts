@@ -12,7 +12,11 @@ export class PracticanteDto {
 
   @IsString()
   @IsNotEmpty()
-  nombre: string;
+  nombres: string;
+
+  @IsString()
+  @IsNotEmpty()
+  apellidos: string;
 
   @IsString()
   @IsNotEmpty()
