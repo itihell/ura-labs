@@ -14,13 +14,11 @@ import { Modalidades } from '../entities/modalidades-entities';
 
 @Controller('modalidades')
 export class ModalidadesController {
-  constructor(private readonly RepoModalidadesService: ModalidadesService) { }
+  constructor(private readonly RepoModalidadesService: ModalidadesService) {}
 
   @Post('/')
   async createdModalidades(@Body() payload: ModalidadesDto) {
-    const newModalidades = await this.RepoModalidadesService.created(
-      payload,
-    );
+    const newModalidades = await this.RepoModalidadesService.created(payload);
     const data = {
       data: newModalidades,
       message: 'created',
