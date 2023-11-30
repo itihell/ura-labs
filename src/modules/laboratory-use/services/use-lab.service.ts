@@ -13,20 +13,26 @@ export class UseLabService {
 
   async getUselab(): Promise<LaboratoryUse[]> {
     return await this.registerRepository.find({
-      relations: ['carrera', 'carrera.area', 'modality', 'laboratorio']
+
+     
+
+      relations: ['carrera', 'carrera.area', 'modality', 'laboratorio', 'docente', 'className']
     });
   }
 
   async findOne(id: any): Promise<LaboratoryUse> {
     {
       return await this.registerRepository
-      .createQueryBuilder('labUse')
-      .where('labUse.id = :id', { id })
-      .leftJoinAndSelect('labUse.carrera', 'carrera') 
-      .leftJoinAndSelect('carrera.area', 'area') 
-      .leftJoinAndSelect('labUse.modality', 'modality')
-      .leftJoinAndSelect('labUse.laboratorio', 'laboratorio') 
-      .getOne();
+
+        .createQueryBuilder('labUse')
+        .where('labUse.id = :id', { id })
+        .leftJoinAndSelect('labUse.carrera', 'carrera')
+        .leftJoinAndSelect('carrera.area', 'area')
+        .leftJoinAndSelect('labUse.modality', 'modality')
+        .leftJoinAndSelect('labUse.laboratorio', 'laboratorio')
+        .leftJoinAndSelect('labUse.docente', 'docente')
+        .leftJoinAndSelect('labUse.className', 'className') 
+        .getOne();
     }
   }
 

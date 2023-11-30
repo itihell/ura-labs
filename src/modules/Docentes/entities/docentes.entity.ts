@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { LaboratoryUse } from 'src/modules/laboratory-use/entities';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity()
 export class Docentes {
@@ -13,4 +14,9 @@ export class Docentes {
 
   @Column()
   fechaNacimiento: string;
+
+  @OneToMany(() => LaboratoryUse, (laboratoryUse) => laboratoryUse.docente)
+  laboratoryUse: LaboratoryUse[];
+
+  docente: Docentes[];
 }
