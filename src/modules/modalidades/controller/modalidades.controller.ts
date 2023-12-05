@@ -7,10 +7,12 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { ModalidadesService } from '../services/modalidades.service';
 import { ModalidadesDto } from '../dto/modalidates-dto';
 import { Modalidades } from '../entities/modalidades-entities';
+import { QueryParamsModalidadesDto } from '../dto/query-params-modalidades-dto';
 
 @Controller('modalidades')
 export class ModalidadesController {
@@ -27,8 +29,8 @@ export class ModalidadesController {
   }
 
   @Get('/')
-  async getModalidades() {
-    const modalidades = await this.RepoModalidadesService.getModalidades();
+  async getModalidades(@Query() query: QueryParamsModalidadesDto) {
+    const modalidades = await this.RepoModalidadesService.getModalidades(query);
     const data = {
       data: modalidades,
       message: 'ok',
