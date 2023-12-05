@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Role } from '../entities';
 import { RoleDto } from '../dtos';
+import { QueryParamsRolesDto } from '../dtos/query-params-roles.dto';
 
 @Injectable()
 export class RolesService {
@@ -19,8 +20,26 @@ export class RolesService {
     return role;
   }
 
-  async getRoles(): Promise<Role[]> {
-    return await this.roleRepo.find({ order: { id: 'ASC' } });
+  async getRoles(query: QueryParamsRolesDto): Promise<Role[]> {
+    const rows = this.roleRepo.createQueryBuilder('pepito').where('id <> 0');
+    console.log(query);
+
+    if (query.role)
+      rows.andWhere('pepito.role ILIKE :role', { role: `%${query.role}%` });
+
+    if (query.is_active === 'true')
+      rows.andWhere('pepito.is_active = :is_active', {
+        is_active: true,
+      });
+
+    if (query.is_active === 'false')
+      rows.andWhere('pepito.is_active = :is_active', {
+        is_active: false,
+      });
+
+    rows.orderBy('pepito.id', 'ASC');
+
+    return await rows.getMany();
   }
 
   async createRole(payload: RoleDto): Promise<Role> {

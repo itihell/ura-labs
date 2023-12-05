@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { RegistroDocentesModule } from './modules/Docentes/docentes.module';
+import { RegistroAsignatureModule } from './modules/asignatura/asignatura.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { CatalogosModule } from './modules/catalogos/catalogos.module';
 import { DatabaseModule } from './modules/database/database.module';
@@ -12,10 +14,6 @@ import { ModalidadesModule } from './modules/modalidades/modalidades.module';
 import { RegistroCarrerasModule } from './modules/registro-carreras/registro-carreras.module';
 import { ReservationsModule } from './modules/reservations/reservations.module';
 import { TurnosModule } from './modules/turnos/turnos.module';
-import { RegistroDocentesModule } from './modules/Docentes/docentes.module';
-import { RegistroAsignatureModule } from './modules/asignatura/asignatura.module';
-import { ValidarApiKeyGuard } from './modules/auth/guards';
-import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -39,10 +37,10 @@ import { APP_GUARD } from '@nestjs/core';
   ],
   controllers: [AppController],
   providers: [
-    {
-      provide: APP_GUARD,
-      useClass: ValidarApiKeyGuard,
-    },
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: ValidarApiKeyGuard,
+    // },
     AppService,
   ],
 })

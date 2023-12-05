@@ -1,5 +1,6 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import {
+  IsBoolean,
   IsNotEmpty,
   IsNumber,
   IsObject,
@@ -7,9 +8,12 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
+import { Asignatura } from 'src/modules/asignatura/entities/asignatura.entity';
 import { LabEntity } from 'src/modules/lab-register/entities';
 import { Modalidades } from 'src/modules/modalidades/entities/modalidades-entities';
 import { Carrera } from 'src/modules/registro-carreras/entities';
+import { Docentes } from 'src/modules/Docentes/entities/docentes.entity';
+
 
 export class LaboratoryUseDto {
   @IsNumber()
@@ -17,20 +21,17 @@ export class LaboratoryUseDto {
   @ApiProperty()
   readonly id?: number;
 
-  @IsString()
   @IsNotEmpty()
-  @ApiProperty()
-  readonly className: string;
+  @IsObject()
+  className: Asignatura;
 
   @IsNotEmpty()
   @IsObject()
   carrera: Carrera;
 
-  @IsString()
   @IsNotEmpty()
-  @MaxLength(50)
-  @ApiProperty()
-  readonly teacher: string;
+  @IsObject()
+  docente: Docentes;
 
   @IsString()
   @IsNotEmpty()
@@ -82,6 +83,9 @@ export class LaboratoryUseDto {
   @IsObject()
   laboratorio: LabEntity;
 
+  @IsBoolean()
+  @IsOptional()
+  is_active: boolean;
 }
 
 export class UseLabTypeDto extends PartialType(LaboratoryUseDto) { }
