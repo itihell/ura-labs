@@ -28,8 +28,8 @@ export class PracticanteDto {
   fecha_fin: string;
 
   @IsNotEmpty()
-  @IsString()
-  cantidad_horas: string;
+  @IsNumber()
+  cantidad_horas: number;
 
   @IsNotEmpty()
   @IsNumber()

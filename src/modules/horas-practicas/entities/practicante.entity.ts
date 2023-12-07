@@ -24,7 +24,7 @@ export class Practicante {
   fecha_fin: string;
 
   @Column()
-  cantidad_horas: string;
+  cantidad_horas: number;
 
   @ManyToOne(() => Carrera, carrera => carrera.practicantes)
   carrera?: Carrera;
