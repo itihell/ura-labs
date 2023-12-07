@@ -1,9 +1,13 @@
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { PrimaryGeneratedColumn } from 'typeorm';
 
 export class CortePracticasDto {
-  @IsString()
-  @IsNotEmpty()
-  practicante: string;
+  @PrimaryGeneratedColumn({
+    name: 'id',
+    type: 'int4',
+  })
+  id?: number;
+
 
   @IsString()
   @IsNotEmpty()
@@ -20,4 +24,8 @@ export class CortePracticasDto {
   @IsNumber()
   @IsOptional()
   horas_totales: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  practicanteId: number;
 }

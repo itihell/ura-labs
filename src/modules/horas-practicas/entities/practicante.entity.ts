@@ -1,5 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
+import { Column, Entity, PrimaryGeneratedColumn, 
+  ManyToOne, JoinColumn, OneToMany, OneToOne
+ } from 'typeorm';
+import { Carrera } from 'src/modules/registro-carreras/entities';
+import { CortePracticas } from './corte-practicas.entity';
 @Entity('practicante')
 export class Practicante {
   @PrimaryGeneratedColumn({
@@ -9,10 +12,10 @@ export class Practicante {
   id?: number;
 
   @Column()
-  nombre: string;
+  nombres: string;
 
   @Column()
-  carrera: string;
+  apellidos: string;
 
   @Column()
   fecha_inicio: string;
@@ -21,5 +24,11 @@ export class Practicante {
   fecha_fin: string;
 
   @Column()
-  cantidad_horas: string;
+  cantidad_horas: number;
+
+  @ManyToOne(() => Carrera, carrera => carrera.practicantes)
+  carrera?: Carrera;
+
+  @OneToMany(() => CortePracticas, cortePracticas => cortePracticas.practicante)
+  cortePracticas?: CortePracticas[];
 }

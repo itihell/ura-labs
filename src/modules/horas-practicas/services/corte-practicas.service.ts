@@ -3,21 +3,31 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CortePracticas } from '../entities/corte-practicas.entity';
 import { Repository } from 'typeorm';
 import { CortePracticasDto } from '../dtos/corte-practicas.dto';
+import { Practicante } from '../entities/practicante.entity';
 
 @Injectable()
 export class CortePracticasService {
   constructor(
     @InjectRepository(CortePracticas)
     private readonly cortePracticasRepo: Repository<CortePracticas>,
+
+    @InjectRepository(Practicante)
+    private readonly practicanteRepo: Repository<Practicante>,
   ) {}
 
-  async createCorte(payload: CortePracticasDto): Promise<CortePracticas> {
+  async createCorte(
+    payload: CortePracticasDto,
+    practicanteId: number,
+  ): Promise<CortePracticas> {
     try {
-      const horasTotales = payload.horas_actuales + payload.horas_anteriores;
-      payload.horas_totales = horasTotales;
-
-      const newCorte = this.cortePracticasRepo.create(payload);
-      return this.cortePracticasRepo.save(newCorte);
+      const practicante = await this.practicanteRepo.findOne({
+        where: { id: practicanteId },
+      });
+      const newCorte = this.cortePracticasRepo.create({
+        ...payload,
+        practicante,
+      });
+      return await this.cortePracticasRepo.save(newCorte);
     } catch (error) {
       throw new Error('Error al crear el corte');
     }
@@ -25,7 +35,7 @@ export class CortePracticasService {
   //obtener todos los cortes
   async getCortes(): Promise<CortePracticas[]> {
     try {
-      return this.cortePracticasRepo.find();
+      return this.cortePracticasRepo.find({relations: ['practicante']});
     } catch (error) {
       throw new Error('Error al obtener los cortes');
     }
