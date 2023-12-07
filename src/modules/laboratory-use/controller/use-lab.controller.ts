@@ -3,6 +3,9 @@ import { Delete, Param } from "@nestjs/common/decorators";
 import { LaboratoryUseDto } from "../dto";
 import { UseLabService } from "../services/use-lab.service";
 import { LaboratoryUse } from "../entities";
+import { query } from "express";
+import { QueryParamsRolesDto } from "src/modules/auth/dtos/query-params-roles.dto";
+import { QueryParamsUsoLabDto } from "../dto/query-params-laboratoryUse.dto";
 
 @Controller('uselab')
 export class UseLabController {
@@ -22,8 +25,8 @@ export class UseLabController {
   }
 
   @Get('/')
-  async getUselab() {
-    const uselab = await this.registerDetailServiceRepo.getUselab();
+  async getUselab(query: QueryParamsUsoLabDto) {
+    const uselab = await this.registerDetailServiceRepo.getUselab(query);
 
     const data = {
       data: uselab,
