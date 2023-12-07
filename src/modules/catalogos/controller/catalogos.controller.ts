@@ -2,6 +2,8 @@ import { Controller, Get, Query } from '@nestjs/common';
 import { CatalogosService } from '../services/catalogos.service';
 import { CatalogosDto } from '../dtos/catalogos-dtos';
 import { query } from 'express';
+import { FiltroReporteDocentesDto } from 'src/modules/laboratory-use/dto';
+import { FiltroBuscarDocenteDto } from 'src/modules/laboratory-use/dto/filtro-buscar.dto';
 
 @Controller('catalogos')
 export class CatalogosController {
@@ -33,8 +35,12 @@ export class CatalogosController {
   }
 
   @Get('/uselab')
-  async getUselab(@Query() query: CatalogosDto) {
-    return await this.catalogosService.getUselab(query);
+  async getUselab(@Query() query: FiltroBuscarDocenteDto) {
+    const rows = await this.catalogosService.getUselab(query);
+    const data = {
+      data: rows,
+    };
+    return data;
   }
 
   @Get('/users')

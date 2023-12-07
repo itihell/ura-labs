@@ -13,6 +13,8 @@ import { Asignatura } from 'src/modules/asignatura/entities/asignatura.entity';
 import { LabEntity } from '../../lab-register/entities';
 import { CatalogosDto } from '../dtos/catalogos-dtos';
 import { Docentes } from 'src/modules/Docentes/entities/docentes.entity';
+import { FiltroReporteDocentesDto } from 'src/modules/laboratory-use/dto';
+import { FiltroBuscarDocenteDto } from 'src/modules/laboratory-use/dto/filtro-buscar.dto';
 
 
 @Injectable()
@@ -82,20 +84,53 @@ export class CatalogosService {
       .getMany();
     return rows;
   }
-
-  async getUselab(query: CatalogosDto) {
-    const rows = await this.dataSource
-    .getRepository(LaboratoryUse)
-    .createQueryBuilder('uselab')
-    .where(
-      "translate(uselab.teacher,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
-      {
-        buscar: query.buscar || '',
-      },
-    )
-    .getMany();
-  return rows;
+  async getUselab(query: FiltroBuscarDocenteDto) {
+    const rows = this.dataSource
+      .getRepository(LaboratoryUse)
+      .createQueryBuilder('uselab')
+      .leftJoin(Docentes, 'docente', 'docente.id = uselab.docenteId')
+      .select(`docente.nombre || ' ' || docente.apellido`, 'docente')
+      .where(
+        "translate(docente.nombre || ' ' || docente.apellido,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+        {
+          buscar: query.buscar || '',
+        },
+      )
+      .groupBy('docente.nombre')
+      .addGroupBy('docente.apellido');
+  
+    if (query.docente) {
+      rows.andWhere('uselab.docenteId = :docente', {
+        docente: query.docente,
+      });
+    }
+    return await rows.getRawMany();
   }
+  
+  // async getUselab(query: FiltroBuscarDocenteDto) {
+  //   const rows = this.dataSource
+  //   .getRepository(LaboratoryUse)
+  //   .createQueryBuilder('uselab')
+  //   .leftJoin(Docentes, 'docente', 'docente.id = uselab.docenteId')
+  //   .select(`docente.nombre||' '||docente.apellido`, 'docente')
+  //   .where(
+  //     "translate(docente.nombre || ' ' || docente.apellido,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+  //     {
+  //       buscar: query.buscar || '',
+  //     },
+  //     )
+  //   //   rows
+  //     .groupBy('docente.nombre')
+  //     .addGroupBy('docente.apellido')
+      
+  //     rows.where('uselab.id <> 0');
+  //     if (query.docente)
+  //     rows.andWhere('uselab.docenteId = :docente', {
+  //       docente: query.docente,
+  //     });
+
+  //     return await rows.getRawMany();
+  // }
 
 
   async getAsignatura(query: CatalogosDto) {
