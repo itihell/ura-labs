@@ -18,7 +18,7 @@ export class LaboratoryUse {
     @ManyToOne(() => Docentes, (docente) => docente.nombre && docente.apellido)
     docente: Docentes;
 
-    @Column({ name: 'date', type: 'varchar', nullable: false })
+    @Column({ name: 'date', type: 'date', nullable: false })
     date: string;
 
     @ManyToOne(() => Modalidades, (modalidad) => modalidad.modalidad)
@@ -42,8 +42,8 @@ export class LaboratoryUse {
     @Column({ name: 'total', type: 'numeric', nullable: false })
     total: number;
 
-    @Column({ name: 'hours', type: 'varchar', nullable: false })
-    hours: string;
+    @Column({ name: 'hours', type: 'int8', nullable: false })
+    hours: number;
 
     @Column({
         name: 'is_active',
