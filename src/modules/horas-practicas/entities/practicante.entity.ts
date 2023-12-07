@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn,
   ManyToOne, JoinColumn, OneToMany, OneToOne
  } from 'typeorm';
 import { Carrera } from 'src/modules/registro-carreras/entities';
-
+import { CortePracticas } from './corte-practicas.entity';
 @Entity('practicante')
 export class Practicante {
   @PrimaryGeneratedColumn({
@@ -28,4 +28,7 @@ export class Practicante {
 
   @ManyToOne(() => Carrera, carrera => carrera.practicantes)
   carrera?: Carrera;
+
+  @OneToMany(() => CortePracticas, cortePracticas => cortePracticas.practicante)
+  cortePracticas?: CortePracticas[];
 }

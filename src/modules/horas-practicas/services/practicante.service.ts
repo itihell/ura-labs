@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Practicante } from '../entities/practicante.entity';
 import { Repository } from 'typeorm';
 import { Carrera } from 'src/modules/registro-carreras/entities';
+import { PracticanteDto } from '../dtos/practicante.dto';
 
 @Injectable()
 export class PracticanteService {
@@ -15,7 +16,7 @@ export class PracticanteService {
   ) {}
 
   async createPracticante(
-    payload: Practicante,
+    payload: PracticanteDto,
     carrraId: number,
   ): Promise<Practicante> {
     try {

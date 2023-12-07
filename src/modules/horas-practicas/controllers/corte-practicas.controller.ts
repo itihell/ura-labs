@@ -16,14 +16,18 @@ export class CortePracticasController {
   constructor(private readonly cortePracticasDto: CortePracticasService) {}
   // crear corte practicas
   @Post('/')
-  async createCorte(@Body() payload: CortePracticasDto) {
-    const newCortePracticas = await this.cortePracticasDto.createCorte(payload);
-
+  async createCorte(
+    @Body() payload: CortePracticasDto,
+    @Body('practicanteId', ParseIntPipe) practicanteId: number,
+  ) {
+    const corte = await this.cortePracticasDto.createCorte(
+      payload,
+      practicanteId,
+    );
     const data = {
-      data: newCortePracticas,
+      data: corte,
       message: 'created',
     };
-
     return data;
   }
 
