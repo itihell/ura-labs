@@ -7,20 +7,20 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { ModalidadesService } from '../services/modalidades.service';
 import { ModalidadesDto } from '../dto/modalidates-dto';
 import { Modalidades } from '../entities/modalidades-entities';
+import { QueryParamsModalidadesDto } from '../dto/query-params-modalidades-dto';
 
 @Controller('modalidades')
 export class ModalidadesController {
-  constructor(private readonly RepoModalidadesService: ModalidadesService) { }
+  constructor(private readonly RepoModalidadesService: ModalidadesService) {}
 
   @Post('/')
   async createdModalidades(@Body() payload: ModalidadesDto) {
-    const newModalidades = await this.RepoModalidadesService.created(
-      payload,
-    );
+    const newModalidades = await this.RepoModalidadesService.created(payload);
     const data = {
       data: newModalidades,
       message: 'created',
@@ -29,8 +29,8 @@ export class ModalidadesController {
   }
 
   @Get('/')
-  async getModalidades() {
-    const modalidades = await this.RepoModalidadesService.getModalidades();
+  async getModalidades(@Query() query: QueryParamsModalidadesDto) {
+    const modalidades = await this.RepoModalidadesService.getModalidades(query);
     const data = {
       data: modalidades,
       message: 'ok',

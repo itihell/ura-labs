@@ -11,7 +11,7 @@ import {
 
 export class ModalidadesDto {
   @IsOptional()
-  @IsNumberString()
+  @IsNumber()
   id: number;
 
   @IsNotEmpty()

@@ -7,11 +7,13 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { RolesService } from '../services';
 import { AuthGuard } from '@nestjs/passport';
 import { RoleDto } from '../dtos';
+import { QueryParamsRolesDto } from '../dtos/query-params-roles.dto';
 
 @Controller('roles')
 // @UseGuards(AuthGuard())
@@ -19,8 +21,8 @@ export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
 
   @Get('/')
-  async getRoles() {
-    const roles = await this.rolesService.getRoles();
+  async getRoles(@Query() query: QueryParamsRolesDto) {
+    const roles = await this.rolesService.getRoles(query);
 
     const data = {
       data: roles,

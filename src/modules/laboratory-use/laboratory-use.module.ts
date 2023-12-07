@@ -8,10 +8,12 @@ import { Carrera } from '../registro-carreras/entities';
 import { LabEntity } from '../lab-register/entities';
 import { Docentes } from '../Docentes/entities/docentes.entity';
 import { Asignatura } from '../asignatura/entities/asignatura.entity';
+import { ReportsUseLaboratoryService } from './services/reports-use-laboratory.service';
+import { ReportsUseLaboratoryController } from './controller/reports-use-laboratory.controller';
 
 @Module({
     imports: [TypeOrmModule.forFeature([LaboratoryUse, Modalidades, Carrera, LabEntity, Docentes, Asignatura])],
-    controllers: [UseLabController],
-    providers: [UseLabService],
+    controllers: [UseLabController, ReportsUseLaboratoryController],
+    providers: [UseLabService, ReportsUseLaboratoryService],
 })
 export class UseLabModule { }
