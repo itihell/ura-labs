@@ -7,9 +7,10 @@ import { CortePracticasController } from './controllers/corte-practicas.controll
 import { CortePracticasService } from './services/corte-practicas.service';
 import { PracticanteController } from './controllers/practicante.controller';
 import { PracticanteService } from './services/practicante.service';
+import { Carrera } from '../registro-carreras/entities';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([CortePracticas, Practicante])],
+  imports: [TypeOrmModule.forFeature([CortePracticas, Practicante, Carrera])],
   controllers: [CortePracticasController, PracticanteController],
   providers: [CortePracticasService, PracticanteService],
 })

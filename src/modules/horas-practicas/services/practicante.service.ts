@@ -2,18 +2,29 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Practicante } from '../entities/practicante.entity';
 import { Repository } from 'typeorm';
+import { Carrera } from 'src/modules/registro-carreras/entities';
 
 @Injectable()
 export class PracticanteService {
   constructor(
     @InjectRepository(Practicante)
     private readonly practicanteRepo: Repository<Practicante>,
+
+    @InjectRepository(Carrera)
+    private readonly carreraRepo: Repository<Carrera>,
   ) {}
 
-  async createPracticante(payload: Practicante): Promise<Practicante> {
+  async createPracticante(
+    payload: Practicante,
+    carrraId: number,
+  ): Promise<Practicante> {
     try {
-      const newPracticante = this.practicanteRepo.create(payload);
-      return this.practicanteRepo.save(newPracticante);
+      const carrera = await this.carreraRepo.findOne({ where: { id: carrraId } });
+      const newPracticante = this.practicanteRepo.create({
+        ...payload,
+        carrera,
+      });
+      return await this.practicanteRepo.save(newPracticante);
     } catch (error) {
       throw new Error('Error al crear el practicante');
     }
@@ -21,7 +32,7 @@ export class PracticanteService {
   //obtener todos los practicantes
   async getPracticantes(): Promise<Practicante[]> {
     try {
-      return this.practicanteRepo.find();
+      return this.practicanteRepo.find({ relations: ['carrera']});
     } catch (error) {
       throw new Error('Error al obtener los practicantes');
     }

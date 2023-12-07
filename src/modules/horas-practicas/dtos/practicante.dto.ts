@@ -1,5 +1,6 @@
 import {
   IsNotEmpty,
+  IsNumber,
   IsNumberString,
   IsOptional,
   IsString,
@@ -18,10 +19,6 @@ export class PracticanteDto {
   @IsNotEmpty()
   apellidos: string;
 
-  @IsString()
-  @IsNotEmpty()
-  carrera: string;
-
   @IsNotEmpty()
   @IsString()
   fecha_inicio: string;
@@ -33,4 +30,8 @@ export class PracticanteDto {
   @IsNotEmpty()
   @IsString()
   cantidad_horas: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  carreraId: number;
 }

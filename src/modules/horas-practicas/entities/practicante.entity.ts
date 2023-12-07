@@ -1,4 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, 
+  ManyToOne, JoinColumn, OneToMany, OneToOne
+ } from 'typeorm';
+import { Carrera } from 'src/modules/registro-carreras/entities';
 
 @Entity('practicante')
 export class Practicante {
@@ -15,9 +18,6 @@ export class Practicante {
   apellidos: string;
 
   @Column()
-  carrera: string;
-
-  @Column()
   fecha_inicio: string;
 
   @Column()
@@ -25,4 +25,7 @@ export class Practicante {
 
   @Column()
   cantidad_horas: string;
+
+  @ManyToOne(() => Carrera, carrera => carrera.practicantes)
+  carrera?: Carrera;
 }

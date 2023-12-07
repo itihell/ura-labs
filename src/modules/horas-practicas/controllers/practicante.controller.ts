@@ -10,6 +10,8 @@ import {
 } from '@nestjs/common';
 import { PracticanteService } from '../services/practicante.service';
 import { PracticanteDto } from '../dtos/practicante.dto';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../../auth/guards/jwt.guard';
 
 @Controller('practicante')
 export class PracticanteController {
@@ -17,19 +19,19 @@ export class PracticanteController {
 
   //crear practicante
   @Post('/')
-  async createPracticante(@Body() payload: PracticanteDto) {
-    try {
-      const newPracticante = await this.practicanteService.createPracticante(
-        payload,
-      );
-      const data = {
-        data: newPracticante,
-        message: 'created',
-      };
-      return data;
-    } catch (error) {
-      throw new Error('Error al crear el practicante');
-    }
+  async createPracticante(
+    @Body() payload: PracticanteDto,
+    @Body('carreraId', ParseIntPipe) carreraId: number,
+  ) {
+    const practicante = await this.practicanteService.createPracticante(
+      payload,
+      carreraId,
+    );
+    const data = {
+      data: practicante,
+      message: 'created',
+    };
+    return data;
   }
 
   //obtener todos los practicantes
