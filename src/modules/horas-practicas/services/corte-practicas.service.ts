@@ -62,9 +62,16 @@ export class CortePracticasService {
   }
   //eliminar corte
   async deleteCorte(id: number): Promise<any> {
+    //validar que si hay una relacion con practicante no se pueda eliminar
     try {
+      const corte = await this.getCorte(id);
+      if (corte.practicante) {
+        throw new Error(
+          'No se puede eliminar el corte porque tiene una relacion con practicante',
+        );
+      }
       await this.cortePracticasRepo.delete({ id });
-      return { deleted: true };
+      return { message: 'Corte eliminado' };
     } catch (error) {
       throw new Error('Error al eliminar el corte');
     }
