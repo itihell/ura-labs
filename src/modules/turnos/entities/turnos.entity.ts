@@ -9,5 +9,9 @@ export class Turnos {
   @Column({ unique: true })
   name: string;
 
+  @OneToMany(() => LaboratoryUse, (laboratoryUse) => laboratoryUse.shift)
+  laboratoryUse: LaboratoryUse[];
+  
+  shift: Turnos[];
 
 }

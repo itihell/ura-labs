@@ -21,6 +21,8 @@ export class TurnosController {
     const turnos: Turnos = {
       name: createTurnosDto.name,
       id: createTurnosDto.id,
+      laboratoryUse: [],
+      shift: [], 
     };
     return this.turnosService.create(turnos);
   }

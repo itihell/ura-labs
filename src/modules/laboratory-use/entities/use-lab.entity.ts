@@ -3,6 +3,7 @@ import { Docentes } from 'src/modules/Docentes/entities/docentes.entity';
 import { LabEntity } from 'src/modules/lab-register/entities';
 import { Modalidades } from 'src/modules/modalidades/entities/modalidades-entities';
 import { Carrera } from 'src/modules/registro-carreras/entities';
+import { Turnos } from 'src/modules/turnos/entities/turnos.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn, ManyToOne, DeleteDateColumn } from 'typeorm';
 @Entity({ name: 'use_labs' })
 export class LaboratoryUse {
@@ -24,8 +25,8 @@ export class LaboratoryUse {
     @ManyToOne(() => Modalidades, (modalidad) => modalidad.modalidad)
     modality: Modalidades;
 
-    @Column({ name: 'shift', type: 'varchar', nullable: false })
-    shift: string;
+    @ManyToOne(() => Turnos, (shift) => shift.name)
+    shift: Turnos;
 
     @Column({ name: 'year', type: 'varchar', nullable: false })
     year: number;

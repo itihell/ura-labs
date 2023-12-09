@@ -13,6 +13,7 @@ import { LabEntity } from 'src/modules/lab-register/entities';
 import { Modalidades } from 'src/modules/modalidades/entities/modalidades-entities';
 import { Carrera } from 'src/modules/registro-carreras/entities';
 import { Docentes } from 'src/modules/Docentes/entities/docentes.entity';
+import { Turnos } from 'src/modules/turnos/entities/turnos.entity';
 
 
 export class LaboratoryUseDto {
@@ -42,11 +43,9 @@ export class LaboratoryUseDto {
   @IsObject()
   modality: Modalidades;
 
-  @IsString()
   @IsNotEmpty()
-  @MaxLength(50)
-  @ApiProperty()
-  readonly shift: string;
+  @IsObject()
+  shift: Turnos;
 
   @IsNumber()
   @IsNotEmpty()

@@ -16,7 +16,7 @@ export class UseLabService {
 
      
 
-      relations: ['carrera', 'carrera.area', 'modality', 'laboratorio', 'docente', 'className']
+      relations: ['carrera', 'carrera.area', 'modality', 'laboratorio', 'docente', 'className', 'shift']
     });
   }
 
@@ -32,6 +32,7 @@ export class UseLabService {
         .leftJoinAndSelect('labUse.laboratorio', 'laboratorio')
         .leftJoinAndSelect('labUse.docente', 'docente')
         .leftJoinAndSelect('labUse.className', 'className') 
+        .leftJoinAndSelect('labUse.shift', 'shift') 
         .getOne();
     }
   }
