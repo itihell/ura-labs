@@ -68,7 +68,7 @@ export class CatalogosService {
       .getRepository(Practicante)
       .createQueryBuilder('practicantes')
       .where(
-        "translate(practicantes.nombre,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+        "translate(practicantes.nombres,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
         {
           buscar: query.buscar || '',
         },
@@ -98,7 +98,7 @@ export class CatalogosService {
       )
       .groupBy('docente.nombre')
       .addGroupBy('docente.apellido');
-  
+
     if (query.docente) {
       rows.andWhere('uselab.docenteId = :docente', {
         docente: query.docente,
@@ -106,7 +106,7 @@ export class CatalogosService {
     }
     return await rows.getRawMany();
   }
-  
+
   // async getUselab(query: FiltroBuscarDocenteDto) {
   //   const rows = this.dataSource
   //   .getRepository(LaboratoryUse)
@@ -122,7 +122,7 @@ export class CatalogosService {
   //   //   rows
   //     .groupBy('docente.nombre')
   //     .addGroupBy('docente.apellido')
-      
+
   //     rows.where('uselab.id <> 0');
   //     if (query.docente)
   //     rows.andWhere('uselab.docenteId = :docente', {
@@ -147,7 +147,7 @@ export class CatalogosService {
     return rows;
   }
   async getUsers() {
-    const  rows = await this.dataSource.getRepository(User).createQueryBuilder('users').getMany();
+    const rows = await this.dataSource.getRepository(User).createQueryBuilder('users').getMany();
     return rows;
   }
 
@@ -163,15 +163,15 @@ export class CatalogosService {
 
   async getDocente(query: CatalogosDto) {
     const rows = await this.dataSource
-    .getRepository(Docentes)
-    .createQueryBuilder('docentes')
-    .where(
-      "translate(docentes.nombre,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
-      {
-        buscar: query.buscar || '',
-      },
-    )
-    .getMany();
-  return rows;
+      .getRepository(Docentes)
+      .createQueryBuilder('docentes')
+      .where(
+        "translate(docentes.nombre,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+        {
+          buscar: query.buscar || '',
+        },
+      )
+      .getMany();
+    return rows;
   }
 }
