@@ -7,9 +7,11 @@ import {
   Param,
   Put,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { RegistroAreaService } from '../services/registro-areas.service';
 import { CreateAreaDto } from '../dtos/area.dto';
+import { QueryParamsAreasDto } from '../dtos/query-params-areas.dto';
 
 @Controller('registro-area')
 export class RegistroAreaController {
@@ -28,8 +30,8 @@ export class RegistroAreaController {
   }
 
   @Get('/')
-  async getArea() {
-    const area = await this.registroService.getArea();
+  async getArea(@Query() query: QueryParamsAreasDto) {
+    const area = await this.registroService.getArea(query);
 
     const data = {
       data: area,
