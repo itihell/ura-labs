@@ -15,6 +15,7 @@ import { CatalogosDto } from '../dtos/catalogos-dtos';
 import { Docentes } from 'src/modules/Docentes/entities/docentes.entity';
 import { FiltroReporteDocentesDto } from 'src/modules/laboratory-use/dto';
 import { FiltroBuscarDocenteDto } from 'src/modules/laboratory-use/dto/filtro-buscar.dto';
+import { Turnos } from 'src/modules/turnos/entities/turnos.entity';
 
 
 @Injectable()
@@ -174,4 +175,20 @@ export class CatalogosService {
       .getMany();
     return rows;
   }
+
+  async getTurnos(query: CatalogosDto) {
+    const rows = await this.dataSource
+      .getRepository(Turnos)
+      .createQueryBuilder('turnos')
+      .where(
+        "translate(turnos.name,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+        {
+          buscar: query.buscar || '',
+        },
+      )
+      .getMany();
+    return rows;
+  }
+
+
 }
