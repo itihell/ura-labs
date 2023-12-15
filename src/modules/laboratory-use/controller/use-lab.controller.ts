@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Post, Put, ParseUUIDPipe, ParseIntPipe } from "@nestjs/common";
-import { Delete, Param } from "@nestjs/common/decorators";
+import { Delete, Param, Query } from "@nestjs/common/decorators";
 import { LaboratoryUseDto } from "../dto";
 import { UseLabService } from "../services/use-lab.service";
-import { LaboratoryUse } from "../entities";
+import { QueryParamsUsoLabsDto } from "../dto/query-params-usoLab.dto";
 
 @Controller('uselab')
 export class UseLabController {
@@ -22,8 +22,8 @@ export class UseLabController {
   }
 
   @Get('/')
-  async getUselab() {
-    const uselab = await this.registerDetailServiceRepo.getUselab();
+  async getUselab(@Query() query: QueryParamsUsoLabsDto) {
+    const uselab = await this.registerDetailServiceRepo.getUselab(query);
 
     const data = {
       data: uselab,
@@ -34,7 +34,7 @@ export class UseLabController {
   }
 
   @Get('/:id')
-  async getUselabById(@Param('id', ParseIntPipe) id: number) {
+  async getUselabById(@Param('id',ParseIntPipe) id: number) {
     const uselabs = await this.registerDetailServiceRepo.findOne(id);
 
     const data = {
