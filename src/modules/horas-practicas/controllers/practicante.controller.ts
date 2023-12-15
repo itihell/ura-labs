@@ -7,11 +7,13 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { PracticanteService } from '../services/practicante.service';
 import { PracticanteDto } from '../dtos/practicante.dto';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../../auth/guards/jwt.guard';
+import { QueryParamsPracticanteDto } from '../dtos/query-params-practicante.dto';
 
 @Controller('practicante')
 export class PracticanteController {
@@ -36,8 +38,8 @@ export class PracticanteController {
 
   //obtener todos los practicantes
   @Get('/')
-  async getPracticantes() {
-    const practicantes = await this.practicanteService.getPracticantes();
+  async getPracticantes(@Query() query: QueryParamsPracticanteDto) {
+    const practicantes = await this.practicanteService.getPracticantes(query);
     const data = {
       data: practicantes,
       message: 'practicantes',
