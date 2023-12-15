@@ -4,6 +4,7 @@ import { Practicante } from '../entities/practicante.entity';
 import { Repository } from 'typeorm';
 import { Carrera } from 'src/modules/registro-carreras/entities';
 import { PracticanteDto } from '../dtos/practicante.dto';
+import { QueryParamsPracticanteDto } from '../dtos/query-params-practicante.dto';
 
 @Injectable()
 export class PracticanteService {
@@ -30,15 +31,25 @@ export class PracticanteService {
       throw new Error('Error al crear el practicante');
     }
   }
-  //obtener todos los practicantes
-  async getPracticantes(): Promise<Practicante[]> {
-    try {
-      return this.practicanteRepo.find({ relations: ['carrera']});
-    } catch (error) {
+  async getPracticantes(query:QueryParamsPracticanteDto): Promise<Practicante[]> {
+    try{
+      const rows = this.practicanteRepo.createQueryBuilder('practicante')
+      .where('practicante.id <> 0')
+      .leftJoinAndSelect('practicante.carrera', 'carrera');
+
+    console.log(query);
+
+    if (query.nombres)
+      rows.andWhere('practicante.nombres ILIKE :nombres', { nombres: `%${query.nombres}%` });
+
+    rows.orderBy('practicante.id', 'ASC');
+
+    return await rows.getMany();
+    }
+    catch(error){
       throw new Error('Error al obtener los practicantes');
     }
   }
-
   //obtener un practicante
   async getPracticante(id: number): Promise<Practicante> {
     try {
