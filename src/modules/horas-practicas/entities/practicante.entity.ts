@@ -5,12 +5,8 @@ import { Carrera } from 'src/modules/registro-carreras/entities';
 import { CortePracticas } from './corte-practicas.entity';
 @Entity('practicante')
 export class Practicante {
-  @PrimaryGeneratedColumn({
-    name: 'id',
-    type: 'int4',
-  })
+  @PrimaryGeneratedColumn({ name: 'id', type: 'int4' })
   id?: number;
-
   @Column()
   nombres: string;
 
