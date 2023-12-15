@@ -15,6 +15,7 @@ import { CatalogosDto } from '../dtos/catalogos-dtos';
 import { Docentes } from 'src/modules/Docentes/entities/docentes.entity';
 import { FiltroReporteDocentesDto } from 'src/modules/laboratory-use/dto';
 import { FiltroBuscarDocenteDto } from 'src/modules/laboratory-use/dto/filtro-buscar.dto';
+import { Turnos } from 'src/modules/turnos/entities/turnos.entity';
 
 
 @Injectable()
@@ -68,7 +69,7 @@ export class CatalogosService {
       .getRepository(Practicante)
       .createQueryBuilder('practicantes')
       .where(
-        "translate(practicantes.nombre,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+        "translate(practicantes.nombres,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
         {
           buscar: query.buscar || '',
         },
@@ -98,7 +99,7 @@ export class CatalogosService {
       )
       .groupBy('docente.nombre')
       .addGroupBy('docente.apellido');
-  
+
     if (query.docente) {
       rows.andWhere('uselab.docenteId = :docente', {
         docente: query.docente,
@@ -106,7 +107,7 @@ export class CatalogosService {
     }
     return await rows.getRawMany();
   }
-  
+
   // async getUselab(query: FiltroBuscarDocenteDto) {
   //   const rows = this.dataSource
   //   .getRepository(LaboratoryUse)
@@ -122,7 +123,7 @@ export class CatalogosService {
   //   //   rows
   //     .groupBy('docente.nombre')
   //     .addGroupBy('docente.apellido')
-      
+
   //     rows.where('uselab.id <> 0');
   //     if (query.docente)
   //     rows.andWhere('uselab.docenteId = :docente', {
@@ -147,7 +148,7 @@ export class CatalogosService {
     return rows;
   }
   async getUsers() {
-    const  rows = await this.dataSource.getRepository(User).createQueryBuilder('users').getMany();
+    const rows = await this.dataSource.getRepository(User).createQueryBuilder('users').getMany();
     return rows;
   }
 
@@ -163,15 +164,31 @@ export class CatalogosService {
 
   async getDocente(query: CatalogosDto) {
     const rows = await this.dataSource
-    .getRepository(Docentes)
-    .createQueryBuilder('docentes')
-    .where(
-      "translate(docentes.nombre,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
-      {
-        buscar: query.buscar || '',
-      },
-    )
-    .getMany();
-  return rows;
+      .getRepository(Docentes)
+      .createQueryBuilder('docentes')
+      .where(
+        "translate(docentes.nombre,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+        {
+          buscar: query.buscar || '',
+        },
+      )
+      .getMany();
+    return rows;
   }
+
+  async getTurnos(query: CatalogosDto) {
+    const rows = await this.dataSource
+      .getRepository(Turnos)
+      .createQueryBuilder('turnos')
+      .where(
+        "translate(turnos.name,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') || '%'",
+        {
+          buscar: query.buscar || '',
+        },
+      )
+      .getMany();
+    return rows;
+  }
+
+
 }

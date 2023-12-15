@@ -66,4 +66,11 @@ export class CatalogosController {
     return await this.catalogosService.getDocente(query);
   }
 
+  
+  @Get('/turnos')
+  async getTurnos(@Query() query: CatalogosDto) {
+    return await this.catalogosService.getTurnos(query);
+  }
+
+
 }

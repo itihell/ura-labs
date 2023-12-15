@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Area } from '../entities';
 import { CreateAreaDto } from '../dtos/area.dto';
+import { QueryParamsAreasDto } from '../dtos/query-params-areas.dto';
 
 @Injectable()
 export class RegistroAreaService {
@@ -16,8 +17,16 @@ export class RegistroAreaService {
     return this.areaRepository.save(nuevaArea);
   }
 
-  async getArea(): Promise<Area[]> {
-    return await this.areaRepository.find();
+  async getArea(query: QueryParamsAreasDto): Promise<Area[]> {
+    const rows = this.areaRepository.createQueryBuilder('tania').where('id <> 0');
+    console.log(query);
+
+    if (query.nombre)
+      rows.andWhere('tania.nombre ILIKE :nombre', { nombre: `%${query.nombre}%` });
+
+    rows.orderBy('tania.id', 'ASC');
+
+    return await rows.getMany();
   }
 
   async getAreaById(id: number): Promise<Area> {

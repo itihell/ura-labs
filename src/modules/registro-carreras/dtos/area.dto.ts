@@ -1,6 +1,6 @@
 import {
   IsNotEmpty,
-  IsNumberString,
+  IsNumber,
   IsOptional,
   IsString,
   MaxLength,
@@ -8,11 +8,11 @@ import {
 
 export class CreateAreaDto {
   @IsOptional()
-  @IsNumberString()
+  @IsNumber()
   id: number;
 
   @IsNotEmpty()
   @IsString()
-  @MaxLength(100)
+  @MaxLength(50)
   nombre: string;
 }
