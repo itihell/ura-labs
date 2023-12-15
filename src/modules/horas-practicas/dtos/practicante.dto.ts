@@ -7,8 +7,8 @@ import {
 } from 'class-validator';
 
 export class PracticanteDto {
-  @IsNumberString()
   @IsOptional()
+  @IsNumber()
   id: number;
 
   @IsString()

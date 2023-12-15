@@ -61,11 +61,15 @@ export class PracticanteService {
   //actualizar practicante
   async updatePracticante(
     id: number,
-    payload: Practicante,
+    payload: PracticanteDto,
   ): Promise<Practicante> {
     try {
-      await this.practicanteRepo.update({ id }, { ...payload });
-      return this.getPracticante(id);
+      const olduser = await this.practicanteRepo.findOne({ where: { id } });
+      const carrera = await this.carreraRepo.findOne({
+        where: { id: payload.carreraId },
+      });
+      const merged = this.practicanteRepo.merge(olduser, { ...payload, carrera });
+      return await this.practicanteRepo.save(merged);
     } catch (error) {
       throw new Error('Error al actualizar el practicante');
     }
