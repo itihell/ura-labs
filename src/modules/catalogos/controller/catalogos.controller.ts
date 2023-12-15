@@ -44,8 +44,8 @@ export class CatalogosController {
   }
 
   @Get('/users')
-  async getUsers() {
-    return await this.catalogosService.getUsers();
+  async getUsers(@Query() query: CatalogosDto) {
+    return await this.catalogosService.getUsers(query);
   }
   @Get('/labregister')
   async getLaboratory() {

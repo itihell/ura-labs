@@ -147,8 +147,17 @@ export class CatalogosService {
       .getMany();
     return rows;
   }
-  async getUsers() {
-    const rows = await this.dataSource.getRepository(User).createQueryBuilder('users').getMany();
+  async getUsers(query:CatalogosDto) {
+    const rows = await this.dataSource
+      .getRepository(User)
+      .createQueryBuilder('users')
+      .where(
+        "translate(users.name,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU') ILIKE '%' || translate(:buscar,'áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ','aeiouAEIOUaeiouAEIOU')|| '%'",
+        {
+          buscar: query.buscar || '',
+        },
+      )
+      .getMany();
     return rows;
   }
 

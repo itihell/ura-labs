@@ -53,7 +53,10 @@ export class PracticanteService {
   //obtener un practicante
   async getPracticante(id: number): Promise<Practicante> {
     try {
-      return this.practicanteRepo.findOne({ where: { id } });
+      return await this.practicanteRepo.findOne({
+        where: { id },
+        relations: ['carrera'],
+      });
     } catch (error) {
       throw new Error('Error al obtener el practicante');
     }
