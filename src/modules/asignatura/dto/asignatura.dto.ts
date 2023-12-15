@@ -1,5 +1,6 @@
 import {
     IsNotEmpty,
+    IsNumber,
     IsNumberString,
     IsOptional,
     IsString,
@@ -8,7 +9,7 @@ import {
   
   export class CreateAsignaturaDto {
     @IsOptional()
-    @IsNumberString()
+    @IsNumber()
     id: number;
   
     @IsNotEmpty()

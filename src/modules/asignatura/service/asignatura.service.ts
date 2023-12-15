@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Asignatura } from '../entities/asignatura.entity';
 import { CreateAsignaturaDto } from '../dto/asignatura.dto';
+import { QueryParamsAsignaturaDto } from '../dto/query-params-asignatura.dto';
 
 @Injectable()
 export class RegistroAsignaturaService {
@@ -16,8 +17,16 @@ export class RegistroAsignaturaService {
     return this.asignaturaRepository.save(nuevoAsignatura);
   }
 
-  async getAsignatura(): Promise<Asignatura[]> {
-    return await this.asignaturaRepository.find();
+  async getAsignatura(query: QueryParamsAsignaturaDto): Promise<Asignatura[]> {
+    const rows = this.asignaturaRepository.createQueryBuilder('diogenes').where('id <> 0');
+    console.log(query);
+    console.log(query); 
+
+
+    if (query.nombre)
+    rows.andWhere('diogenes.nombre ILIKE :nombre', { nombre: `%${query.nombre}%`});
+
+    return await rows.getMany();
   }
 
   async getAsignaturaById(id: number): Promise<Asignatura> {

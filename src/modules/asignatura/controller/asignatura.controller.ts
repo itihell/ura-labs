@@ -7,9 +7,11 @@ import {
     Param,
     Put,
     ParseIntPipe,
+    Query,
   } from '@nestjs/common';
 import { CreateAsignaturaDto } from '../dto/asignatura.dto';
 import { RegistroAsignaturaService } from '../service/asignatura.service';
+import { QueryParamsAsignaturaDto } from '../dto/query-params-asignatura.dto';
   
   @Controller('asignatura')
   export class RegistroAsignaturaController {
@@ -28,8 +30,8 @@ import { RegistroAsignaturaService } from '../service/asignatura.service';
     }
   
     @Get('/')
-    async getAsignatura() {
-      const asignatura = await this.registroService.getAsignatura();
+    async getAsignatura(@Query() query: QueryParamsAsignaturaDto) {
+      const asignatura = await this.registroService.getAsignatura(query);
   
       const data = {
         data: asignatura,
